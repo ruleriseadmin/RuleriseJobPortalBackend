@@ -1,4 +1,7 @@
 <?php
+use App\Models\Domain\Admin\AdminUser;
+use App\Models\Domain\Candidate\User;
+use App\Models\Domain\Employer\EmployerUser;
 
 return [
 
@@ -62,7 +65,15 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', App\Models\User::class),
+            'model' => User::class,
+        ],
+        'admin' => [
+            'driver' => 'eloquent',
+            'model' => AdminUser::class,
+        ],
+        'employer' => [
+            'driver' => 'eloquent',
+            'model' => EmployerUser::class,
         ],
 
         // 'users' => [
