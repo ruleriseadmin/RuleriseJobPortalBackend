@@ -3,11 +3,10 @@
 namespace App\Actions\Domain\Shared\Auth;
 
 use App\Models\User;
-use Illuminate\Database\Eloquent\Model;
 
 class LoginAction
 {
-    public function execute(string $domain, array $inputs) : ?Model
+    public function execute(string $domain, array $inputs) : ?User
     {
         if ( ! auth()->guard($domain)->attempt($inputs) ) return null;
 
