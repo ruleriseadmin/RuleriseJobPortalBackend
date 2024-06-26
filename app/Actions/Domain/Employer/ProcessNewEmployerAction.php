@@ -19,7 +19,20 @@ class ProcessNewEmployerAction
         DB::beginTransaction();
         try {
             //create new employer
-            $employerAttributes = collect($attributes)->only(['company_name'])->merge(['uuid' => str()->uuid()])->toArray();
+            $employerAttributes = collect($attributes)
+                ->only([
+                    'company_name',
+                    'state_city',
+                    'number_of_employees',
+                    'benefit_offered',
+                    'profile_summary',
+                ])
+                ->merge([
+                    'uuid' => str()->uuid(),
+                    'email' => $inputs['officialEmail'],
+                    'founded_at' => $inputs['companyFounded'],
+                    'industry' => $inputs['companyIndustry'],
+                ])->toArray();
 
             $employer = Employer::create($employerAttributes);
 

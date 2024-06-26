@@ -15,7 +15,7 @@ class Employer extends Model
     protected $guarded = [];
 
     protected $casts = [
-        'benefit_offered' => 'string',
+        'benefit_offered' => 'array',
     ];
 
     public function users(): BelongsToMany

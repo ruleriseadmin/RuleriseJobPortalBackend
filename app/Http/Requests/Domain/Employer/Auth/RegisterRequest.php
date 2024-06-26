@@ -12,16 +12,16 @@ class RegisterRequest extends BaseRequest
         return [
             'email' => ['required', 'unique:employer_users,email', 'email'],
             'password' => ['required', Password::min(8)->letters()->numbers()],
-            'firstName' => ['required'],
-            'lastName' => ['required'],
-            'companyName' => ['required', 'unique:employers,company_name,except,id'],
-            // 'positionCompany',
-            // 'officialEmail',
-            // 'companyIndustry',
-            // 'numberOfEmployees',
-            // 'companyFounded',
-            // 'stateCity',
-            // 'address',
+            'firstName' => ['required', 'alpha'],
+            'lastName' => ['required', 'alpha'],
+            'companyName' => ['required', 'unique:employers,company_name,except,id', 'alpha'],
+            'positionTitle' => ['required'],
+            'officialEmail' => ['required', 'email'],
+            'companyIndustry' => ['required'],
+            'numberOfEmployees' => ['required'],
+            'companyFounded' => ['required'],
+            'stateCity' => ['required'],
+            'address' => ['required'],
         ];
     }
 }
