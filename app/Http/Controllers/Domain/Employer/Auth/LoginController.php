@@ -3,17 +3,18 @@
 namespace App\Http\Controllers\Domain\Employer\Auth;
 
 use App\Actions\Domain\Shared\Auth\LoginAction;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\Domain\Employer\Auth\LoginRequest;
-use Illuminate\Http\Request;
+use App\Http\Resources\Domain\Employer\AuthResource;
+use App\Supports\ApiReturnResponse;
+use Illuminate\Http\JsonResponse;
 
 class LoginController
 {
-    public function store(LoginRequest $request)
+    public function store(LoginRequest $request): JsonResponse
     {
-        //@todo login action
-        (new LoginAction)->execute('employer', $request->validated());
+        $user = (new LoginAction)->execute('employer', $request->validated());
 
-        //@todo send response
+        //send response
+        return $user ? ApiReturnResponse::success(new AuthResource($user)) : ApiReturnResponse::failed();
     }
 }
