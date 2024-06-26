@@ -15,6 +15,6 @@ class LoginController
         $user = (new LoginAction)->execute('employer', $request->validated());
 
         //send response
-        return $user ? ApiReturnResponse::success(new AuthResource($user)) : ApiReturnResponse::failed();
+        return $user ? ApiReturnResponse::success(new AuthResource($user)) : ApiReturnResponse::failed('Wrong email or password');
     }
 }
