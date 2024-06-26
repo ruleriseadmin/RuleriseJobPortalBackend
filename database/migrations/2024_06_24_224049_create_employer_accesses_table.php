@@ -16,6 +16,9 @@ return new class extends Migration
             $table->uuid();
             $table->unsignedBigInteger('employer_id');
             $table->unsignedBigInteger('employer_user_id');
+            $table->string('position_title')->nullable();
+            $table->string('first_name');
+            $table->string('last_name');
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('employer_id')->on('employers')->references('id');
