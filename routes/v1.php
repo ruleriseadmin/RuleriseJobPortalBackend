@@ -11,3 +11,7 @@ Route::get('/user', function (Request $request) {
 Route::prefix('employer')->group(function(){
     include('v1/employer.php');
 });
+
+Route::prefix('candidate')->group(function(){
+    include('v1/candidate.php');
+});
