@@ -24,7 +24,7 @@ class UserFactory extends Factory
             'last_name' => $this->faker->lastName(),
             'mobile_number' => $this->faker->phoneNumber(),
             'mobile_country_code' => $this->faker->countryCode(),
-            'nationality' => $this->faker->country(),
+            'nationality' => 'Canada',
             'location_province' => $this->faker->state(),
         ];
     }

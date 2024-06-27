@@ -12,7 +12,17 @@ class User extends ModelsUser
     use HasFactory;
     use SoftDeletes;
 
-    protected $guarded = [];
+    protected $fillable = [
+        'uuid',
+        'first_name',
+        'last_name',
+        'email',
+        'password',
+        'mobile_number',
+        'mobile_country_code',
+        'nationality',
+        'location_province',
+    ];
 
     public function qualification(): HasOne
     {
