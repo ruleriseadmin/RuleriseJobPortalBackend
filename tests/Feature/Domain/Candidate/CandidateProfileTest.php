@@ -98,7 +98,7 @@ test('That candidate profile cannot be updated if email exists by another candid
     ]);
 
     expect($response->json()['status'])->toBe('payloadValidationError');
-    
+
     $response->assertJsonStructure([
         'data' => [
             'email' => [],
@@ -110,4 +110,17 @@ test('That candidate profile cannot be updated if email exists by another candid
             'email' => ['Email already exists'],
         ],
     ]);
+});
+
+test('That candidate profile is deleted successfully', function () {
+
+    $user = User::factory()->create();
+
+    $response = $this->actingAs($user)->post("/v1/candidate/deleteAccount");
+
+    expect($response->json()['status'])->toBe('200');
+
+    expect(User::count())->toBe(0);
+
+    expect(User::onlyTrashed()->count())->toBe(1);
 });

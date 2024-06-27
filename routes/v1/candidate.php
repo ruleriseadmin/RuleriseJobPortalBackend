@@ -16,6 +16,8 @@ Route::prefix('auth')->group(function(){
 Route::group(['middleware' => ['auth:sanctum']], function(){
     Route::get('profile', [CandidatesController::class, 'getProfile']);
     Route::post('updateProfile', [CandidatesController::class, 'updateProfile']);
+    Route::post('deleteAccount', [CandidatesController::class, 'deleteAccount']);
+
     Route::prefix('profile')->group(function(){
 
     });
