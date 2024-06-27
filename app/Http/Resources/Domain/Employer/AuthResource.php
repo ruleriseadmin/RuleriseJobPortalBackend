@@ -13,6 +13,7 @@ class AuthResource extends JsonResource
         $response = collect(parent::toArray($request))->except([
             'created_at',
             'updated_at',
+            'deleted_at',
             'id',
         ]);
 
