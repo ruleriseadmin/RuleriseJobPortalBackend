@@ -5,9 +5,8 @@ namespace App\Http\Requests\Domain\Candidate\Profile;
 use App\Http\Requests\BaseRequest;
 use App\Models\Domain\Candidate\User;
 use Illuminate\Contracts\Validation\Validator;
-use Illuminate\Validation\Rule;
 
-class UpdateProfileRequest extends BaseRequest
+class UpdateAccountRequest extends BaseRequest
 {
     public function rules(): array
     {
@@ -19,9 +18,6 @@ class UpdateProfileRequest extends BaseRequest
             'mobileCountryCode' => ['required'],
             'nationality' => ['required', 'alpha'],
             'locationProvince' => ['required'],
-            'dob' => ['nullable', 'date'],
-            'gender' => [Rule::in(['male', 'female'])],
-            'jobTitle' => ['nullable', 'alpha'],
         ];
     }
 

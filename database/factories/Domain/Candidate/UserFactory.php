@@ -27,7 +27,7 @@ class UserFactory extends Factory
             'nationality' => 'Canada',
             'location_province' => $this->faker->state(),
             'dob' => $this->faker->date(),
-            'job_title' => $this->faker->jobTitle(),
+            'job_title' => 'Software Developer',
             'gender' => $this->faker->randomElement(['male', 'female']),
             'profile_summary' => $this->faker->sentence(10),
         ];

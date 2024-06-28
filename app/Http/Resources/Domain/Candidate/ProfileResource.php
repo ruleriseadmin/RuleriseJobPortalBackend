@@ -23,14 +23,16 @@ class ProfileResource extends JsonResource
             'id',
         ]);
 
-        $response = $response->merge([
-            'qualification' => (new QualificationResource($this->qualification)),
-            'workExperience' => WorkExperienceResource::collection($this->workExperiences),
-            'educationHistory' => EducationHistoryResource::collection($this->educationHistories),
-            'credentials' => CredentialResource::collection($this->credentials),
-            'portfolio' => (new PortfolioResource($this->portfolio)),
-            'language' => LanguageResource::collection($this->languages),
-        ])->toArray();
+        if ( ! ($this->only_account ?? false) ){
+            $response = $response->merge([
+                'qualification' => (new QualificationResource($this->qualification)),
+                'workExperience' => WorkExperienceResource::collection($this->workExperiences),
+                'educationHistory' => EducationHistoryResource::collection($this->educationHistories),
+                'credentials' => CredentialResource::collection($this->credentials),
+                'portfolio' => (new PortfolioResource($this->portfolio)),
+                'language' => LanguageResource::collection($this->languages),
+            ])->toArray();
+        }
 
         return HelperSupport::snake_to_camel($response);
     }

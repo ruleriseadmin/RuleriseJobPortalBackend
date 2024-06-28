@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Domain\Candidate;
 
-use App\Actions\Domain\Candidate\DeleteAccountAction;
 use App\Actions\Domain\Candidate\UpdateProfileAction;
 use App\Http\Requests\Domain\Candidate\Profile\UpdateProfileRequest;
 use App\Http\Resources\Domain\Candidate\ProfileResource;
@@ -24,13 +23,6 @@ class CandidatesController extends BaseController
         //return response
         return $user
             ? ApiReturnResponse::success(new ProfileResource($user))
-            : ApiReturnResponse::failed();
-    }
-
-    public function deleteAccount(): JsonResponse
-    {
-        return (new DeleteAccountAction)->execute($this->user)
-            ? ApiReturnResponse::success()
             : ApiReturnResponse::failed();
     }
 }

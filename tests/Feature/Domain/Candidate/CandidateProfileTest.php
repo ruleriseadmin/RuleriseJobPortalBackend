@@ -99,6 +99,163 @@ test('That candidate profile is updated successfully', function () {
 
     $user = User::factory()->create();
 
+    $workExperiences = CandidateWorkExperience::factory()->create();
+
+    $qualifications = CandidateQualification::factory()->create();
+
+    $portfolio = CandidatePortfolio::factory()->create();
+
+    $languages = CandidateLanguage::factory()->create();
+
+    $educationHistories = CandidateEducationHistory::factory()->create();
+
+    $credentials = CandidateCredential::factory()->create();
+
+
+    $locationProvince = 'Abuja';
+    $mobileCountryCode = '234';
+    $mobileNumber = '123456789';
+    $gender = 'male';
+    $yearOfExperience = '2';
+    $skills = ['python'];
+    $preferJobIndustry = 'training';
+    $dob = '1998-01-01';
+    $jobTitle = 'Technician';
+    $functionalAreas = 'Electrical';
+    $profileSummary = 'An experienced engineer';
+    $careerLevel = 'snr';
+    $availableToWork = 'no';
+    $highestQualification = 'Bsc';
+    $linkedin = 'linkedin';
+    $github = 'github';
+    $twitter = 'twitter';
+    $portfolioUrl = 'portfolio-link';
+
+    $response = $this->actingAs($user)->post("/v1/candidate/updateProfile", [
+        'email' => $user->email,
+        'firstName' => $user->first_name,
+        'lastName' => $user->last_name,
+        'mobileNumber' => $mobileNumber,
+        'mobileCountryCode' => $mobileCountryCode,
+        'nationality' => $user->nationality,
+        'locationProvince' => $locationProvince,
+        'dob' => $dob,
+        'jobTitle' => $jobTitle,
+        'profileSummary' => $profileSummary,
+        'functionalAreas' => $functionalAreas,
+        'careerLevel' => $careerLevel,
+        'availableToWork' => $availableToWork,
+        'highestQualification' =>  $highestQualification,
+        'yearOfExperience' => $yearOfExperience,
+        'preferJobIndustry' => $preferJobIndustry,
+        'skills' => $skills,
+        'gender' => $gender,
+        'linkedin' => $linkedin,
+        'twitter' => $twitter,
+        'github' => $github,
+        'portfolioUrl' => $portfolioUrl,
+    ]);
+
+    expect($response->json()['status'])->toBe('200');
+
+    $response->assertJsonStructure([
+        'data' => [
+            'uuid',
+            'email',
+            'firstName',
+            'lastName',
+            'mobileNumber',
+            'mobileCountryCode',
+            'nationality',
+            'locationProvince',
+        ],
+        'message',
+    ]);
+
+    expect($response->json()['data']['uuid'])->toBe($user->uuid);
+
+    expect($response->json()['data']['locationProvince'])->toBe($locationProvince);
+
+    expect($response->json()['data']['mobileNumber'])->toBe($mobileNumber);
+
+    expect($response->json()['data']['mobileCountryCode'])->toBe($mobileCountryCode);
+
+    expect($response->json()['data']['gender'])->toBe($gender);
+
+    expect($response->json()['data']['dob'])->toBe($dob);
+
+    expect($response->json()['data']['profileSummary'])->toBe($profileSummary);
+
+    expect($response->json()['data']['jobTitle'])->toBe($jobTitle);
+
+    expect($response->json()['data']['qualification']['preferJobIndustry'])->toBe($preferJobIndustry);
+
+    expect($response->json()['data']['qualification']['careerLevel'])->toBe($careerLevel);
+
+    expect($response->json()['data']['qualification']['highestQualification'])->toBe($highestQualification);
+
+    expect($response->json()['data']['qualification']['yearOfExperience'])->toBe($yearOfExperience);
+
+    expect($response->json()['data']['qualification']['skills'][0])->toBe($skills[0]);
+
+    expect(count($response->json()['data']['qualification']['skills']))->toBe(count($skills));
+
+    expect($response->json()['data']['qualification']['functionalAreas'])->toBe($functionalAreas);
+
+    expect($response->json()['data']['qualification']['availableToWork'])->toBe($availableToWork);
+
+    expect($response->json()['data']['portfolio']['linkedin'])->toBe($linkedin);
+
+    expect($response->json()['data']['portfolio']['twitter'])->toBe($twitter);
+
+    expect($response->json()['data']['portfolio']['github'])->toBe($github);
+
+    expect($response->json()['data']['portfolio']['portfolioUrl'])->toBe($portfolioUrl);
+});
+
+test('That candidate profile cannot be updated if email exists by another candidate', function () {
+
+    $user = User::factory()->create();
+
+    $secondUser = User::factory()->create();
+
+    $locationProvince = 'Abuja';
+    $mobileCountryCode = '234';
+    $mobileNumber = '123456789';
+
+    $response = $this->actingAs($user)->post("/v1/candidate/updateProfile", [
+        'email' => $secondUser->email,
+        'firstName' => $user->first_name,
+        'lastName' => $user->last_name,
+        'mobileNumber' => $mobileNumber,
+        'mobileCountryCode' => $mobileCountryCode,
+        'nationality' => $user->nationality,
+        'locationProvince' => $locationProvince,
+    ]);
+
+    expect($response->json()['status'])->toBe('payloadValidationError');
+
+    $response->assertJsonStructure([
+        'data' => [
+            'email' => [],
+        ],
+        'message',
+    ])->assertJson([
+        'message' => 'Validation error',
+        'data' => [
+            'email' => ['Email already exists'],
+        ],
+    ]);
+});
+
+test('That candidate account setting is updated successfully', function () {
+
+    $user = User::factory()->create();
+
+    $qualifications = CandidateQualification::factory()->create();
+
+    $portfolio = CandidatePortfolio::factory()->create();
+    
     $locationProvince = 'Abuja';
     $mobileCountryCode = '234';
     $mobileNumber = '123456789';
@@ -136,41 +293,6 @@ test('That candidate profile is updated successfully', function () {
     expect($response->json()['data']['mobileNumber'])->toBe($mobileNumber);
 
     expect($response->json()['data']['mobileCountryCode'])->toBe($mobileCountryCode);
-});
-
-test('That candidate profile cannot be updated if email exists by another candidate', function () {
-
-    $user = User::factory()->create();
-
-    $secondUser = User::factory()->create();
-
-    $locationProvince = 'Abuja';
-    $mobileCountryCode = '234';
-    $mobileNumber = '123456789';
-
-    $response = $this->actingAs($user)->post("/v1/candidate/updateProfile", [
-        'email' => $secondUser->email,
-        'firstName' => $user->first_name,
-        'lastName' => $user->last_name,
-        'mobileNumber' => $mobileNumber,
-        'mobileCountryCode' => $mobileCountryCode,
-        'nationality' => $user->nationality,
-        'locationProvince' => $locationProvince,
-    ]);
-
-    expect($response->json()['status'])->toBe('payloadValidationError');
-
-    $response->assertJsonStructure([
-        'data' => [
-            'email' => [],
-        ],
-        'message',
-    ])->assertJson([
-        'message' => 'Validation error',
-        'data' => [
-            'email' => ['Email already exists'],
-        ],
-    ]);
 });
 
 test('That candidate profile is deleted successfully', function () {

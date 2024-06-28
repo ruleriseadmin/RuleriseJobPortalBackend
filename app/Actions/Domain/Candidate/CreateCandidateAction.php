@@ -50,6 +50,9 @@ class CreateCandidateAction
             //create candidate qualification
             $user->qualification()->create($qualificationAttributes);
 
+            //create portfolio
+            $user->portfolio()->create([]);
+
             DB::commit();
         }catch(Exception $ex){
             DB::rollBack();

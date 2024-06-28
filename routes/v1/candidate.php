@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Domain\Candidate\AccountSettingsController;
 use App\Http\Controllers\Domain\Candidate\Auth\ForgotPasswordController;
 use App\Http\Controllers\Domain\Candidate\Auth\LoginController;
 use App\Http\Controllers\Domain\Candidate\Auth\RegisterController;
@@ -16,7 +17,9 @@ Route::prefix('auth')->group(function(){
 Route::group(['middleware' => ['auth:sanctum']], function(){
     Route::get('profile', [CandidatesController::class, 'getProfile']);
     Route::post('updateProfile', [CandidatesController::class, 'updateProfile']);
-    Route::post('deleteAccount', [CandidatesController::class, 'deleteAccount']);
+    Route::get('accountSetting', [AccountSettingsController::class, 'index']);
+    Route::post('updateAccountSetting', [AccountSettingsController::class, 'deleteAccount']);
+    Route::post('deleteAccount', [AccountSettingsController::class, 'deleteAccount']);
 
     Route::prefix('profile')->group(function(){
 

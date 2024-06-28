@@ -11,7 +11,7 @@ class CandidateQualification extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $filled = [
+    protected $fillable = [
         'user_id',
         'highest_qualification',
         'year_of_experience',

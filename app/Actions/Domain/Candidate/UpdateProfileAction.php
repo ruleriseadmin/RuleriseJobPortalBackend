@@ -13,6 +13,8 @@ class UpdateProfileAction
     {
         try {
            $user->update(HelperSupport::camel_to_snake($inputs));
+           $user->qualification->update(HelperSupport::camel_to_snake($inputs));
+           $user->portfolio->update(HelperSupport::camel_to_snake($inputs));
         } catch (Exception $ex) {
             Log::error("Error @ UpdateProfileAction : {$ex->getMessage()}");
             return null;
