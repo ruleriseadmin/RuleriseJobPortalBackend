@@ -5,6 +5,7 @@ use App\Http\Controllers\Domain\Candidate\Auth\ForgotPasswordController;
 use App\Http\Controllers\Domain\Candidate\Auth\LoginController;
 use App\Http\Controllers\Domain\Candidate\Auth\RegisterController;
 use App\Http\Controllers\Domain\Candidate\CandidatesController;
+use App\Http\Controllers\Domain\Candidate\Data\WorkExperiencesController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('auth')->group(function(){
@@ -16,10 +17,16 @@ Route::prefix('auth')->group(function(){
 #authenticated routes
 Route::group(['middleware' => ['auth:sanctum']], function(){
     Route::get('profile', [CandidatesController::class, 'getProfile']);
-    Route::post('updateProfile', [CandidatesController::class, 'updateProfile']);
-    Route::get('accountSetting', [AccountSettingsController::class, 'index']);
-    Route::post('updateAccountSetting', [AccountSettingsController::class, 'deleteAccount']);
-    Route::post('deleteAccount', [AccountSettingsController::class, 'deleteAccount']);
+    Route::post('update-profile', [CandidatesController::class, 'updateProfile']);
+    Route::get('account-setting', [AccountSettingsController::class, 'index']);
+    Route::post('update-account-setting', [AccountSettingsController::class, 'deleteAccount']);
+    Route::post('delete-account', [AccountSettingsController::class, 'deleteAccount']);
+
+    Route::prefix('work-experience')->group(function(){
+        Route::post('/', [WorkExperiencesController::class, 'store']);
+        Route::post('update', [WorkExperiencesController::class, 'update']);
+        Route::post('{uuid}/delete', [WorkExperiencesController::class, 'delete']);
+    });
 
     Route::prefix('profile')->group(function(){
 
