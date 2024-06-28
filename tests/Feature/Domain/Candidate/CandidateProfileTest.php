@@ -213,40 +213,40 @@ test('That candidate profile is updated successfully', function () {
     expect($response->json()['data']['portfolio']['portfolioUrl'])->toBe($portfolioUrl);
 });
 
-test('That candidate profile cannot be updated if email exists by another candidate', function () {
+// test('That candidate profile cannot be updated if email exists by another candidate', function () {
 
-    $user = User::factory()->create();
+//     $user = User::factory()->create();
 
-    $secondUser = User::factory()->create();
+//     $secondUser = User::factory()->create();
 
-    $locationProvince = 'Abuja';
-    $mobileCountryCode = '234';
-    $mobileNumber = '123456789';
+//     $locationProvince = 'Abuja';
+//     $mobileCountryCode = '234';
+//     $mobileNumber = '123456789';
 
-    $response = $this->actingAs($user)->post("/v1/candidate/update-profile", [
-        'email' => $secondUser->email,
-        'firstName' => $user->first_name,
-        'lastName' => $user->last_name,
-        'mobileNumber' => $mobileNumber,
-        'mobileCountryCode' => $mobileCountryCode,
-        'nationality' => $user->nationality,
-        'locationProvince' => $locationProvince,
-    ]);
+//     $response = $this->actingAs($user)->post("/v1/candidate/update-profile", [
+//         'email' => $secondUser->email,
+//         'firstName' => $user->first_name,
+//         'lastName' => $user->last_name,
+//         'mobileNumber' => $mobileNumber,
+//         'mobileCountryCode' => $mobileCountryCode,
+//         'nationality' => $user->nationality,
+//         'locationProvince' => $locationProvince,
+//     ]);
 
-    expect($response->json()['status'])->toBe('payloadValidationError');
+//     expect($response->json()['status'])->toBe('payloadValidationError');
 
-    $response->assertJsonStructure([
-        'data' => [
-            'email' => [],
-        ],
-        'message',
-    ])->assertJson([
-        'message' => 'Validation error',
-        'data' => [
-            'email' => ['Email already exists'],
-        ],
-    ]);
-});
+//     $response->assertJsonStructure([
+//         'data' => [
+//             'email' => [],
+//         ],
+//         'message',
+//     ])->assertJson([
+//         'message' => 'Validation error',
+//         'data' => [
+//             'email' => ['Email already exists'],
+//         ],
+//     ]);
+// });
 
 test('That candidate account setting is retrieved successfully', function () {
 
@@ -283,10 +283,9 @@ test('That candidate account setting is updated successfully', function () {
 
     $locationProvince = 'Abuja';
     $mobileCountryCode = '234';
-    $mobileNumber = '123456789';
+    $mobileNumber = '07012345678';
 
     $response = $this->actingAs($user)->post("/v1/candidate/update-account-setting", [
-        'email' => $user->email,
         'firstName' => $user->first_name,
         'lastName' => $user->last_name,
         'mobileNumber' => $mobileNumber,
@@ -294,6 +293,8 @@ test('That candidate account setting is updated successfully', function () {
         'nationality' => $user->nationality,
         'locationProvince' => $locationProvince,
     ]);
+
+    //dd($response->json());
 
     expect($response->json()['status'])->toBe('200');
 

@@ -22,7 +22,7 @@ class UserFactory extends Factory
             'password' => 'password',
             'first_name' => $this->faker->firstName(),
             'last_name' => $this->faker->lastName(),
-            'mobile_number' => $this->faker->phoneNumber(),
+            'mobile_number' => '08012345678',
             'mobile_country_code' => $this->faker->countryCode(),
             'nationality' => 'Canada',
             'location_province' => $this->faker->state(),

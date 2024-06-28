@@ -21,6 +21,7 @@ class ProfileResource extends JsonResource
             'updated_at',
             'deleted_at',
             'id',
+            'only_account',
         ])->toArray();
 
         if ( ! ($this->only_account ?? false) ){

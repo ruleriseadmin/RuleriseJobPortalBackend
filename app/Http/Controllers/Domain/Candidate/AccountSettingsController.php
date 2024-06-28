@@ -28,7 +28,7 @@ class AccountSettingsController extends BaseController
         ! $user ?: $user['only_account'] = true;
 
         return $user
-            ? ApiReturnResponse::success(new ProfileResource($user))
+            ? ApiReturnResponse::success(new ProfileResource($user->withoutRelations()))
             : ApiReturnResponse::failed();
     }
 

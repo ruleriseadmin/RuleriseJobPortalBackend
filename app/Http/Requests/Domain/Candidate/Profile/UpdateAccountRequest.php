@@ -11,7 +11,7 @@ class UpdateAccountRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            'email' => ['required', 'email'],
+            //'email' => ['required', 'email'],
             'firstName' => ['required', 'alpha'],
             'lastName' => ['required', 'alpha'],
             'mobileNumber' => ['required', 'numeric'],
@@ -25,7 +25,7 @@ class UpdateAccountRequest extends BaseRequest
     {
         $validator->after(function ($validator){
             if ( $this->filled('email') && $this->input('email') !== auth()->user()->email ) {
-               ! User::where('email', $this->input('email')) ?: $validator->errors()->add('email', 'Email already exists');
+               ! User::where('email', $this->input('email'))->exists() ?: $validator->errors()->add('email', 'Email already exists');
             }
         });
     }
