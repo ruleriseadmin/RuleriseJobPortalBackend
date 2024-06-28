@@ -21,10 +21,10 @@ class ProfileResource extends JsonResource
             'updated_at',
             'deleted_at',
             'id',
-        ]);
+        ])->toArray();
 
         if ( ! ($this->only_account ?? false) ){
-            $response = $response->merge([
+            $response = collect($response)->merge([
                 'qualification' => (new QualificationResource($this->qualification)),
                 'workExperience' => WorkExperienceResource::collection($this->workExperiences),
                 'educationHistory' => EducationHistoryResource::collection($this->educationHistories),

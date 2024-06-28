@@ -19,7 +19,7 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
     Route::get('profile', [CandidatesController::class, 'getProfile']);
     Route::post('update-profile', [CandidatesController::class, 'updateProfile']);
     Route::get('account-setting', [AccountSettingsController::class, 'index']);
-    Route::post('update-account-setting', [AccountSettingsController::class, 'deleteAccount']);
+    Route::post('update-account-setting', [AccountSettingsController::class, 'updateAccountSetting']);
     Route::post('delete-account', [AccountSettingsController::class, 'deleteAccount']);
 
     Route::prefix('work-experience')->group(function(){

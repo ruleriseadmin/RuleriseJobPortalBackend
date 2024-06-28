@@ -131,7 +131,7 @@ test('That candidate profile is updated successfully', function () {
     $twitter = 'twitter';
     $portfolioUrl = 'portfolio-link';
 
-    $response = $this->actingAs($user)->post("/v1/candidate/updateProfile", [
+    $response = $this->actingAs($user)->post("/v1/candidate/update-profile", [
         'email' => $user->email,
         'firstName' => $user->first_name,
         'lastName' => $user->last_name,
@@ -223,7 +223,7 @@ test('That candidate profile cannot be updated if email exists by another candid
     $mobileCountryCode = '234';
     $mobileNumber = '123456789';
 
-    $response = $this->actingAs($user)->post("/v1/candidate/updateProfile", [
+    $response = $this->actingAs($user)->post("/v1/candidate/update-profile", [
         'email' => $secondUser->email,
         'firstName' => $user->first_name,
         'lastName' => $user->last_name,
@@ -248,6 +248,31 @@ test('That candidate profile cannot be updated if email exists by another candid
     ]);
 });
 
+test('That candidate account setting is retrieved successfully', function () {
+
+    $user = User::factory()->create();
+
+    $response = $this->actingAs($user)->get("/v1/candidate/account-setting");
+
+    expect($response->json()['status'])->toBe('200');
+
+    $response->assertJsonStructure([
+        'data' => [
+            'uuid',
+            'email',
+            'firstName',
+            'lastName',
+            'mobileNumber',
+            'mobileCountryCode',
+            'nationality',
+            'locationProvince',
+        ],
+        'message',
+    ]);
+
+    expect($response->json()['data']['uuid'])->toBe($user->uuid);
+});
+
 test('That candidate account setting is updated successfully', function () {
 
     $user = User::factory()->create();
@@ -255,12 +280,12 @@ test('That candidate account setting is updated successfully', function () {
     $qualifications = CandidateQualification::factory()->create();
 
     $portfolio = CandidatePortfolio::factory()->create();
-    
+
     $locationProvince = 'Abuja';
     $mobileCountryCode = '234';
     $mobileNumber = '123456789';
 
-    $response = $this->actingAs($user)->post("/v1/candidate/updateProfile", [
+    $response = $this->actingAs($user)->post("/v1/candidate/update-account-setting", [
         'email' => $user->email,
         'firstName' => $user->first_name,
         'lastName' => $user->last_name,
@@ -299,7 +324,7 @@ test('That candidate profile is deleted successfully', function () {
 
     $user = User::factory()->create();
 
-    $response = $this->actingAs($user)->post("/v1/candidate/deleteAccount");
+    $response = $this->actingAs($user)->post("/v1/candidate/delete-account");
 
     expect($response->json()['status'])->toBe('200');
 

@@ -25,7 +25,8 @@ class AccountSettingsController extends BaseController
         //update account setting
         $user = (new UpdateProfileAction)->execute($this->user, $request->input());
 
-        //return response
+        ! $user ?: $user['only_account'] = true;
+
         return $user
             ? ApiReturnResponse::success(new ProfileResource($user))
             : ApiReturnResponse::failed();
