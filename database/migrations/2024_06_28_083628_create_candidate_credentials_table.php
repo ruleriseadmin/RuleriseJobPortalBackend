@@ -11,16 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('candidate_qualifications', function (Blueprint $table) {
+        Schema::create('candidate_credentials', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->string('highest_qualification')->nullable();
-            $table->string('year_of_experience')->nullable();
-            $table->string('prefer_job_industry')->nullable();
-            $table->boolean('available_to_work')->default(false);
-            $table->json('skills')->nullable();
-            $table->json('career_level')->nullable();
-            $table->string('functional_areas')->nullable();
+            $table->uuid();
+            $table->string('name');
+            $table->string('type')->nullable();
+            $table->date('date_issued')->nullable();
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('user_id')->on('users')->references('id');
@@ -32,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('candidate_qualifications');
+        Schema::dropIfExists('candidate_credentials');
     }
 };

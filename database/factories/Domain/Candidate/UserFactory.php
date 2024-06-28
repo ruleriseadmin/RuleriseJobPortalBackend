@@ -26,6 +26,10 @@ class UserFactory extends Factory
             'mobile_country_code' => $this->faker->countryCode(),
             'nationality' => 'Canada',
             'location_province' => $this->faker->state(),
+            'dob' => $this->faker->date(),
+            'job_title' => $this->faker->jobTitle(),
+            'gender' => $this->faker->randomElement(['male', 'female']),
+            'profile_summary' => $this->faker->sentence(10),
         ];
     }
 }

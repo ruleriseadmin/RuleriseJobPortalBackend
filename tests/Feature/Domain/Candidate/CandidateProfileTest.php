@@ -1,5 +1,11 @@
 <?php
 
+use App\Models\Domain\Candidate\CandidateCredential;
+use App\Models\Domain\Candidate\CandidateEducationHistory;
+use App\Models\Domain\Candidate\CandidateLanguage;
+use App\Models\Domain\Candidate\CandidatePortfolio;
+use App\Models\Domain\Candidate\CandidateQualification;
+use App\Models\Domain\Candidate\CandidateWorkExperience;
 use App\Models\Domain\Candidate\User;
 use Database\Seeders\RoleSeeder;
 
@@ -10,6 +16,18 @@ beforeEach(function () {
 test('That candidate profile is retrieved successfully', function () {
 
     $user = User::factory()->create();
+
+    $workExperiences = CandidateWorkExperience::factory()->create();
+
+    $qualifications = CandidateQualification::factory()->create();
+
+    $portfolio = CandidatePortfolio::factory()->create();
+
+    $languages = CandidateLanguage::factory()->create();
+
+    $educationHistories = CandidateEducationHistory::factory()->create();
+
+    $credentials = CandidateCredential::factory()->create();
 
     $response = $this->actingAs($user)->get("/v1/candidate/profile");
 
@@ -25,6 +43,49 @@ test('That candidate profile is retrieved successfully', function () {
             'mobileCountryCode',
             'nationality',
             'locationProvince',
+            'dob',
+            'gender',
+            'jobTitle',
+            'profileSummary',
+            'qualification' => [
+                'highestQualification',
+                'yearOfExperience',
+                'preferJobIndustry',
+                'availableToWork',
+                'skills',
+                'careerLevel',
+                'functionalAreas',
+            ],
+            'workExperience' => ['*' => [
+                'uuid',
+                'roleTitle',
+                'companyName',
+                'startDate',
+                'endDate',
+            ]],
+            'educationHistory' => ['*' => [
+                'uuid',
+                'instituteName',
+                'courseName',
+                'startDate',
+                'endDate',
+            ]],
+            'credentials' => ['*' => [
+                'name',
+                'type',
+                'dateIssued',
+            ]],
+            'language' => ['*' => [
+                'uuid',
+                'language',
+                'proficiency',
+            ]],
+            'portfolio' => [
+                'linkedin',
+                'twitter',
+                'github',
+                'portfolioUrl',
+            ],
         ],
         'message',
     ]);

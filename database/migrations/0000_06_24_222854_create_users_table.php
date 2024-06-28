@@ -22,6 +22,10 @@ return new class extends Migration
             $table->string('mobile_country_code');
             $table->string('nationality');
             $table->string('location_province');
+            $table->string('job_title')->nullable();
+            $table->text('profile_summary')->nullable();
+            $table->string('gender')->nullable();
+            $table->date('dob')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
