@@ -14,7 +14,7 @@ class UpdateEducationHistoryAction
         try{
             $educationHistory->update(HelperSupport::camel_to_snake($inputs));
         }catch(Exception $ex){
-            Log::error("UpdateEducationHistoryAction: " . $ex->getMessage());
+            Log::error("Error @ UpdateEducationHistoryAction: " . $ex->getMessage());
             return null;
         }
 

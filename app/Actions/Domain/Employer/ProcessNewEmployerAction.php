@@ -49,7 +49,7 @@ class ProcessNewEmployerAction
             DB::commit();
         }catch(Exception $e) {
             DB::rollBack();
-            Log::error("Error in ProcessNewEmployerAction: " . $e->getMessage());
+            Log::error("Error @ ProcessNewEmployerAction: " . $e->getMessage());
             return null;
         }
 

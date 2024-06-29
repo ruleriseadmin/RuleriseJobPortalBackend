@@ -13,7 +13,7 @@ class DeleteCandidateCredentialAction
         try{
             $action = $credential->delete();
         }catch(Exception $ex){
-            Log::error("DeleteCandidateCredentialAction: " . $ex->getMessage());
+            Log::error("Error @ DeleteCandidateCredentialAction: " . $ex->getMessage());
             return false;
         }
 

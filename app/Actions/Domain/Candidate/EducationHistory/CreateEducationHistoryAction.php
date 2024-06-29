@@ -16,7 +16,7 @@ class CreateEducationHistoryAction
             $inputs['uuid'] = str()->uuid();
             $educationHistory = $user->educationHistories()->create(HelperSupport::camel_to_snake($inputs));
         }catch(Exception $ex){
-            Log::error("CreateEducationHistoryAction: " . $ex->getMessage());
+            Log::error("Error @ CreateEducationHistoryAction: " . $ex->getMessage());
             return null;
         }
 

@@ -13,7 +13,7 @@ class DeleteEducationHistoryAction
         try{
             $action = $educationHistory->delete();
         }catch(Exception $ex){
-            Log::error("DeleteEducationHistoryAction: " . $ex->getMessage());
+            Log::error("Error @ DeleteEducationHistoryAction: " . $ex->getMessage());
             return false;
         }
 

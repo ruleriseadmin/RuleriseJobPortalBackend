@@ -17,7 +17,7 @@ class CreateCandidateCredentialAction
             $inputs['uuid'] = str()->uuid();
             $credential = $user->credentials()->create(HelperSupport::camel_to_snake($inputs));
         }catch(Exception $ex){
-            Log::error("CreateCandidateCredentialAction: " . $ex->getMessage());
+            Log::error("Error @ CreateCandidateCredentialAction: " . $ex->getMessage());
             return null;
         }
 

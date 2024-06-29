@@ -14,7 +14,7 @@ class UpdateCandidateCredentialAction
         try{
             $credential->update(HelperSupport::camel_to_snake($inputs));
         }catch(Exception $ex){
-            Log::error("UpdateCandidateCredentialAction: " . $ex->getMessage());
+            Log::error("Error @ UpdateCandidateCredentialAction: " . $ex->getMessage());
             return null;
         }
 
