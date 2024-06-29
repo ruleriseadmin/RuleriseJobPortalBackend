@@ -155,7 +155,7 @@ test('That candidate profile is updated successfully', function () {
         'github' => $github,
         'portfolioUrl' => $portfolioUrl,
     ]);
-
+    dd($response->json());
     expect($response->json()['status'])->toBe('200');
 
     $response->assertJsonStructure([
