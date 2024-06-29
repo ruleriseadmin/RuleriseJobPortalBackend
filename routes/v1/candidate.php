@@ -5,6 +5,7 @@ use App\Http\Controllers\Domain\Candidate\Auth\ForgotPasswordController;
 use App\Http\Controllers\Domain\Candidate\Auth\LoginController;
 use App\Http\Controllers\Domain\Candidate\Auth\RegisterController;
 use App\Http\Controllers\Domain\Candidate\CandidatesController;
+use App\Http\Controllers\Domain\Candidate\Data\CandidateLanguagesController;
 use App\Http\Controllers\Domain\Candidate\Data\CredentialsController;
 use App\Http\Controllers\Domain\Candidate\Data\EducationHistoriesController;
 use App\Http\Controllers\Domain\Candidate\Data\WorkExperiencesController;
@@ -40,6 +41,12 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
         Route::post('/', [CredentialsController::class, 'store']);
         Route::post('update', [CredentialsController::class, 'update']);
         Route::post('{uuid}/delete', [CredentialsController::class, 'delete']);
+    });
+
+    Route::prefix('language')->group(function(){
+        Route::post('/', [CandidateLanguagesController::class, 'store']);
+        Route::post('update', [CandidateLanguagesController::class, 'update']);
+        Route::post('{uuid}/delete', [CandidateLanguagesController::class, 'delete']);
     });
 
     Route::prefix('profile')->group(function(){
