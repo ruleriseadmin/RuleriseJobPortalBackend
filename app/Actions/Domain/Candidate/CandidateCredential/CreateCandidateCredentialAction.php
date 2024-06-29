@@ -3,7 +3,6 @@
 namespace App\Actions\Domain\Candidate\CandidateCredential;
 
 use App\Models\Domain\Candidate\CandidateCredential;
-use App\Models\Domain\Candidate\CandidateEducationHistory;
 use App\Models\Domain\Candidate\User;
 use App\Supports\HelperSupport;
 use Exception;
