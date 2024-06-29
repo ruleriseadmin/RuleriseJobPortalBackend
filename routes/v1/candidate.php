@@ -5,6 +5,7 @@ use App\Http\Controllers\Domain\Candidate\Auth\ForgotPasswordController;
 use App\Http\Controllers\Domain\Candidate\Auth\LoginController;
 use App\Http\Controllers\Domain\Candidate\Auth\RegisterController;
 use App\Http\Controllers\Domain\Candidate\CandidatesController;
+use App\Http\Controllers\Domain\Candidate\Data\CredentialsController;
 use App\Http\Controllers\Domain\Candidate\Data\EducationHistoriesController;
 use App\Http\Controllers\Domain\Candidate\Data\WorkExperiencesController;
 use Illuminate\Support\Facades\Route;
@@ -33,6 +34,12 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
         Route::post('/', [EducationHistoriesController::class, 'store']);
         Route::post('update', [EducationHistoriesController::class, 'update']);
         Route::post('{uuid}/delete', [EducationHistoriesController::class, 'delete']);
+    });
+
+    Route::prefix('credential')->group(function(){
+        Route::post('/', [CredentialsController::class, 'store']);
+        Route::post('update', [CredentialsController::class, 'update']);
+        Route::post('{uuid}/delete', [CredentialsController::class, 'delete']);
     });
 
     Route::prefix('profile')->group(function(){
