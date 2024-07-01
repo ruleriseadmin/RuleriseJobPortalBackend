@@ -25,5 +25,6 @@ class CandidateQualification extends Model
     protected $casts = [
         'skills' => 'array',
         'career_level' => 'array',
+        'functional_areas' => 'array',
     ];
 }
