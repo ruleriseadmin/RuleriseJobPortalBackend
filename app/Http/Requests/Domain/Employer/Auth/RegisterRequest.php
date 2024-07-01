@@ -12,9 +12,9 @@ class RegisterRequest extends BaseRequest
         return [
             'email' => ['required', 'unique:employer_users,email', 'email'],
             'password' => ['required', Password::min(8)->letters()->numbers()],
-            'firstName' => ['required', 'alpha'],
-            'lastName' => ['required', 'alpha'],
-            'companyName' => ['required', 'unique:employers,company_name,except,id', 'alpha'],
+            'firstName' => ['required'],
+            'lastName' => ['required'],
+            'companyName' => ['required', 'unique:employers,company_name,except,id'],
             'positionTitle' => ['required'],
             'officialEmail' => ['required', 'email'],
             'companyIndustry' => ['required'],

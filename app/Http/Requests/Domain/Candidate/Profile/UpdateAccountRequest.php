@@ -12,11 +12,11 @@ class UpdateAccountRequest extends BaseRequest
     {
         return [
             //'email' => ['required', 'email'],
-            'firstName' => ['required', 'alpha'],
-            'lastName' => ['required', 'alpha'],
+            'firstName' => ['required'],
+            'lastName' => ['required'],
             'mobileNumber' => ['required', 'numeric'],
             'mobileCountryCode' => ['required'],
-            'nationality' => ['required', 'alpha'],
+            'nationality' => ['required'],
             'locationProvince' => ['required'],
         ];
     }
