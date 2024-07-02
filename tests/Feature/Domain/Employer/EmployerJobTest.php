@@ -106,3 +106,25 @@ test('That employer created job as published', function () {
 
     expect(EmployerJob::count())->toBe(1);
 });
+
+test('That employer updated job', function () {
+
+    Employer::factory()->create();
+
+    $user = EmployerUser::factory()->create();
+
+    EmployerAccess::factory()->create();
+
+    $job = EmployerJob::factory()->create();
+
+    $response = $this->actingAs($user)->post("/v1/employer/job/update", [
+        'uuid' => $job->uuid,
+        'title' => 'Software Developer',
+        'summary' => 'job summary',
+        'description' => 'quick job description',
+    ]);
+
+    expect($response->json()['status'])->toBe('200');
+
+    expect(EmployerJob::first()->title)->toBe('Software Developer');
+});

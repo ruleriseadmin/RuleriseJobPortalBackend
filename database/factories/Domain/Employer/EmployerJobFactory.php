@@ -17,6 +17,7 @@ class EmployerJobFactory extends Factory
     public function definition(): array
     {
         return [
+            'uuid' => $this->faker->uuid,
             'employer_id' => 1,
             'title' => $this->faker->sentence(),
             'summary' => $this->faker->paragraphs(3, true),
