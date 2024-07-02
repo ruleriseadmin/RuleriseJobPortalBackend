@@ -5,6 +5,7 @@ namespace App\Models\Domain\Employer;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Employer extends Model
@@ -24,5 +25,10 @@ class Employer extends Model
             ->withPivot('position_title')
             ->withTimestamps()
             ->using(EmployerAccess::class);
+    }
+
+    public function jobs(): HasMany
+    {
+        return $this->hasMany(EmployerJob::class);
     }
 }
