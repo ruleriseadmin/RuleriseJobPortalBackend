@@ -26,5 +26,6 @@ class CandidateQualification extends Model
         'skills' => 'array',
         'career_level' => 'array',
         'functional_areas' => 'array',
+        'available_to_work' => 'boolean',
     ];
 }
