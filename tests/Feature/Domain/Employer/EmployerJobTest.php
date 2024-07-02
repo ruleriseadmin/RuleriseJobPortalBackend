@@ -128,3 +128,22 @@ test('That employer updated job', function () {
 
     expect(EmployerJob::first()->title)->toBe('Software Developer');
 });
+
+test('That employer deleted job', function () {
+
+    Employer::factory()->create();
+
+    $user = EmployerUser::factory()->create();
+
+    EmployerAccess::factory()->create();
+
+    $job = EmployerJob::factory()->create();
+
+    $response = $this->actingAs($user)->post("/v1/employer/job/{$job->uuid}/delete");
+
+    expect($response->json()['status'])->toBe('200');
+
+    expect(EmployerJob::count())->toBe(0);
+
+    expect(EmployerJob::onlyTrashed()->count())->toBe(1);
+});

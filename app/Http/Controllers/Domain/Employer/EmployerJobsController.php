@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Domain\Employer;
 use Illuminate\Http\JsonResponse;
 use App\Supports\ApiReturnResponse;
 use App\Actions\Domain\Employer\Job\CreateJobAction;
+use App\Actions\Domain\Employer\Job\DeleteJobAction;
 use App\Actions\Domain\Employer\Job\UpdateJobAction;
 use App\Http\Requests\Domain\Employer\Job\StoreJobRequest;
 use App\Http\Requests\Domain\Employer\Job\UpdateJobRequest;
@@ -41,7 +42,19 @@ class EmployerJobsController extends BaseController
             : ApiReturnResponse::failed();
     }
 
-    public function delete(){}
+    public function delete(string $uuid)
+    {
+        $job = $this->employer->jobs()->where('uuid', $uuid)->first();
+
+        if ( ! $job ) return ApiReturnResponse::notFound('Job does not exists');
+
+        $action = (new DeleteJobAction)->execute($job);
+
+        //return response
+        return $action
+            ? ApiReturnResponse::success()
+            : ApiReturnResponse::failed();
+    }
 
     public function setActiveJob(){}
 }
