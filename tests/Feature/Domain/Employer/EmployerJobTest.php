@@ -10,6 +10,74 @@ beforeEach(function () {
     $this->seed(RoleSeeder::class);
 });
 
+test('That employer job is retrieved successfully', function () {
+
+    Employer::factory()->create();
+
+    $user = EmployerUser::factory()->create();
+
+    EmployerAccess::factory()->create();
+
+    EmployerJob::factory()->create();
+
+    $response = $this->actingAs($user)->get("/v1/employer/job");
+
+    expect($response->json()['status'])->toBe('200');
+
+    $response->assertJsonStructure([
+        'data' => ['*' => [
+            'uuid',
+            'title',
+            'summary',
+            'description',
+            'jobType',
+            'employmentType',
+            'salary',
+            'easyApply',
+            'emailApply',
+            'active',
+            'requiredSkills',
+            'location',
+            'yearsExperience',
+            'salary',
+        ]],
+    ]);
+});
+
+test('That employer single job is retrieved successfully', function () {
+
+    Employer::factory()->create();
+
+    $user = EmployerUser::factory()->create();
+
+    EmployerAccess::factory()->create();
+
+    $job = EmployerJob::factory()->create();
+
+    $response = $this->actingAs($user)->get("/v1/employer/job/{$job->uuid}");
+
+    expect($response->json()['status'])->toBe('200');
+
+    $response->assertJsonStructure([
+        'data' => [
+            'uuid',
+            'title',
+            'summary',
+            'description',
+            'jobType',
+            'employmentType',
+            'salary',
+            'easyApply',
+            'emailApply',
+            'active',
+            'requiredSkills',
+            'location',
+            'yearsExperience',
+            'salary',
+        ],
+    ]);
+});
+
 test('That employer created job', function () {
 
     Employer::factory()->create();
@@ -39,7 +107,6 @@ test('That employer created job', function () {
 
     expect(EmployerJob::count())->toBe(1);
 });
-
 
 test('That employer created job as draft', function () {
 

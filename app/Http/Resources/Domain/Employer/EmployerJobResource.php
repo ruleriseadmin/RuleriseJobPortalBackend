@@ -15,6 +15,7 @@ class EmployerJobResource extends JsonResource
             'created_at',
             'updated_at',
             'deleted_at',
+            'employer_id',
         ]);
 
         return HelperSupport::snake_to_camel($response->toArray());

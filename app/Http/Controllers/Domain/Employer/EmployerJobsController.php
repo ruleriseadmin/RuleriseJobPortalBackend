@@ -42,6 +42,15 @@ class EmployerJobsController extends BaseController
             : ApiReturnResponse::failed();
     }
 
+    public function show(string $uuid)
+    {
+        $job = $this->employer->jobs()->where('uuid', $uuid)->first();
+
+        return $job
+            ? ApiReturnResponse::success(new EmployerJobResource($job))
+            : ApiReturnResponse::notFound('Job does not exists');
+    }
+
     public function delete(string $uuid)
     {
         $job = $this->employer->jobs()->where('uuid', $uuid)->first();
