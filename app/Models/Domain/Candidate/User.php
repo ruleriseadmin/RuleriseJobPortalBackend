@@ -3,10 +3,12 @@
 namespace App\Models\Domain\Candidate;
 
 use App\Models\User as ModelsUser;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Models\Domain\Candidate\Job\CandidateSavedJob;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Domain\Candidate\Job\CandidateJobApplication;
 
 class User extends ModelsUser
 {
@@ -57,5 +59,15 @@ class User extends ModelsUser
     public function credentials(): HasMany
     {
         return $this->hasMany(CandidateCredential::class);
+    }
+
+    public function savedJobs(): HasOne
+    {
+        return $this->hasOne(CandidateSavedJob::class);
+    }
+
+    public function jobApplications(): HasMany
+    {
+        return $this->hasMany(CandidateJobApplication::class);
     }
 }

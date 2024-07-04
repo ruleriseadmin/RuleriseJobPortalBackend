@@ -1,15 +1,16 @@
 <?php
 
-use App\Http\Controllers\Domain\Candidate\AccountSettingsController;
-use App\Http\Controllers\Domain\Candidate\Auth\ForgotPasswordController;
-use App\Http\Controllers\Domain\Candidate\Auth\LoginController;
-use App\Http\Controllers\Domain\Candidate\Auth\RegisterController;
-use App\Http\Controllers\Domain\Candidate\CandidatesController;
-use App\Http\Controllers\Domain\Candidate\Data\CandidateLanguagesController;
-use App\Http\Controllers\Domain\Candidate\Data\CredentialsController;
-use App\Http\Controllers\Domain\Candidate\Data\EducationHistoriesController;
-use App\Http\Controllers\Domain\Candidate\Data\WorkExperiencesController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Domain\Candidate\Job\JobsController;
+use App\Http\Controllers\Domain\Candidate\Auth\LoginController;
+use App\Http\Controllers\Domain\Candidate\CandidatesController;
+use App\Http\Controllers\Domain\Candidate\Auth\RegisterController;
+use App\Http\Controllers\Domain\Candidate\AccountSettingsController;
+use App\Http\Controllers\Domain\Candidate\Data\CredentialsController;
+use App\Http\Controllers\Domain\Candidate\Auth\ForgotPasswordController;
+use App\Http\Controllers\Domain\Candidate\Data\WorkExperiencesController;
+use App\Http\Controllers\Domain\Candidate\Data\CandidateLanguagesController;
+use App\Http\Controllers\Domain\Candidate\Data\EducationHistoriesController;
 
 Route::prefix('auth')->group(function(){
     Route::post('register', [RegisterController::class, 'store']);
@@ -47,6 +48,13 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
         Route::post('/', [CandidateLanguagesController::class, 'store']);
         Route::post('update', [CandidateLanguagesController::class, 'update']);
         Route::post('{uuid}/delete', [CandidateLanguagesController::class, 'delete']);
+    });
+
+    #jobs routes
+    Route::prefix('job')->group(function(){
+        Route::get('/', [JobsController::class, 'index']);
+        Route::post('{uuid}/saveJob', [JobsController::class, 'saveJob']);
+        Route::post('applyJob', [JobsController::class, 'applyJob']);
     });
 
     Route::prefix('profile')->group(function(){

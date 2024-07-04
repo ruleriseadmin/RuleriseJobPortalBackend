@@ -19,7 +19,7 @@ class EmployerFactory extends Factory
         return [
             'uuid' => $this->faker->uuid,
             'email' => 'offical@example.com',
-            'company_name' => $this->faker->company,
+            'company_name' => 'Amazon Ontario',
             'industry' => 'IT',
             'number_of_employees' => '10000',
             'founded_at' => '2020-01-01',

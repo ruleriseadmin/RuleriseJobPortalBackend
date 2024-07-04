@@ -4,6 +4,7 @@ namespace App\Models\Domain\Employer;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class EmployerJob extends Model
@@ -35,4 +36,14 @@ class EmployerJob extends Model
         'easy_apply' => 'boolean',
         'email_apply' => 'boolean',
     ];
+
+    public function employer(): BelongsTo
+    {
+        return $this->belongsTo(Employer::class);
+    }
+
+    public static function whereUuid(string $uuid)
+    {
+        return self::query()->where('uuid', $uuid)->first();
+    }
 }
