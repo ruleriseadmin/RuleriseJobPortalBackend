@@ -23,7 +23,7 @@ class AccountSettingsController extends BaseController
     public function updateAccountSetting(UpdateAccountRequest $request): JsonResponse
     {
         //update account setting
-        $user = (new UpdateProfileAction)->execute($this->user, $request->input());
+        $user = (new UpdateProfileAction)->execute($this->user, $request->input(), false);
 
         ! $user ?: $user['only_account'] = true;
 

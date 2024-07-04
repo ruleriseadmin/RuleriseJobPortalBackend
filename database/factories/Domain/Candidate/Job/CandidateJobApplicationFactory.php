@@ -20,6 +20,7 @@ class CandidateJobApplicationFactory extends Factory
             'user_id' => 1,
             'job_id' => 1,
             'uuid' => $this->faker->uuid,
+            'applied_via' => 'profile_cv',
         ];
     }
 }

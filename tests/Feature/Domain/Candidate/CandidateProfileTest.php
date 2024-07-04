@@ -155,7 +155,7 @@ test('That candidate profile is updated successfully', function () {
         'github' => $github,
         'portfolioUrl' => $portfolioUrl,
     ]);
-    
+
     expect($response->json()['status'])->toBe('200');
 
     $response->assertJsonStructure([
@@ -202,7 +202,7 @@ test('That candidate profile is updated successfully', function () {
 
     expect($response->json()['data']['qualification']['functionalAreas'])->toBe($functionalAreas);
 
-    expect($response->json()['data']['qualification']['availableToWork'])->toBe($availableToWork);
+    expect($response->json()['data']['qualification']['availableToWork'])->toBeFalse();
 
     expect($response->json()['data']['portfolio']['linkedin'])->toBe($linkedin);
 
