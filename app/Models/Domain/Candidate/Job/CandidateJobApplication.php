@@ -28,6 +28,6 @@ class CandidateJobApplication extends Model
 
     const APPLIED_VIA = [
         'profile_cv' => 'profile_cv',
-        'custom_cv' => 'profile_cv',
+        'custom_cv' => 'custom_cv',
     ];
 }
