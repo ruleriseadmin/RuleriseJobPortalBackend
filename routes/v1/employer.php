@@ -2,9 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Domain\Employer\Auth\LoginController;
-use App\Http\Controllers\Domain\Employer\EmployerJobsController;
+use App\Http\Controllers\Domain\Employer\Job\EmployerJobsController;
 use App\Http\Controllers\Domain\Employer\Auth\RegisterController;
 use App\Http\Controllers\Domain\Employer\Auth\ForgotPasswordController;
+use App\Http\Controllers\Domain\Employer\Job\JobApplicantController;
 
 Route::prefix('auth')->group(function(){
     Route::post('register', [RegisterController::class, 'store']);
@@ -21,6 +22,7 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
         Route::get('{uuid}', [EmployerJobsController::class, 'show']);
         Route::post('update', [EmployerJobsController::class, 'update']);
         Route::post('{uuid}/delete', [EmployerJobsController::class, 'delete']);
+        Route::get('{uuid}/applicants', [JobApplicantController::class, 'index']);
     });
 
     Route::prefix('profile')->group(function(){

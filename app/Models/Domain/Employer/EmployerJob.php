@@ -2,9 +2,11 @@
 
 namespace App\Models\Domain\Employer;
 
+use App\Models\Domain\Candidate\Job\CandidateJobApplication;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class EmployerJob extends Model
@@ -40,6 +42,11 @@ class EmployerJob extends Model
     public function employer(): BelongsTo
     {
         return $this->belongsTo(Employer::class);
+    }
+
+    public function applicants(): HasMany
+    {
+        return $this->hasMany(CandidateJobApplication::class, 'job_id', 'id');
     }
 
     public static function whereUuid(string $uuid)

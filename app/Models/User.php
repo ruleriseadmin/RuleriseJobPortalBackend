@@ -30,4 +30,9 @@ class User extends Authenticatable implements CanResetPassword
             'password' => 'hashed',
         ];
     }
+
+    public function getFullNameAttribute(): string
+    {
+        return "$this->first_name $this->last_name";
+    }
 }

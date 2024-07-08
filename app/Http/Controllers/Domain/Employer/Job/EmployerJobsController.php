@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Domain\Employer;
+namespace App\Http\Controllers\Domain\Employer\Job;
 
 use Illuminate\Http\JsonResponse;
 use App\Supports\ApiReturnResponse;
 use App\Actions\Domain\Employer\Job\CreateJobAction;
 use App\Actions\Domain\Employer\Job\DeleteJobAction;
 use App\Actions\Domain\Employer\Job\UpdateJobAction;
+use App\Http\Controllers\Domain\Employer\BaseController;
 use App\Http\Requests\Domain\Employer\Job\StoreJobRequest;
 use App\Http\Requests\Domain\Employer\Job\UpdateJobRequest;
 use App\Http\Resources\Domain\Employer\EmployerJobResource;
