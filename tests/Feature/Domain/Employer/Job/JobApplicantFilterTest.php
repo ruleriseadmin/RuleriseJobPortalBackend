@@ -60,5 +60,5 @@ test('That employer job applicants filter by rejected', function () {
 
     expect($response->json()['status'])->toBe('200');
 
-    dd($response->json());
+    //dd($response->json());
 });
