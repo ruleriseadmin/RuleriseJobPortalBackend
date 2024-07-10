@@ -7,10 +7,15 @@ use App\Http\Controllers\Domain\Employer\BaseController;
 use App\Actions\Domain\Employer\Job\ChangeHiringStageAction;
 use App\Http\Requests\Domain\Employer\Job\ChangeHiringStageRequest;
 use App\Http\Requests\Domain\Employer\Job\JobApplicantFilterRequest;
-use App\Http\Resources\Domain\Employer\Job\JobApplicantFilterResource;
+use App\Http\Resources\Domain\Employer\Job\JobApplicantFilterByJobResource;
 
 class JobApplicantController extends BaseController
 {
+    public function index()
+    {
+        return ApiReturnResponse::success($this->employer->jobs);
+    }
+
     public function filterApplicantsByJob(string $uuid, JobApplicantFilterRequest $request) : JsonResponse
     {
         $job = $this->employer->jobs()->where('uuid', $uuid)->first();
@@ -21,7 +26,7 @@ class JobApplicantController extends BaseController
 
         $filters->job = $job;
 
-        return ApiReturnResponse::success(new JobApplicantFilterResource($filters));
+        return ApiReturnResponse::success(new JobApplicantFilterByJobResource($filters));
     }
 
     public function changeHiringStage(ChangeHiringStageRequest $request): JsonResponse
