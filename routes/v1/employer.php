@@ -23,7 +23,7 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
         Route::get('{uuid}', [EmployerJobsController::class, 'show']);//changeHiringStage
         Route::post('update', [EmployerJobsController::class, 'update']);
         Route::post('{uuid}/delete', [EmployerJobsController::class, 'delete']);
-        Route::get('{uuid}/applicants', [JobApplicantController::class, 'index']);
+        Route::get('{uuid}/filterApplicantsByJob', [JobApplicantController::class, 'filterApplicantsByJob']);
         Route::post('applicants/update-hiring-stage', [JobApplicantController::class, 'changeHiringStage']);
 
         Route::prefix('candidate-pool')->group(function(){

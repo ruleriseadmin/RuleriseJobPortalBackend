@@ -32,7 +32,7 @@ test('That employer job applicants filter by all', function () {
     $application = CandidateJobApplication::factory()->create();
     $application->setStatus('applied');
 
-    $response = $this->actingAs($user)->get("/v1/employer/job/{$job->uuid}/applicants");
+    $response = $this->actingAs($user)->get("/v1/employer/job/{$job->uuid}/filterApplicantsByJob");
 
     expect($response->json()['status'])->toBe('200');
 });
@@ -56,7 +56,7 @@ test('That employer job applicants filter by rejected', function () {
 
     $application->setStatus('rejected');
 
-    $response = $this->actingAs($user)->get("/v1/employer/job/{$job->uuid}/applicants?filterBy=rejected&page=1");
+    $response = $this->actingAs($user)->get("/v1/employer/job/{$job->uuid}/filterApplicantsByJob?filterBy=rejected&page=1");
 
     expect($response->json()['status'])->toBe('200');
 });
@@ -80,7 +80,7 @@ test('That employer job applicants filter by offer_sent', function () {
 
     $application->setStatus('offer_sent');
 
-    $response = $this->actingAs($user)->get("/v1/employer/job/{$job->uuid}/applicants?filterBy=offer_sent&page=1");
+    $response = $this->actingAs($user)->get("/v1/employer/job/{$job->uuid}/filterApplicantsByJob?filterBy=offer_sent&page=1");
 
     expect($response->json()['status'])->toBe('200');
 });

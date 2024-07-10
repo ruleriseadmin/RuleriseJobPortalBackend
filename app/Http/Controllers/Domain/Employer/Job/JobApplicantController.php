@@ -11,7 +11,7 @@ use App\Http\Resources\Domain\Employer\Job\JobApplicantFilterResource;
 
 class JobApplicantController extends BaseController
 {
-    public function index(string $uuid, JobApplicantFilterRequest $request) : JsonResponse
+    public function filterApplicantsByJob(string $uuid, JobApplicantFilterRequest $request) : JsonResponse
     {
         $job = $this->employer->jobs()->where('uuid', $uuid)->first();
 
