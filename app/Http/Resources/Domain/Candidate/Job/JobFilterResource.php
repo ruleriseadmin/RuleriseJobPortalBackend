@@ -61,7 +61,7 @@ class JobFilterResource extends JsonResource
                     // check if filter is applied then add extra details
                     if ( $this->type == 'applied' ){
                         $application = $user->jobApplications->where('job_id', $job->id)->first();
-                        $job['status'] = $application->status;
+                        $job['status'] = $application->status();
                         $job['applied_at'] = $application->created_at;
                     }
 

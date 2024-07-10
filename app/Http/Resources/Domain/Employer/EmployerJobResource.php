@@ -18,6 +18,10 @@ class EmployerJobResource extends JsonResource
             'employer_id',
         ]);
 
+        $response = collect($response)->merge([
+            'pools' => $this->employer->candidatePools->map(fn($pool) => $pool->only(['name', 'uuid'])),
+        ]);
+
         return HelperSupport::snake_to_camel($response->toArray());
     }
 }

@@ -59,6 +59,28 @@ test('That employer job applicants filter by rejected', function () {
     $response = $this->actingAs($user)->get("/v1/employer/job/{$job->uuid}/applicants?filterBy=rejected&page=1");
 
     expect($response->json()['status'])->toBe('200');
+});
 
-    //dd($response->json());
+test('That employer job applicants filter by offer_sent', function () {
+    Employer::factory()->create();
+
+    $user = EmployerUser::factory()->create();
+
+    EmployerAccess::factory()->create();
+
+    $job = EmployerJob::factory()->create();
+
+    User::factory()->create();
+
+    CandidateWorkExperience::factory()->create();
+
+    CandidateEducationHistory::factory()->create();
+
+    $application = CandidateJobApplication::factory()->create();
+
+    $application->setStatus('offer_sent');
+
+    $response = $this->actingAs($user)->get("/v1/employer/job/{$job->uuid}/applicants?filterBy=offer_sent&page=1");
+
+    expect($response->json()['status'])->toBe('200');
 });

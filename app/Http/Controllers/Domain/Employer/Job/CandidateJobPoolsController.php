@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Domain\Employer\Job;
 use Illuminate\Http\JsonResponse;
 use App\Supports\ApiReturnResponse;
 use App\Http\Controllers\Domain\Employer\BaseController;
+use App\Http\Requests\Domain\Employer\Job\AttachCandidatePoolRequest;
 use App\Http\Requests\Domain\Employer\Job\CandidateJobPoolStoreRequest;
-use App\Http\Controllers\Domain\Employer\Job\AttachCandidatePoolRequest;
 use App\Actions\Domain\Employer\Job\CandidateJobPool\AttachCandidatePoolAction;
 use App\Actions\Domain\Employer\Job\CandidateJobPool\CreateCandidatePoolAction;
 

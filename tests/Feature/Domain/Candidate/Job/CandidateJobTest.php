@@ -61,5 +61,5 @@ test('That candidate applied for a job', function () {
 
     expect($user->jobApplications->count())->toBe(1);
 
-    expect($user->jobApplications->first()->status)->toBe('applied');
+    expect($user->jobApplications->first()->status())->toBe('unsorted');
 });

@@ -13,20 +13,46 @@ class JobApplicantFilterResource extends JsonResource
 
     protected $rejectedApplications;
 
+    protected $shortlisted;
+
+    protected $offerSent;
+
+    protected $unsorted;
+
     public function toArray(Request $request): array
     {
         $application = $this->job->applicants;
 
-        $this->rejectedApplications =collect($this->job->applicants)->filter(fn($application) => $application->status === 'rejected')->map(fn($application) => $application->id);
+        $this->rejectedApplications =collect($this->job->applicants)
+            ->filter(fn($application) => $application->status() === CandidateJobApplication::STATUSES['rejected'])
+            ->map(fn($application) => $application->id);
+
+        $this->shortlisted =collect($this->job->applicants)
+            ->filter(fn($application) => $application->status() === CandidateJobApplication::STATUSES['shortlisted'])
+            ->map(fn($application) => $application->id);
+
+        $this->offerSent =collect($this->job->applicants)
+            ->filter(fn($application) => $application->status() === CandidateJobApplication::STATUSES['offer_sent'])
+            ->map(fn($application) => $application->id);
+
+        $this->unsorted =collect($this->job->applicants)
+            ->filter(fn($application) => $application->status() === CandidateJobApplication::STATUSES['unsorted'])
+            ->map(fn($application) => $application->id);
 
         $call = match($this->filterBy ?? ''){
             'rejected' => 'applicantsByRejected',
+            'offer_sent' => 'applicantsByOfferSent',
+            'shortlisted' => 'applicantsByShortlisted',
+            'unsorted' => 'applicantsByUnsorted',
             default => 'applicantsByAll',
         };
 
         return [
             'totalApplications' => $application->count(),
             'totalRejectedApplications' => $this->rejectedApplications->count(),
+            'totalShortlistedApplications' => $this->shortlisted->count(),
+            'totalOfferSentApplications' => $this->offerSent->count(),
+            'totalUnsortedApplications' => $this->unsorted->count(),
             'applicants' => $this->applicantResponse($this->$call()),
         ];
     }
@@ -34,6 +60,21 @@ class JobApplicantFilterResource extends JsonResource
     public function applicantsByAll()
     {
         return $this->job->applicants()->paginate($this->perPage);
+    }
+
+    public function applicantsByUnsorted()
+    {
+        return CandidateJobApplication::whereIn('id', $this->unsorted)->paginate($this->perPage);
+    }
+
+    public function applicantsByShortlisted()
+    {
+        return CandidateJobApplication::whereIn('id', $this->shortlisted)->paginate($this->perPage);
+    }
+
+    public function applicantsByOfferSent()
+    {
+        return CandidateJobApplication::whereIn('id', $this->offerSent)->paginate($this->perPage);
     }
 
     public function applicantsByRejected()
@@ -46,10 +87,11 @@ class JobApplicantFilterResource extends JsonResource
         $applicants = collect($paginatedApplicants->items())
             ->map(function($application){
                 $applicant =  $application->applicant;
-                $application['status'] = $application->status;
+                $application['status'] = $application->status();
                 $application['applied_at'] = $application->created_at;
                 $application['applicantInformation'] = [
                     'fullName' => $applicant->getFullNameAttribute(),
+                    'uuid' => $applicant->uuid,
                     'jobTitle' => $applicant->job_title,
                     'location' => $applicant->location_province,
                     'workExperience' => [

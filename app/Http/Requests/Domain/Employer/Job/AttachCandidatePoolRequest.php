@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Domain\Employer\Job;
+namespace App\Http\Requests\Domain\Employer\Job;
+
 use App\Http\Requests\BaseRequest;
-use App\Models\Domain\Candidate\User;
 use Illuminate\Contracts\Validation\Validator;
 
 class AttachCandidatePoolRequest extends BaseRequest

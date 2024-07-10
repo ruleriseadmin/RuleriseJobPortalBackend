@@ -4,6 +4,7 @@ use App\Models\Domain\Employer\Employer;
 use App\Models\Domain\Employer\EmployerAccess;
 use App\Models\Domain\Employer\EmployerJob;
 use App\Models\Domain\Employer\EmployerUser;
+use App\Models\Domain\Employer\Job\CandidateJobPool;
 use Database\Seeders\RoleSeeder;
 
 beforeEach(function () {
@@ -53,6 +54,8 @@ test('That employer single job is retrieved successfully', function () {
     EmployerAccess::factory()->create();
 
     $job = EmployerJob::factory()->create();
+
+    CandidateJobPool::factory()->create();
 
     $response = $this->actingAs($user)->get("/v1/employer/job/{$job->uuid}");
 

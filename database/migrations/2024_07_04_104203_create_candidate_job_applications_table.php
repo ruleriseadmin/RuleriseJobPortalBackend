@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('job_id');
             $table->string('applied_via');
             $table->string('cv_url')->nullable();
+            $table->json('hiring_stage')->nullable();
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('user_id')->on('users')->references('id');

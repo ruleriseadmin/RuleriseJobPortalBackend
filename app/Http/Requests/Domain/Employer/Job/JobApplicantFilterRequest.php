@@ -9,7 +9,7 @@ class JobApplicantFilterRequest extends BaseRequest
     public function rules() : array
     {
         return [
-            'filterBy' => [Rule::in(['rejected', 'offer_sent', 'shortlisted'])],
+            'filterBy' => [Rule::in(['rejected', 'offer_sent', 'shortlisted', 'unsorted', 'all'])],
         ];
     }
 }

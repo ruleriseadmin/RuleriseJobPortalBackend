@@ -6,14 +6,16 @@ use Spatie\ModelStatus\HasStatuses;
 use App\Models\Domain\Candidate\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Traits\Domain\Candidate\CandidateJobHiringStageTrait;
 
 class CandidateJobApplication extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    use HasStatuses;
+    //use HasStatuses;
+    use CandidateJobHiringStageTrait;
 
     protected $fillable = [
         'uuid',
@@ -21,12 +23,20 @@ class CandidateJobApplication extends Model
         'job_id',
         'applied_via',
         'cv_url',
+        'hiring_stage',
+    ];
+
+    protected $casts = [
+        'hiring_stage' => 'array',
     ];
 
     const STATUSES = [
         'applied' => 'applied',
         'viewed' => 'viewed',
         'rejected' => 'rejected',
+        'shortlisted' => 'shortlisted',
+        'offer_sent' => 'offer_sent',
+        'unsorted' => 'unsorted',
     ];
 
     const APPLIED_VIA = [

@@ -19,10 +19,10 @@ class ApplyJobAction
                 'uuid' => str()->uuid(),
                 'job_id' => $employerJob->id,
                 'applied_via' => $applyVia,
-                'cv_url',
+                'cv_url'
             ]);
 
-            $jobApplication->setStatus(CandidateJobApplication::STATUSES['applied']);
+            $jobApplication->setStatus(CandidateJobApplication::STATUSES['unsorted']);
             DB::commit();
         }catch(Exception $ex){
             DB::rollBack();
