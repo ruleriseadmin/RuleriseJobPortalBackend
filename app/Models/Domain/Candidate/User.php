@@ -70,4 +70,9 @@ class User extends ModelsUser
     {
         return $this->hasMany(CandidateJobApplication::class);
     }
+
+    public static function whereUuid(string $uuid)
+    {
+        return self::query()->where('uuid', $uuid)->first();
+    }
 }

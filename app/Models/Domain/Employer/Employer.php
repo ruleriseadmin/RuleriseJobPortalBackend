@@ -2,6 +2,7 @@
 
 namespace App\Models\Domain\Employer;
 
+use App\Models\Domain\Employer\Job\CandidateJobPool;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -30,5 +31,10 @@ class Employer extends Model
     public function jobs(): HasMany
     {
         return $this->hasMany(EmployerJob::class);
+    }
+
+    public function candidatePools(): HasMany
+    {
+        return $this->hasMany(CandidateJobPool::class);
     }
 }

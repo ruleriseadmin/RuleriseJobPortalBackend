@@ -5,6 +5,7 @@ use App\Http\Controllers\Domain\Employer\Auth\LoginController;
 use App\Http\Controllers\Domain\Employer\Job\EmployerJobsController;
 use App\Http\Controllers\Domain\Employer\Auth\RegisterController;
 use App\Http\Controllers\Domain\Employer\Auth\ForgotPasswordController;
+use App\Http\Controllers\Domain\Employer\Job\CandidateJobPoolsController;
 use App\Http\Controllers\Domain\Employer\Job\JobApplicantController;
 
 Route::prefix('auth')->group(function(){
@@ -23,6 +24,11 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
         Route::post('update', [EmployerJobsController::class, 'update']);
         Route::post('{uuid}/delete', [EmployerJobsController::class, 'delete']);
         Route::get('{uuid}/applicants', [JobApplicantController::class, 'index']);
+
+        Route::prefix('candidate-pool')->group(function(){
+            Route::post('/', [CandidateJobPoolsController::class, 'store']);
+            Route::post('attach-candidate', [CandidateJobPoolsController::class, 'attachCandidatePool']);
+        });
     });
 
     Route::prefix('profile')->group(function(){
