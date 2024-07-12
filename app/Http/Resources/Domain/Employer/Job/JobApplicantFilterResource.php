@@ -20,6 +20,7 @@ class JobApplicantFilterResource extends JsonResource
             ->map(fn($application) => $application->id);
 
         return [
+            'totalCandidates' => $this->applicationIds->count(),
             'candidates' => $this->candidateResponse($this->allCandidates()),
         ];
     }
