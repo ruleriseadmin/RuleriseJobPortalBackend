@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Domain\Employer\Job;
+use App\Http\Resources\Domain\Employer\Job\JobApplicantFilterResource;
 use Illuminate\Http\JsonResponse;
 use App\Supports\ApiReturnResponse;
 use App\Http\Controllers\Domain\Employer\BaseController;
@@ -13,7 +14,7 @@ class JobApplicantController extends BaseController
 {
     public function index()
     {
-        return ApiReturnResponse::success($this->employer->jobs);
+        return ApiReturnResponse::success(new JobApplicantFilterResource($this->employer));
     }
 
     public function filterApplicantsByJob(string $uuid, JobApplicantFilterRequest $request) : JsonResponse

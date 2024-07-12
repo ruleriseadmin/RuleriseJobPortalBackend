@@ -25,11 +25,15 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
         Route::post('{uuid}/delete', [EmployerJobsController::class, 'delete']);
         Route::get('{uuid}/filterApplicantsByJob', [JobApplicantController::class, 'filterApplicantsByJob']);
         Route::post('applicants/update-hiring-stage', [JobApplicantController::class, 'changeHiringStage']);
+    });
 
-        Route::prefix('candidate-pool')->group(function(){
-            Route::post('/', [CandidateJobPoolsController::class, 'store']);
-            Route::post('attach-candidate', [CandidateJobPoolsController::class, 'attachCandidatePool']);
-        });
+    Route::prefix('candidate-pool')->group(function(){
+        Route::post('/', [CandidateJobPoolsController::class, 'store']);
+        Route::post('attach-candidate', [CandidateJobPoolsController::class, 'attachCandidatePool']);
+    });
+
+    Route::prefix('candidate')->group(function(){
+        Route::get('/', [JobApplicantController::class, 'index']);
     });
 
     Route::prefix('profile')->group(function(){

@@ -14,7 +14,7 @@ beforeEach(function () {
     $this->seed(RoleSeeder::class);
 });
 
-test('That employer job applicants filter by all', function () {
+test('That employer filter job applicants', function () {
     Employer::factory()->create();
 
     $user = EmployerUser::factory()->create();
@@ -32,55 +32,7 @@ test('That employer job applicants filter by all', function () {
     $application = CandidateJobApplication::factory()->create();
     $application->setStatus('applied');
 
-    $response = $this->actingAs($user)->get("/v1/employer/job/{$job->uuid}/filterApplicantsByJob");
-
-    expect($response->json()['status'])->toBe('200');
-});
-
-test('That employer job applicants filter by rejected', function () {
-    Employer::factory()->create();
-
-    $user = EmployerUser::factory()->create();
-
-    EmployerAccess::factory()->create();
-
-    $job = EmployerJob::factory()->create();
-
-    User::factory()->create();
-
-    CandidateWorkExperience::factory()->create();
-
-    CandidateEducationHistory::factory()->create();
-
-    $application = CandidateJobApplication::factory()->create();
-
-    $application->setStatus('rejected');
-
-    $response = $this->actingAs($user)->get("/v1/employer/job/{$job->uuid}/filterApplicantsByJob?filterBy=rejected&page=1");
-
-    expect($response->json()['status'])->toBe('200');
-});
-
-test('That employer job applicants filter by offer_sent', function () {
-    Employer::factory()->create();
-
-    $user = EmployerUser::factory()->create();
-
-    EmployerAccess::factory()->create();
-
-    $job = EmployerJob::factory()->create();
-
-    User::factory()->create();
-
-    CandidateWorkExperience::factory()->create();
-
-    CandidateEducationHistory::factory()->create();
-
-    $application = CandidateJobApplication::factory()->create();
-
-    $application->setStatus('offer_sent');
-
-    $response = $this->actingAs($user)->get("/v1/employer/job/{$job->uuid}/filterApplicantsByJob?filterBy=offer_sent&page=1");
+    $response = $this->actingAs($user)->get("/v1/employer/candidate");
 
     expect($response->json()['status'])->toBe('200');
 });

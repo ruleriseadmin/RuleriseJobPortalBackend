@@ -18,7 +18,7 @@ test('That employer created candidate job pool', function () {
 
     EmployerAccess::factory()->create();
 
-    $response = $this->actingAs($user)->post("/v1/employer/job/candidate-pool", [
+    $response = $this->actingAs($user)->post("/v1/employer/candidate-pool", [
         'name' => 'Pool 1',
     ]);
 
@@ -38,7 +38,7 @@ test('That employer attached candidate to candidate job pool', function () {
 
     $pool = CandidateJobPool::factory()->create();
 
-    $response = $this->actingAs($user)->post("/v1/employer/job/candidate-pool/attach-candidate", [
+    $response = $this->actingAs($user)->post("/v1/employer/candidate-pool/attach-candidate", [
         'candidatePoolIds' => [$pool->uuid],
         'candidateIds' => [$candidate->uuid],
     ]);
@@ -64,7 +64,7 @@ test('That employer attached multiple candidates to candidate job pool', functio
 
     $pool = CandidateJobPool::factory()->create();
 
-    $response = $this->actingAs($user)->post("/v1/employer/job/candidate-pool/attach-candidate", [
+    $response = $this->actingAs($user)->post("/v1/employer/candidate-pool/attach-candidate", [
         'candidatePoolIds' => [$pool->uuid],
         'candidateIds' => [$candidate->uuid, $candidateTwo->uuid],
     ]);
@@ -94,7 +94,7 @@ test('That employer attached candidate to multiple candidate job pools', functio
     $pool = CandidateJobPool::factory()->create();
     $poolTwo = CandidateJobPool::factory()->create();
 
-    $response = $this->actingAs($user)->post("/v1/employer/job/candidate-pool/attach-candidate", [
+    $response = $this->actingAs($user)->post("/v1/employer/candidate-pool/attach-candidate", [
         'candidatePoolIds' => [$pool->uuid, $poolTwo->uuid],
         'candidateIds' => [$candidate->uuid],
     ]);
@@ -125,7 +125,7 @@ test('That employer attached multiple candidates to multiple candidate job pools
     $pool = CandidateJobPool::factory()->create();
     $poolTwo = CandidateJobPool::factory()->create();
 
-    $response = $this->actingAs($user)->post("/v1/employer/job/candidate-pool/attach-candidate", [
+    $response = $this->actingAs($user)->post("/v1/employer/candidate-pool/attach-candidate", [
         'candidatePoolIds' => [$pool->uuid, $poolTwo->uuid],
         'candidateIds' => [$candidate->uuid, $candidateTwo->uuid],
     ]);

@@ -4,6 +4,7 @@ namespace App\Models\Domain\Candidate\Job;
 
 use Spatie\ModelStatus\HasStatuses;
 use App\Models\Domain\Candidate\User;
+use App\Models\Domain\Employer\EmployerJob;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -47,5 +48,10 @@ class CandidateJobApplication extends Model
     public function applicant(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function job(): BelongsTo
+    {
+        return $this->belongsTo(EmployerJob::class, 'job_id', 'id');
     }
 }
