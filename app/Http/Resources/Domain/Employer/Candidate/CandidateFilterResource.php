@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Resources\Domain\Employer\Job;
+namespace App\Http\Resources\Domain\Employer\Candidate;
 
 use App\Supports\HelperSupport;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Models\Domain\Candidate\Job\CandidateJobApplication;
 
-class JobApplicantFilterResource extends JsonResource
+class CandidateFilterResource extends JsonResource
 {
     private int $perPage = 4;
 

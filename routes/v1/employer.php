@@ -5,6 +5,7 @@ use App\Http\Controllers\Domain\Employer\Auth\LoginController;
 use App\Http\Controllers\Domain\Employer\Job\EmployerJobsController;
 use App\Http\Controllers\Domain\Employer\Auth\RegisterController;
 use App\Http\Controllers\Domain\Employer\Auth\ForgotPasswordController;
+use App\Http\Controllers\Domain\Employer\Candidate\CandidatesController;
 use App\Http\Controllers\Domain\Employer\Job\CandidateJobPoolsController;
 use App\Http\Controllers\Domain\Employer\Job\JobApplicantController;
 
@@ -33,7 +34,8 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
     });
 
     Route::prefix('candidate')->group(function(){
-        Route::get('/', [JobApplicantController::class, 'index']);
+        Route::get('/', [CandidatesController::class, 'index']);
+        Route::get('{uuid}', [CandidatesController::class, 'show']);
     });
 
     Route::prefix('profile')->group(function(){
