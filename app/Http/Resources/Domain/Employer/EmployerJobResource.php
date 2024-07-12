@@ -20,6 +20,7 @@ class EmployerJobResource extends JsonResource
 
         $response = collect($response)->merge([
             'pools' => $this->employer->candidatePools->map(fn($pool) => $pool->only(['name', 'uuid'])),
+            'numberOfApplications' => $this->applicants->count(),
         ]);
 
         return HelperSupport::snake_to_camel($response->toArray());
