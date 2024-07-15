@@ -1,6 +1,10 @@
 <?php
 
+use App\Models\Domain\Candidate\CandidateCredential;
 use App\Models\Domain\Candidate\CandidateEducationHistory;
+use App\Models\Domain\Candidate\CandidateLanguage;
+use App\Models\Domain\Candidate\CandidatePortfolio;
+use App\Models\Domain\Candidate\CandidateQualification;
 use App\Models\Domain\Candidate\CandidateWorkExperience;
 use App\Models\Domain\Candidate\Job\CandidateJobApplication;
 use App\Models\Domain\Candidate\User;
@@ -52,12 +56,18 @@ test('That employer view single candidate', function () {
 
     CandidateEducationHistory::factory()->create();
 
+    CandidatePortfolio::factory()->create();
+
+    CandidateCredential::factory()->create();
+
+    CandidateLanguage::factory()->create();
+
+    CandidateQualification::factory()->create();
+
     $application = CandidateJobApplication::factory()->create();
     $application->setStatus('applied');
 
     $response = $this->actingAs($user)->get("/v1/employer/candidate/{$candidate->uuid}");
 
     expect($response->json()['status'])->toBe('200');
-
-    dd($response->json());
 });
