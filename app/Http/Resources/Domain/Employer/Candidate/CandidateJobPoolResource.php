@@ -17,6 +17,7 @@ class CandidateJobPoolResource extends JsonResource
             'deleted_at',
             'candidate_ids',
             'employer_id',
+            'with_candidate',
             'id',
         ]);
 
