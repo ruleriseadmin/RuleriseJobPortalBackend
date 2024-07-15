@@ -2,6 +2,7 @@
 
 namespace App\Models\Domain\Employer\Job;
 
+use App\Models\Domain\Candidate\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -21,4 +22,9 @@ class CandidateJobPool extends Model
     protected $casts = [
         'candidate_ids' => 'array',
     ];
+
+    public function getCandidates()
+    {
+        return User::findMany($this->candidate_ids);
+    }
 }

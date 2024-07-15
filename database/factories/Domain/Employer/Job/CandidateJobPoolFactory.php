@@ -20,6 +20,7 @@ class CandidateJobPoolFactory extends Factory
             'uuid' => $this->faker->uuid,
             'employer_id' => '1',
             'name' => 'Developer',
+            'candidate_ids' => [1],
         ];
     }
 }

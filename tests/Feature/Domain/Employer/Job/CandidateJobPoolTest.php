@@ -11,6 +11,38 @@ beforeEach(function () {
     $this->seed(RoleSeeder::class);
 });
 
+test('That employer list candidate job pool successfully', function () {
+    $employer = Employer::factory()->create();
+
+    $user = EmployerUser::factory()->create();
+
+    EmployerAccess::factory()->create();
+
+    CandidateJobPool::factory()->create();
+
+    $response = $this->actingAs($user)->get("/v1/employer/candidate-pool");
+
+    expect($response->json()['status'])->toBe('200');
+
+    expect(count($response->json()['data']))->toBe(1);
+});
+
+test('That employer list candidate job pool candidates successfully', function () {
+    $employer = Employer::factory()->create();
+
+    $user = EmployerUser::factory()->create();
+
+    EmployerAccess::factory()->create();
+
+    User::factory()->create();
+
+    $pool = CandidateJobPool::factory()->create();
+
+    $response = $this->actingAs($user)->get("/v1/employer/candidate-pool/{$pool->uuid}/view-candidate");
+
+    expect($response->json()['status'])->toBe('200');
+});
+
 test('That employer created candidate job pool', function () {
     $employer = Employer::factory()->create();
 

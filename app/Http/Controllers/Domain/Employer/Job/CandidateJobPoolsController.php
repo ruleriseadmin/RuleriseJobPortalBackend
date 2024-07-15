@@ -8,9 +8,15 @@ use App\Http\Requests\Domain\Employer\Job\AttachCandidatePoolRequest;
 use App\Http\Requests\Domain\Employer\Job\CandidateJobPoolStoreRequest;
 use App\Actions\Domain\Employer\Job\CandidateJobPool\AttachCandidatePoolAction;
 use App\Actions\Domain\Employer\Job\CandidateJobPool\CreateCandidatePoolAction;
+use App\Http\Resources\Domain\Employer\Candidate\CandidateJobPoolResource;
 
 class CandidateJobPoolsController extends BaseController
 {
+    public function index(): JsonResponse
+    {
+        return ApiReturnResponse::success(CandidateJobPoolResource::collection($this->employer->candidatePools));
+    }
+
     public function store(CandidateJobPoolStoreRequest $request): JsonResponse
     {
         $candidateJobPool = (new CreateCandidatePoolAction)
@@ -19,6 +25,19 @@ class CandidateJobPoolsController extends BaseController
         return $candidateJobPool
             ? ApiReturnResponse::success()
             : ApiReturnResponse::failed();
+    }
+
+    public function viewCandidate(string $uuid) : JsonResponse
+    {
+        $candidateJobPool = $this->employer->candidatePools
+            ->where('uuid', $uuid)
+            ->first();
+
+        if ( ! $candidateJobPool ) return ApiReturnResponse::notFound('Candidate Job Pool not found');
+
+        $candidateJobPool['with_candidate'] = true;
+
+        return ApiReturnResponse::success(new CandidateJobPoolResource($candidateJobPool));
     }
 
     public function attachCandidatePool(AttachCandidatePoolRequest $request) : JsonResponse

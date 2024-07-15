@@ -29,7 +29,9 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
     });
 
     Route::prefix('candidate-pool')->group(function(){
+        Route::get('/', [CandidateJobPoolsController::class, 'index']);
         Route::post('/', [CandidateJobPoolsController::class, 'store']);
+        Route::get('{uuid}/view-candidate', [CandidateJobPoolsController::class, 'viewCandidate']);
         Route::post('attach-candidate', [CandidateJobPoolsController::class, 'attachCandidatePool']);
     });
 
