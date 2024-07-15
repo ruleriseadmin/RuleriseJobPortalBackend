@@ -5,6 +5,7 @@ namespace App\Actions\Domain\Shared\Auth;
 use App\Models\User;
 use App\Notifications\Domain\Shared\Auth\ForgotPasswordNotification;
 use Exception;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Notification;
@@ -19,7 +20,7 @@ class ForgotPasswordAction
     {
         $this->user = $user;
 
-        $token = str()->random(60);
+        $token = Crypt::encrypt($domain);//str()->random(60);
 
         DB::beginTransaction();
         try{
