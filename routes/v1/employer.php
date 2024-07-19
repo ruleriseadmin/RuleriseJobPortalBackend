@@ -1,13 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Domain\Employer\EmployersController;
 use App\Http\Controllers\Domain\Employer\Auth\LoginController;
-use App\Http\Controllers\Domain\Employer\Job\EmployerJobsController;
 use App\Http\Controllers\Domain\Employer\Auth\RegisterController;
+use App\Http\Controllers\Domain\Employer\Job\EmployerJobsController;
+use App\Http\Controllers\Domain\Employer\Job\JobApplicantController;
 use App\Http\Controllers\Domain\Employer\Auth\ForgotPasswordController;
 use App\Http\Controllers\Domain\Employer\Candidate\CandidatesController;
 use App\Http\Controllers\Domain\Employer\Job\CandidateJobPoolsController;
-use App\Http\Controllers\Domain\Employer\Job\JobApplicantController;
 
 Route::prefix('auth')->group(function(){
     Route::post('register', [RegisterController::class, 'store']);
@@ -38,6 +39,12 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
     Route::prefix('candidate')->group(function(){
         Route::get('/', [CandidatesController::class, 'index']);
         Route::get('{uuid}', [CandidatesController::class, 'show']);
+    });
+
+    Route::prefix('profile')->group(function(){
+        Route::get('/', [EmployersController::class, 'getProfile']);
+        Route::post('/', [EmployersController::class, 'updateProfile']);
+        Route::post('delete-account', [EmployersController::class, 'deleteAccount']);
     });
 
     Route::prefix('profile')->group(function(){
