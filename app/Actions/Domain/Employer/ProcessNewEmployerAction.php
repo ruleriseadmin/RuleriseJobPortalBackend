@@ -26,6 +26,8 @@ class ProcessNewEmployerAction
                     'number_of_employees',
                     'benefit_offered',
                     'profile_summary',
+                    'phone_number',
+                    'website',
                 ])
                 ->merge([
                     'uuid' => str()->uuid(),
