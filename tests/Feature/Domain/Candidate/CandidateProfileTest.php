@@ -1,13 +1,14 @@
 <?php
 
-use App\Models\Domain\Candidate\CandidateCredential;
-use App\Models\Domain\Candidate\CandidateEducationHistory;
+use Database\Seeders\RoleSeeder;
+use Illuminate\Support\Facades\Hash;
+use App\Models\Domain\Candidate\User;
 use App\Models\Domain\Candidate\CandidateLanguage;
 use App\Models\Domain\Candidate\CandidatePortfolio;
+use App\Models\Domain\Candidate\CandidateCredential;
 use App\Models\Domain\Candidate\CandidateQualification;
 use App\Models\Domain\Candidate\CandidateWorkExperience;
-use App\Models\Domain\Candidate\User;
-use Database\Seeders\RoleSeeder;
+use App\Models\Domain\Candidate\CandidateEducationHistory;
 
 beforeEach(function () {
     $this->seed(RoleSeeder::class);
@@ -332,4 +333,23 @@ test('That candidate profile is deleted successfully', function () {
     expect(User::count())->toBe(0);
 
     expect(User::onlyTrashed()->count())->toBe(1);
+});
+
+test('That Candidate account password is changed successfully', function () {
+
+    $user = User::factory()->create();
+
+    $user['password'] = Hash::make('password1234');
+
+    $response = $this->actingAs($user)->post("/v1/candidate/change-password", [
+        'currentPassword' => 'password1234',
+        'password' => 'password12345',
+        'passwordConfirmation' => 'password12345',
+    ]);
+
+    $user->refresh();
+
+    expect($response->json()['status'])->toBe('200');
+
+    expect(Hash::check('password12345', $user->password))->toBeTrue();
 });

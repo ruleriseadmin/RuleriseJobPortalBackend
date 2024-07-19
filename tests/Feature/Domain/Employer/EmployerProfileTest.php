@@ -1,9 +1,10 @@
 <?php
 
-use App\Models\Domain\Employer\Employer;
-use App\Models\Domain\Employer\EmployerAccess;
-use App\Models\Domain\Employer\EmployerUser;
 use Database\Seeders\RoleSeeder;
+use Illuminate\Support\Facades\Hash;
+use App\Models\Domain\Employer\Employer;
+use App\Models\Domain\Employer\EmployerUser;
+use App\Models\Domain\Employer\EmployerAccess;
 
 beforeEach(function () {
     $this->seed(RoleSeeder::class);
@@ -107,4 +108,27 @@ test('That employer account is deleted', function () {
     expect(EmployerUser::count())->toBe(0);
 
     expect(EmployerUser::onlyTrashed()->count())->toBe(1);
+});
+
+test('That employer account password is changed successfully', function () {
+
+    Employer::factory()->create();
+
+    $user = EmployerUser::factory()->create();
+
+    $user['password'] = Hash::make('password1234');
+
+    EmployerAccess::factory()->create();
+
+    $response = $this->actingAs($user)->post("/v1/employer/profile/change-password", [
+        'currentPassword' => 'password1234',
+        'password' => 'password12345',
+        'passwordConfirmation' => 'password12345',
+    ]);
+
+    $user->refresh();
+
+    expect($response->json()['status'])->toBe('200');
+
+    expect(Hash::check('password12345', $user->password))->toBeTrue();
 });
