@@ -23,6 +23,7 @@ class EmployerJob extends Model
         'job_type',
         'employment_type',
         'job_industry',
+        'job_level',
         'location',
         'years_experience',
         'salary',
