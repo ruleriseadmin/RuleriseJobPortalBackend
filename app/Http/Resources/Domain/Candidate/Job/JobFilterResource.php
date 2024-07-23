@@ -83,7 +83,7 @@ class JobFilterResource extends JsonResource
                     ])->toArray());
 
              return $job;
-            })->filter();
+            })->filter()->values();
 
          return [
             'jobs' => $jobs,
