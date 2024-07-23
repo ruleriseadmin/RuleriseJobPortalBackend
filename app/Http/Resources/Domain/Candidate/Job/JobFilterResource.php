@@ -56,6 +56,8 @@ class JobFilterResource extends JsonResource
                     ->map(function($job){
                     $user = auth()->user();
 
+                    if ( ! $job->employer ) return null;
+
                     $job['employer_name'] = $job->employer->company_name;
 
                     // check if filter is applied then add extra details
@@ -81,7 +83,7 @@ class JobFilterResource extends JsonResource
                     ])->toArray());
 
              return $job;
-            });
+            })->filter();
 
          return [
             'jobs' => $jobs,
