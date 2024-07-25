@@ -10,6 +10,7 @@ use App\Http\Controllers\Domain\Employer\Auth\ForgotPasswordController;
 use App\Http\Controllers\Domain\Employer\Candidate\CandidatesController;
 use App\Http\Controllers\Domain\Employer\Job\CandidateJobPoolsController;
 use App\Http\Controllers\Domain\Shared\AccountSetting\ChangePasswordController;
+use App\Http\Controllers\Domain\Employer\Plan\SubscriptionPaymentController;
 
 Route::prefix('auth')->group(function(){
     Route::post('register', [RegisterController::class, 'store']);
@@ -23,7 +24,7 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
     Route::prefix('job')->group(function(){
         Route::get('/', [EmployerJobsController::class, 'index']);
         Route::post('/', [EmployerJobsController::class, 'store']);
-        Route::get('{uuid}', [EmployerJobsController::class, 'show']);//changeHiringStage
+        Route::get('{uuid}', [EmployerJobsController::class, 'show']);
         Route::post('update', [EmployerJobsController::class, 'update']);
         Route::post('{uuid}/delete', [EmployerJobsController::class, 'delete']);
         Route::get('{uuid}/filterApplicantsByJob', [JobApplicantController::class, 'filterApplicantsByJob']);
@@ -48,6 +49,9 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
         Route::post('delete-account', [EmployersController::class, 'deleteAccount']);
         Route::post('change-password', [ChangePasswordController::class, 'store']);
     });
+
+    Route::get('cv-packages', [SubscriptionPaymentController::class, 'subscriptionList']);
+    Route::post('cv-packages/{uuid}/subscribe', [SubscriptionPaymentController::class, 'createPaymentLink']);
 
     Route::prefix('profile')->group(function(){
 

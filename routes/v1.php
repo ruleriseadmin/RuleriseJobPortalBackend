@@ -9,9 +9,13 @@ Route::get('/user', function (Request $request) {
 
 
 Route::prefix('employer')->group(function(){
-    include('v1/employer.php');
+    include 'v1/employer.php';
 });
 
 Route::prefix('candidate')->group(function(){
-    include('v1/candidate.php');
+    include 'v1/candidate.php';
+});
+
+Route::prefix('admin')->group(function(){
+    include 'v1/admin.php';
 });
