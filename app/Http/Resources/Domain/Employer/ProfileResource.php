@@ -27,6 +27,7 @@ class ProfileResource extends JsonResource
                 'firstName' => $accountAccess->first_name,
                 'lastName' => $accountAccess->last_name,
                 'positionTitle' => $accountAccess->position_title,
+                'profilePicture' => $user->profile_picture_url ? asset($user->profile_picture_url) : null,
             ],
         ])->toArray();
 

@@ -11,6 +11,7 @@ use App\Http\Controllers\Domain\Employer\Candidate\CandidatesController;
 use App\Http\Controllers\Domain\Employer\Job\CandidateJobPoolsController;
 use App\Http\Controllers\Domain\Shared\AccountSetting\ChangePasswordController;
 use App\Http\Controllers\Domain\Employer\Plan\SubscriptionPaymentController;
+use App\Http\Controllers\Domain\Shared\AccountSetting\UserAccountSettingsController;
 
 Route::prefix('auth')->group(function(){
     Route::post('register', [RegisterController::class, 'store']);
@@ -48,6 +49,7 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
         Route::post('/', [EmployersController::class, 'updateProfile']);
         Route::post('delete-account', [EmployersController::class, 'deleteAccount']);
         Route::post('change-password', [ChangePasswordController::class, 'store']);
+        Route::post('upload-profile-picture', [UserAccountSettingsController::class, 'uploadProfilePicture']);
     });
 
     Route::get('cv-packages', [SubscriptionPaymentController::class, 'subscriptionList']);

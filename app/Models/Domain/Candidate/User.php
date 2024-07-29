@@ -29,6 +29,7 @@ class User extends ModelsUser
         'gender',
         'profile_summary',
         'job_title',
+        'profile_picture_url',
     ];
 
     public function qualification(): HasOne

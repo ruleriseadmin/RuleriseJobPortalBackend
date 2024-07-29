@@ -12,6 +12,7 @@ use App\Http\Controllers\Domain\Candidate\Data\WorkExperiencesController;
 use App\Http\Controllers\Domain\Candidate\Data\CandidateLanguagesController;
 use App\Http\Controllers\Domain\Candidate\Data\EducationHistoriesController;
 use App\Http\Controllers\Domain\Shared\AccountSetting\ChangePasswordController;
+use App\Http\Controllers\Domain\Shared\AccountSetting\UserAccountSettingsController;
 
 Route::prefix('auth')->group(function(){
     Route::post('register', [RegisterController::class, 'store']);
@@ -27,6 +28,7 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
     Route::post('update-account-setting', [AccountSettingsController::class, 'updateAccountSetting']);
     Route::post('delete-account', [AccountSettingsController::class, 'deleteAccount']);
     Route::post('change-password', [ChangePasswordController::class, 'store']);
+    Route::post('upload-profile-picture', [UserAccountSettingsController::class, 'uploadProfilePicture']);
 
     Route::prefix('work-experience')->group(function(){
         Route::post('/', [WorkExperiencesController::class, 'store']);
