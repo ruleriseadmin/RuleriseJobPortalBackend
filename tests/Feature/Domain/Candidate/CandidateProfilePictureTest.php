@@ -1,15 +1,8 @@
 <?php
 
 use Database\Seeders\RoleSeeder;
-use Illuminate\Support\Facades\Hash;
 use App\Models\Domain\Candidate\User;
 use Illuminate\Support\Facades\Storage;
-use App\Models\Domain\Candidate\CandidateLanguage;
-use App\Models\Domain\Candidate\CandidatePortfolio;
-use App\Models\Domain\Candidate\CandidateCredential;
-use App\Models\Domain\Candidate\CandidateQualification;
-use App\Models\Domain\Candidate\CandidateWorkExperience;
-use App\Models\Domain\Candidate\CandidateEducationHistory;
 
 beforeEach(function () {
     $this->seed(RoleSeeder::class);

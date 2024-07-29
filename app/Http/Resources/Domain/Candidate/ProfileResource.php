@@ -24,6 +24,8 @@ class ProfileResource extends JsonResource
             'only_account',
         ])->toArray();
 
+        $response['profile_picture_url'] = $this->profile_picture_url ? asset("storage/$this->profile_picture_url") : null;
+
         if ( ! ($this->only_account ?? false) ){
             $response = collect($response)->merge([
                 'qualification' => (new QualificationResource($this->qualification)),

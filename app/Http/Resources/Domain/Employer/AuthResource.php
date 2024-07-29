@@ -17,6 +17,8 @@ class AuthResource extends JsonResource
             'id',
         ]);
 
+        $response['profile_picture_url'] = $this->profile_picture_url ? asset("storage/$this->profile_picture_url") : null;
+
         $response = $response
             ->merge(collect($this->employers->first()->pivot)->except(['employer_user_id', 'employer_id']))
             // ->merge([
