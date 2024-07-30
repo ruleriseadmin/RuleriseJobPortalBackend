@@ -72,6 +72,11 @@ class User extends ModelsUser
         return $this->hasMany(CandidateJobApplication::class);
     }
 
+    public function cv(): HasOne
+    {
+        return $this->hasOne(CVDocument::class);
+    }
+
     public static function whereUuid(string $uuid)
     {
         return self::query()->where('uuid', $uuid)->first();
