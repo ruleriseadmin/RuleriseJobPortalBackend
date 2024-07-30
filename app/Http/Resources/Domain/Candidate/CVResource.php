@@ -19,12 +19,14 @@ class CVResource extends JsonResource
             'updated_at',
         ]);
 
-        $documentTitle = str_replace("cv/{$this->user->email}", str($this->user->fullName)->kebab(), $this->cv_document_url);
+        if ( ($this->user ?? false) ){
+            $documentTitle = str_replace("cv/{$this->user->email}", str($this->user->fullName)->kebab(), $this->cv_document_url);
 
-        $response = $response->merge([
-            'documentTitle' => str_replace('-', ' ', $documentTitle),
-            'uploaded_at' => $this->updated_at->toDateTimeString(),
-        ]);
+            $response = $response->merge([
+                'documentTitle' => str_replace('-', ' ', $documentTitle),
+                'uploaded_at' => $this->updated_at->toDateTimeString(),
+            ]);
+        }
 
         return HelperSupport::snake_to_camel($response->toArray());
     }
