@@ -44,5 +44,5 @@ test('That candidate view cv detail successfully', function () {
 
     expect($response['status'])->toBe('200');
 
-    expect($response['data']['cvDocumentUrl'])->toBe("cv/{$user->email}-curriculum-vitae.pdf");
+    expect($response['data']['cvDocumentUrl'])->toBe(asset("storage/cv/{$user->email}-curriculum-vitae.pdf"));
 ;});

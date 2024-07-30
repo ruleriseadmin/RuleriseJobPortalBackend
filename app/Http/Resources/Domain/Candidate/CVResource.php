@@ -26,6 +26,8 @@ class CVResource extends JsonResource
                 'documentTitle' => str_replace('-', ' ', $documentTitle),
                 'uploaded_at' => $this->updated_at->toDateTimeString(),
             ]);
+
+            $response['cv_document_url'] = asset("storage/$this->cv_document_url");
         }
 
         return HelperSupport::snake_to_camel($response->toArray());
