@@ -33,6 +33,7 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
 
     Route::prefix('cv')->group(function(){
         Route::post('upload', [CVsController::class, 'uploadCv']);
+        Route::get('detail', [CVsController::class, 'cvDetail']);
     });
 
     Route::prefix('work-experience')->group(function(){

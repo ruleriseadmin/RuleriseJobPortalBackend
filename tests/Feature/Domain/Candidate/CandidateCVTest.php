@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Domain\Candidate\CVDocument;
 use Database\Seeders\RoleSeeder;
 use App\Models\Domain\Candidate\User;
 use Illuminate\Support\Facades\Storage;
@@ -29,3 +30,19 @@ test('That candidate upload cv successfully', function () {
 
     Storage::delete("public/{$user->cv->cv_document_url}");
 });
+
+
+test('That candidate view cv detail successfully', function () {
+
+    $user = User::factory()->create();
+
+    $cv = CVDocument::factory()->create();
+
+    $cv->update(['cv_document_url' => "cv/{$user->email}-curriculum-vitae.pdf"]);
+
+    $response = $this->actingAs($user)->get("/v1/candidate/cv/detail");
+
+    expect($response['status'])->toBe('200');
+
+    expect($response['data']['cvDocumentUrl'])->toBe("cv/{$user->email}-curriculum-vitae.pdf");
+;});

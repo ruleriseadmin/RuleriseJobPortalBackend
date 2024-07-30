@@ -17,7 +17,9 @@ class CVDocumentFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'uuid' => str()->uuid(),
+            'user_id' => 1,
+            'cv_document_url' => 'cv/hodkiewicz.deanna@example.net-curriculum-vitae.pdf',
         ];
     }
 }
