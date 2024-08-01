@@ -14,20 +14,27 @@ class CandidateFilterResource extends JsonResource
 
     public function toArray($request)
     {
-        $this->applicationIds = collect($this->jobs->load('applicants')
-            ->map(fn($job) => $job->applicants)
-            ->flatten())
-            ->map(fn($application) => $application->id);
+        // $this->applicationIds = collect($this->jobs->load('applicants')
+        //     ->map(fn($job) => $job->applicants)
+        //     ->flatten())
+        //     ->map(fn($application) => $application->id);
+
+        $this->applicationIds = $this->jobs->load('applicants')
+            ->flatMap(function ($job) {
+                return $job->applicants;
+            })
+            ->pluck('id')
+            ->toArray();
 
         return [
-            'totalCandidates' => $this->applicationIds->count(),
+            'totalCandidates' => count($this->applicationIds),
             'candidates' => $this->candidateResponse($this->allCandidates()),
         ];
     }
 
     public function allCandidates()
     {
-       return CandidateJobApplication::where('id', $this->applicationIds)->paginate($this->perPage);
+       return CandidateJobApplication::whereIn('id', $this->applicationIds)->paginate($this->perPage);
     }
 
     public function candidateResponse($paginatedCandidates)
