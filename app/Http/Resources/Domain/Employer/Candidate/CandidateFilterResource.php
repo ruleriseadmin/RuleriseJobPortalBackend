@@ -38,7 +38,7 @@ class CandidateFilterResource extends JsonResource
             ->map(function($application){
                 $applicant =  $application->applicant;
                 $application['status'] = $application->status();
-                $application['applied_at'] = $application->created_at;
+                $application['applied_at'] = $application->created_at->toDateTimeString();
                 $application['job_applied'] = $application->job->title;
                 $application['applicant_information'] = [
                     'fullName' => $applicant->getFullNameAttribute(),
