@@ -24,6 +24,8 @@ class CandidateResource extends JsonResource
             'only_account',
         ])->toArray();
 
+        $response['profile_picture_url'] = asset($this->profile_picture_url);
+
         if ( ! ($this->only_account ?? false) ){
             $response = collect($response)->merge([
                 'qualification' => (new QualificationResource($this->qualification)),
