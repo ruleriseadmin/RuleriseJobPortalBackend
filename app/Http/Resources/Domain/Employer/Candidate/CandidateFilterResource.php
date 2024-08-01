@@ -14,11 +14,6 @@ class CandidateFilterResource extends JsonResource
 
     public function toArray($request)
     {
-        // $this->applicationIds = collect($this->jobs->load('applicants')
-        //     ->map(fn($job) => $job->applicants)
-        //     ->flatten())
-        //     ->map(fn($application) => $application->id);
-
         $this->applicationIds = $this->jobs->load('applicants')
             ->flatMap(function ($job) {
                 return $job->applicants;
@@ -48,6 +43,7 @@ class CandidateFilterResource extends JsonResource
                 $application['applicant_information'] = [
                     'fullName' => $applicant->getFullNameAttribute(),
                     'uuid' => $applicant->uuid,
+                    'email' => $applicant->email,
                 ];
                 return HelperSupport::snake_to_camel(collect($application)->only([
                     'status',
