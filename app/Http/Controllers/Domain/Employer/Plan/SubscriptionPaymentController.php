@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Domain\Employer\Plan;
 
-use App\Http\Resources\Domain\Employer\Plan\SubscriptionPackagesResource;
-use App\Models\Domain\Shared\SubscriptionPlan;
+use App\Http\Controllers\Domain\Employer\BaseController;
 use Illuminate\Http\JsonResponse;
 use App\Supports\ApiReturnResponse;
-use App\Actions\Domain\Employer\Plan\CreatePaymentLinkAction;
+use App\Models\Domain\Shared\Subscription\SubscriptionPlan;
+use App\Actions\Domain\Shared\Plan\CreatePaymentLinkAction;
+use App\Http\Resources\Domain\Shared\Subscription\SubscriptionPackagesResource;
 
-class SubscriptionPaymentController
+class SubscriptionPaymentController extends BaseController
 {
     public function subscriptionList(): JsonResponse
     {
@@ -25,7 +26,7 @@ class SubscriptionPaymentController
             return ApiReturnResponse::failed('Plan not found');
         }
 
-        $paymentLink = (new CreatePaymentLinkAction)->execute($plan);
+        $paymentLink = (new CreatePaymentLinkAction)->execute($this->employer, $plan);
 
         return $paymentLink
             ? ApiReturnResponse::success(['paymentLink' => $paymentLink])

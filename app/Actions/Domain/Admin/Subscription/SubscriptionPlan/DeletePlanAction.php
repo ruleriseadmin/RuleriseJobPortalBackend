@@ -7,7 +7,7 @@ use Stripe\Plan;
 use Stripe\Stripe;
 use Stripe\Product;
 use Illuminate\Support\Facades\Log;
-use App\Models\Domain\Shared\SubscriptionPlan;
+use App\Models\Domain\Shared\Subscription\SubscriptionPlan;
 
 class DeletePlanAction
 {

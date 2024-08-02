@@ -6,7 +6,7 @@ use Exception;
 use Stripe\Plan;
 use Stripe\Stripe;
 use Illuminate\Support\Facades\Log;
-use App\Models\Domain\Shared\SubscriptionPlan;
+use App\Models\Domain\Shared\Subscription\SubscriptionPlan;
 
 class SetPlanActiveAction
 {

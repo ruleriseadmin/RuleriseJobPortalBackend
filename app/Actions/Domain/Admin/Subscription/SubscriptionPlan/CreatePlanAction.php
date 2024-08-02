@@ -6,7 +6,7 @@ use Exception;
 use Stripe\Plan;
 use Stripe\Product;
 use Illuminate\Support\Facades\Log;
-use App\Models\Domain\Shared\SubscriptionPlan;
+use App\Models\Domain\Shared\Subscription\SubscriptionPlan;
 use Stripe\Customer;
 use Stripe\Stripe;
 use Stripe\Subscription;
@@ -44,7 +44,7 @@ class CreatePlanAction
                 'interval' => $inputs['interval'],
                 'interval_count' => $inputs['duration'],
                 'trial_period_days' => null,
-                'number_of_candidate' => $inputs['numberOfCandidate'],
+                'quota' => $inputs['numberOfCandidate'],
             ]);
         }catch(Exception $ex){
             Log::error("Error @ CreatePlanAction: " . $ex->getMessage());

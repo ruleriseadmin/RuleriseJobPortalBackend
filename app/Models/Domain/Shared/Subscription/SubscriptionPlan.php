@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Domain\Shared;
+namespace App\Models\Domain\Shared\Subscription;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -19,13 +19,14 @@ class SubscriptionPlan extends Model
         'active',
         'amount',
         'currency',
-        'interval',
+        'interval', // day, month, year
         'interval_count',
         'product_id',
         'trial_period_days',
-        'package_duration',
-        'number_of_candidate',
-        'duration',
+        'package_duration', // verify if this in use
+        'quota', // number_of_candidate
+        'duration', //how long in integer
+        'group', // helps to segment plan for different modules or users
     ];
 
     public static function whereUuid(string $uuid)

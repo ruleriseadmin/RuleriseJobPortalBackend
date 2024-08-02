@@ -3,6 +3,7 @@
 namespace App\Models\Domain\Employer;
 
 use App\Models\Domain\Employer\Job\CandidateJobPool;
+use App\Traits\Domain\Shared\HasSubscriptionTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -13,6 +14,7 @@ class Employer extends Model
 {
     use HasFactory;
     use SoftDeletes;
+    use HasSubscriptionTrait;
 
     protected $guarded = [];
 

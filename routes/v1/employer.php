@@ -6,11 +6,12 @@ use App\Http\Controllers\Domain\Employer\Auth\LoginController;
 use App\Http\Controllers\Domain\Employer\Auth\RegisterController;
 use App\Http\Controllers\Domain\Employer\Job\EmployerJobsController;
 use App\Http\Controllers\Domain\Employer\Job\JobApplicantController;
+use App\Http\Controllers\Domain\Employer\Plan\SubscriptionsController;
 use App\Http\Controllers\Domain\Employer\Auth\ForgotPasswordController;
 use App\Http\Controllers\Domain\Employer\Candidate\CandidatesController;
 use App\Http\Controllers\Domain\Employer\Job\CandidateJobPoolsController;
-use App\Http\Controllers\Domain\Shared\AccountSetting\ChangePasswordController;
 use App\Http\Controllers\Domain\Employer\Plan\SubscriptionPaymentController;
+use App\Http\Controllers\Domain\Shared\AccountSetting\ChangePasswordController;
 use App\Http\Controllers\Domain\Shared\AccountSetting\UserAccountSettingsController;
 
 Route::prefix('auth')->group(function(){
@@ -52,8 +53,14 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
         Route::post('upload-profile-picture', [UserAccountSettingsController::class, 'uploadProfilePicture']);
     });
 
-    Route::get('cv-packages', [SubscriptionPaymentController::class, 'subscriptionList']);
-    Route::post('cv-packages/{uuid}/subscribe', [SubscriptionPaymentController::class, 'createPaymentLink']);
+    Route::prefix('cv-packages')->group(function(){
+        Route::get('/', [SubscriptionPaymentController::class, 'subscriptionList']);
+        Route::post('{uuid}/subscribe', [SubscriptionPaymentController::class, 'createPaymentLink']);
+        Route::get('subscription-detail', [SubscriptionsController::class, 'subscriptionInformation']);
+        Route::post('update-download-usage', [SubscriptionsController::class, 'updateCVDownloadUsage']);
+    });
+
+    //Route::post('candidate-search', []);
 
     Route::prefix('profile')->group(function(){
 

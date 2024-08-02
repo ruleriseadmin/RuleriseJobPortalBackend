@@ -1,5 +1,5 @@
 <?php
-use App\Models\Domain\Shared\SubscriptionPlan;
+use App\Models\Domain\Shared\Subscription\SubscriptionPlan;
 
 test('That admin can create new plan', function(){
 

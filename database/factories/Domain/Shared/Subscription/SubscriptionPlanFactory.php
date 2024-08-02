@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Factories\Domain\Shared;
+namespace Database\Factories\Domain\Shared\Subscription;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -28,8 +28,8 @@ class SubscriptionPlanFactory extends Factory
             "interval" => "day",
             "interval_count" => 15,
             "trial_period_days" => null,
-            "number_of_candidate" => 50,
-            "duration" => 15,
+            "quota" => 50,
+            "duration" => (int) 15,
         ];
     }
 }

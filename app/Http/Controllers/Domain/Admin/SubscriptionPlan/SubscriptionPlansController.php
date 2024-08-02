@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Domain\Admin\SubscriptionPlan;
 use Illuminate\Http\JsonResponse;
 use App\Supports\ApiReturnResponse;
 use App\Http\Controllers\Controller;
-use App\Models\Domain\Shared\SubscriptionPlan;
+use App\Models\Domain\Shared\Subscription\SubscriptionPlan;
 use App\Http\Requests\Domain\Admin\Subscription\Plan\SetActiveRequest;
 use App\Http\Requests\Domain\Admin\Subscription\Plan\StorePlanRequest;
 use App\Actions\Domain\Admin\Subscription\SubscriptionPlan\CreatePlanAction;

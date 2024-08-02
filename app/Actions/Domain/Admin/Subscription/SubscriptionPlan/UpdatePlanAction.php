@@ -8,7 +8,7 @@ use Stripe\Stripe;
 use Stripe\Product;
 use App\Supports\HelperSupport;
 use Illuminate\Support\Facades\Log;
-use App\Models\Domain\Shared\SubscriptionPlan;
+use App\Models\Domain\Shared\Subscription\SubscriptionPlan;
 
 class UpdatePlanAction
 {
@@ -16,7 +16,7 @@ class UpdatePlanAction
     {
         try{
             Stripe::setApiKey(config('services.stripe.secret'));
-            
+
             Product::update($plan->product_id, [
                 'name' => $inputs['name'],
             ]);
@@ -26,6 +26,8 @@ class UpdatePlanAction
                 'currency' => 'usd',
                 'interval' => $inputs['interval'],
             ]);
+
+            $inputs['quota'] = $inputs['numberOfCandidate'];
 
             $plan->update(HelperSupport::camel_to_snake($inputs));
         }catch(Exception $ex){
