@@ -28,11 +28,11 @@ class SubscriptionTransaction extends Model
         'meta' => 'array',
     ];
 
-    const string PENDING_STATUS = 'pending';
+    const  PENDING_STATUS = 'pending';
 
-    const string SUCCESS_STATUS = 'success';
+    const  SUCCESS_STATUS = 'success';
 
-    const string FAILED_STATUS = 'failed';
+    const  FAILED_STATUS = 'failed';
 
     public function subscribable(): MorphTo
     {

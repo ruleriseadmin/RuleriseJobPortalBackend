@@ -15,7 +15,7 @@ class JobNotificationTemplate extends Model
         'offer_sent_template',
     ];
 
-    const array TEMPLATES = [
+    const  TEMPLATES = [
         'rejected_template' => 'rejected_template',
         'shortlisted_template' => 'shortlisted_template',
         'offer_sent_template' => 'offer_sent_template',
