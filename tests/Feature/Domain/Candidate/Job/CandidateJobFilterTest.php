@@ -23,6 +23,8 @@ test('That candidate filter job as new', function () {
 
     $response = $this->actingAs($user)->get("/v1/candidate/job?type=new&page=1");
 
+    dd($response->json());
+
     expect($response->json()['status'])->toBe('200');
 
     $response->assertJsonStructure([

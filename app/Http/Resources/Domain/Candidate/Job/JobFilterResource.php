@@ -29,7 +29,7 @@ class JobFilterResource extends JsonResource
 
     private function newJobs()
     {
-        return EmployerJob::query()->paginate($this->perPage);
+        return EmployerJob::query()->orderByDesc('created_at')->paginate($this->perPage);
     }
 
     private function recommendedJobs()
@@ -73,7 +73,8 @@ class JobFilterResource extends JsonResource
                     // check if user has saved job
                     $job['saved'] = (bool) collect($user->savedJobs?->job_ids ?? [])->contains($job->id);
 
-                    $job['created_at'] = $job->created_at->toDateTimeString();
+
+                    $job['createdAt'] = $job->created_at->toDateTimeString();
 
                     $job = HelperSupport::snake_to_camel(collect($job)->only([
                         'title',
@@ -85,7 +86,7 @@ class JobFilterResource extends JsonResource
                         'status',
                         'applied_at',
                         'saved',
-                        'created_at',
+                        'createdAt',
                     ])->toArray());
 
              return $job;
