@@ -11,6 +11,7 @@ use App\Http\Controllers\Domain\Employer\Auth\ForgotPasswordController;
 use App\Http\Controllers\Domain\Employer\Candidate\CandidatesController;
 use App\Http\Controllers\Domain\Employer\Job\CandidateJobPoolsController;
 use App\Http\Controllers\Domain\Employer\Plan\SubscriptionPaymentController;
+use App\Http\Controllers\Domain\Employer\Template\JobNotificationTemplatesController;
 use App\Http\Controllers\Domain\Shared\AccountSetting\ChangePasswordController;
 use App\Http\Controllers\Domain\Shared\AccountSetting\UserAccountSettingsController;
 
@@ -61,6 +62,10 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
     });
 
     //Route::post('candidate-search', []);
+
+    Route::prefix('job-notification-template')->group(function(){
+        Route::post('/', [JobNotificationTemplatesController::class, 'updateTemplate']);
+    });
 
     Route::prefix('profile')->group(function(){
 

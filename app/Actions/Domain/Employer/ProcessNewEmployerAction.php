@@ -2,6 +2,7 @@
 
 namespace App\Actions\Domain\Employer;
 
+use App\Actions\Domain\Employer\Template\JobNotificationTemplate\ProcessDefaultNotificationTemplateAction;
 use App\Models\Domain\Employer\Employer;
 use App\Models\Domain\Employer\EmployerUser;
 use App\Supports\HelperSupport;
@@ -48,6 +49,8 @@ class ProcessNewEmployerAction
             //create new employer access
             (new AttachUserToEmployerAction)->execute($employer, $employerUser, $inputs);
 
+            //create default job notification template
+            (new ProcessDefaultNotificationTemplateAction)->execute($employer);
             DB::commit();
         }catch(Exception $e) {
             DB::rollBack();
