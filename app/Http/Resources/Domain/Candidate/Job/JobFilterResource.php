@@ -32,7 +32,10 @@ class JobFilterResource extends JsonResource
         return EmployerJob::query()->paginate($this->perPage);
     }
 
-    private function recommendedJobs(){}
+    private function recommendedJobs()
+    {
+        return EmployerJob::query()->paginate($this->perPage);
+    }
 
     private function savedJobs()
     {
