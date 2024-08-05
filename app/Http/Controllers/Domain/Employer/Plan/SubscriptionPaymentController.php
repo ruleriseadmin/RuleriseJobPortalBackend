@@ -20,7 +20,7 @@ class SubscriptionPaymentController extends BaseController
 
     public function createPaymentLink(string $uuid): JsonResponse
     {
-        $plan = SubscriptionPlan::whereUuid($uuid)->first();
+        $plan = SubscriptionPlan::whereUuid($uuid);
 
         if (!$plan) {
             return ApiReturnResponse::failed('Plan not found');
