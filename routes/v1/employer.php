@@ -65,6 +65,7 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
 
     Route::prefix('job-notification-template')->group(function(){
         Route::post('/', [JobNotificationTemplatesController::class, 'updateTemplate']);
+        Route::get('/', [JobNotificationTemplatesController::class, 'index']);
     });
 
     Route::prefix('profile')->group(function(){

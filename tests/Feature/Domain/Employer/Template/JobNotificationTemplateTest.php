@@ -46,3 +46,39 @@ test('That employer job notification template is updated', function () {
 
     expect($employer->jobNotificationTemplate->rejected_template['subject'])->toBe('Testing in subject');
 });
+
+
+test('That employer job notification template is retrieved', function () {
+
+    $employer = Employer::factory()->create();
+
+    $user = EmployerUser::factory()->create();
+
+    EmployerAccess::factory()->create();
+
+    JobNotificationTemplate::factory()->create();
+
+    $response = $this->actingAs($user)->get("/v1/employer/job-notification-template");
+
+    expect($response->json()['status'])->toBe('200');
+
+    $response->assertJsonStructure([
+        'data' => [
+            'offerSentTemplate' => [
+                'in_app_message',
+                'email',
+                'subject',
+            ],
+            'rejectedTemplate' => [
+                'in_app_message',
+                'email',
+                'subject',
+            ],
+            'shortlistedTemplate' => [
+                'in_app_message',
+                'email',
+                'subject',
+            ],
+        ],
+    ]);
+});
