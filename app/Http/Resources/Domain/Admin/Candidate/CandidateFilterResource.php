@@ -44,6 +44,7 @@ class CandidateFilterResource extends JsonResource
 
         $candidates = collect($paginatedCandidates->items())->map(function ($candidate) {
             return HelperSupport::snake_to_camel([
+                'uuid' => $candidate->uuid,
                 'full_name' => $candidate->full_name,
                 'email' => $candidate->email,
                 'created_at' =>$candidate->created_at->toDateTimeString(),
