@@ -19,7 +19,7 @@ class FrontPageResource extends JsonResource
             ->map(fn($employer) => [
                 'name' => $employer->company_name,
                 'location' => $employer->state_city,
-                'jobs' => $employer->openJobs->count(),
+                'openJobs' => $employer->openJobs->count(),
         ])->toArray();
 
         $jobs = EmployerJob::all()->filter(fn($job) => $job->active && $job->employer)->sortByDesc('created_at')->take(6);
