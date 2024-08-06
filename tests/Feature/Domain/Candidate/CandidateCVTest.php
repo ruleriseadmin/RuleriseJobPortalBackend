@@ -22,11 +22,15 @@ test('That candidate upload cv successfully', function () {
 
     expect($response['status'])->toBe('200');
 
-    Storage::assertExists("public/cv/{$user->email}-curriculum-vitae.pdf");
-
     $user = $user->refresh();
 
-    expect($user->cvs()->first()->cv_document_url)->toBe("cv/{$user->email}-curriculum-vitae.pdf");
+    $count = $user->cvs->count() - 1;
+
+    Storage::assertExists("public/cv/{$user->email}-curriculum-vitae-{$count}.pdf");
+
+    expect($user->cvs()->first()->cv_document_url)->toBe("cv/{$user->email}-curriculum-vitae-{$count}.pdf");
+
+    expect($response->json()['data']['cvDocumentUrl'])->toBe(asset("storage/cv/{$user->email}-curriculum-vitae-{$count}.pdf"));
 
     Storage::delete("public/{$user->cvs()->first()->cv_document_url}");
 });
@@ -38,11 +42,13 @@ test('That candidate view cv detail successfully', function () {
 
     $cv = CVDocument::factory()->create();
 
-    $cv->update(['cv_document_url' => "cv/{$user->email}-curriculum-vitae.pdf"]);
+    $cv->update(['cv_document_url' => "cv/{$user->email}-curriculum-vitae-0.pdf"]);
 
     $response = $this->actingAs($user)->get("/v1/candidate/cv/detail");
 
     expect($response['status'])->toBe('200');
 
-    expect($response['data'][0]['cvDocumentUrl'])->toBe(asset("storage/cv/{$user->email}-curriculum-vitae.pdf"));
+    expect($response['data'][0]['cvDocumentUrl'])->toBe(asset("storage/cv/{$user->email}-curriculum-vitae-0.pdf"));
+
+    Storage::delete("public/{$user->cvs()->first()->cv_document_url}");
 ;});
