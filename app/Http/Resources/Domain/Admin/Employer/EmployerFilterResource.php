@@ -25,10 +25,10 @@ class EmployerFilterResource extends JsonResource
         $employers = $this->employers;
 
         return [
-            'totalemployers' => $employers->total(),
-            'totalActiveemployers' => 0,
-            'totalInactiveemployers' => 0,
-            'totalBlacklistedemployers' => 0,
+            'totalEmployers' => $employers->total(),
+            'totalActiveEmployers' => 0,
+            'totalInactiveEmployers' => 0,
+            'totalBlacklistedEmployers' => 0,
             'employers' => $this->employerResponse(),
         ];
     }
