@@ -16,6 +16,7 @@ class JobResource extends JsonResource
             'updated_at',
             'deleted_at',
             'employer_id',
+            'employer',
         ]);
 
         $response = $response->merge([
