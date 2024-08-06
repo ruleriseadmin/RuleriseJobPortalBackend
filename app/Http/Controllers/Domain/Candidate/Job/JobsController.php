@@ -35,7 +35,7 @@ class JobsController extends BaseController
         $job = EmployerJob::whereUuid($request->input('jobId'));
 
         $appliedJob = (new ApplyJobAction)
-            ->execute($this->user, $job, $request->input('applyVia'), $request->input('cvUrl'));
+            ->execute($this->user, $job, $request->input('applyVia'), $request->input('cvId'));
 
         return $appliedJob
             ? ApiReturnResponse::success()

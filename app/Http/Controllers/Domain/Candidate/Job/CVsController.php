@@ -12,7 +12,7 @@ class CVsController extends BaseController
 {
     public function cvDetail(): JsonResponse
     {
-        return ApiReturnResponse::success(new CVResource($this->user->cv));
+        return ApiReturnResponse::success(CVResource::collection($this->user->cvs));
     }
 
     public function uploadCv(UploadCVRequest $request): JsonResponse

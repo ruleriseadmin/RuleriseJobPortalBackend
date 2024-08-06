@@ -11,15 +11,17 @@ use Illuminate\Support\Facades\Log;
 
 class ApplyJobAction
 {
-    public function execute(User $user, EmployerJob $employerJob, string $applyVia, string $cvUrl = null) : ?CandidateJobApplication
+    public function execute(User $user, EmployerJob $employerJob, string $applyVia, string $cvId = null) : ?CandidateJobApplication
     {
+        $cvUrl = $cvId ? $user->cvs()->where('uuid', $cvId)->first()->id : null;
+
         DB::beginTransaction();
         try{
             $jobApplication = $user->jobApplications()->create([
                 'uuid' => str()->uuid(),
                 'job_id' => $employerJob->id,
                 'applied_via' => $applyVia,
-                'cv_url'
+                'cv_url' => $cvUrl,
             ]);
 
             $jobApplication->setStatus(CandidateJobApplication::STATUSES['unsorted']);

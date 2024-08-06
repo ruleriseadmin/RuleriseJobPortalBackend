@@ -26,9 +26,9 @@ test('That candidate upload cv successfully', function () {
 
     $user = $user->refresh();
 
-    expect($user->cv->cv_document_url)->toBe("cv/{$user->email}-curriculum-vitae.pdf");
+    expect($user->cvs()->first()->cv_document_url)->toBe("cv/{$user->email}-curriculum-vitae.pdf");
 
-    Storage::delete("public/{$user->cv->cv_document_url}");
+    Storage::delete("public/{$user->cvs()->first()->cv_document_url}");
 });
 
 
@@ -44,5 +44,5 @@ test('That candidate view cv detail successfully', function () {
 
     expect($response['status'])->toBe('200');
 
-    expect($response['data']['cvDocumentUrl'])->toBe(asset("storage/cv/{$user->email}-curriculum-vitae.pdf"));
+    expect($response['data'][0]['cvDocumentUrl'])->toBe(asset("storage/cv/{$user->email}-curriculum-vitae.pdf"));
 ;});

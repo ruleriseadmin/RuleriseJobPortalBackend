@@ -22,8 +22,8 @@ class UploadCVAction
             $url = $this->uploadImage($inputs, $user);
 
             $user->cv
-                ? $user->cv->update(['cv_document_url' => $url])
-                : $user->cv()->create([
+                ? $user->cvs->update(['cv_document_url' => $url])
+                : $user->cvs()->create([
                     'uuid' => str()->uuid(),
                     'cv_document_url' => $url,
                 ]);

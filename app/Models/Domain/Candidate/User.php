@@ -72,9 +72,9 @@ class User extends ModelsUser
         return $this->hasMany(CandidateJobApplication::class);
     }
 
-    public function cv(): HasOne
+    public function cvs(): HasMany
     {
-        return $this->hasOne(CVDocument::class);
+        return $this->hasMany(CVDocument::class);
     }
 
     public static function whereUuid(string $uuid)
