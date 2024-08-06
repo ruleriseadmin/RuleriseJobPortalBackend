@@ -17,8 +17,8 @@ class CVsController extends BaseController
 
     public function uploadCv(UploadCVRequest $request): JsonResponse
     {
-        return (new UploadCVAction)->execute($request->input())
-            ? ApiReturnResponse::success()
-            : ApiReturnResponse::failed();
+        $cvDocument = (new UploadCVAction)->execute($request->input());
+
+        return $cvDocument ? ApiReturnResponse::success(new CVResource($cvDocument)) : ApiReturnResponse::failed();
     }
 }
