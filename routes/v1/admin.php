@@ -1,11 +1,15 @@
 <?php
 
+use App\Http\Controllers\Domain\Admin\Auth\LoginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Domain\Admin\SubscriptionPlan\SubscriptionPlansController;
 
 
-#authenticated routes
+Route::prefix('auth')->group(function(){
+    Route::post('login', [LoginController::class, 'store']);
+});
 
+#authenticated routes
 Route::prefix('plan')->group(function(){
     Route::get('/', [SubscriptionPlansController::class, 'index']);
     Route::post('/', [SubscriptionPlansController::class, 'store']);
