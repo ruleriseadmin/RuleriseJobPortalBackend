@@ -10,6 +10,7 @@ use App\Actions\Domain\Candidate\Job\SaveAndUnsafeJobAction;
 use App\Http\Requests\Domain\Candidate\Job\JobFilterRequest;
 use App\Http\Resources\Domain\Candidate\Job\JobFilterResource;
 use App\Http\Requests\Domain\Candidate\Job\JobApplicationRequest;
+use App\Http\Resources\Domain\Candidate\JobResource;
 
 class JobsController extends BaseController
 {
@@ -25,7 +26,7 @@ class JobsController extends BaseController
         $job = EmployerJob::whereUuid($uuid);
 
         return $job
-            ? ApiReturnResponse::success()
+            ? ApiReturnResponse::success(new JobResource($job))
             : ApiReturnResponse::notFound('Job not found');
     }
 

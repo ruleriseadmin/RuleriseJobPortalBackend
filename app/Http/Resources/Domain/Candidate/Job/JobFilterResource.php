@@ -67,12 +67,11 @@ class JobFilterResource extends JsonResource
                     if ( $this->type == 'applied' ){
                         $application = $user->jobApplications->where('job_id', $job->id)->first();
                         $job['status'] = $application->status();
-                        $job['applied_at'] = $application->created_at;
+                        $job['applied_at'] = $application->created_at->toDateTimeString();
                     }
 
                     // check if user has saved job
                     $job['saved'] = (bool) collect($user->savedJobs?->job_ids ?? [])->contains($job->id);
-
 
                     $job['createdAt'] = $job->created_at->toDateTimeString();
 

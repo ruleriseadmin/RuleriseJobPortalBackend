@@ -63,6 +63,7 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
     #jobs routes
     Route::prefix('job')->group(function(){
         Route::get('/', [JobsController::class, 'index']);
+        Route::get('{uuid}/detail', [JobsController::class, 'show']);
         Route::post('{uuid}/saveJob', [JobsController::class, 'saveJob']);
         Route::post('applyJob', [JobsController::class, 'applyJob']);
     });

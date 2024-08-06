@@ -12,6 +12,19 @@ beforeEach(function () {
     $this->seed(RoleSeeder::class);
 });
 
+test('That candidate views a job', function () {
+
+    $user = User::factory()->create();
+
+    Employer::factory()->create();
+
+    $job = EmployerJob::factory()->create();
+
+    $response = $this->actingAs($user)->get("/v1/candidate/job/{$job->uuid}/detail");
+
+    expect($response->json()['status'])->toBe('200');
+});
+
 test('That candidate saved a job', function () {
 
     $user = User::factory()->create();
