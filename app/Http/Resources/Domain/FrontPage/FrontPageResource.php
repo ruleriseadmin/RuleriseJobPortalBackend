@@ -22,8 +22,10 @@ class FrontPageResource extends JsonResource
                 'jobs' => $employer->openJobs->count(),
         ])->toArray();
 
+        $jobs = EmployerJob::all()->filter(fn($job) => $job->active && $job->employer)->sortByDesc('created_at')->take(6);
+
         return [
-            'latestJobs' => JobResource::collection(EmployerJob::query()->orderByDesc('created_at')->limit(6)->get()),
+            'latestJobs' => JobResource::collection($jobs),
             'companies' => HelperSupport::snake_to_camel($employers),
             'categories' => [],
         ];
