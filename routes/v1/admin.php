@@ -15,6 +15,7 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
     Route::prefix('candidate')->group(function(){
         Route::get('/', [CandidatesController::class, 'index']);
         Route::get('{uuid}', [CandidatesController::class, 'show']);
+        Route::post('{uuid}/delete', [CandidatesController::class, 'delete']);
     });
 
     Route::prefix('plan')->group(function(){

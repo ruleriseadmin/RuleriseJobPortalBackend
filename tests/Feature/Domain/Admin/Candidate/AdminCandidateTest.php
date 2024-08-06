@@ -49,3 +49,18 @@ test("That admin view single candidate", function () {
 
     expect($response->json()['status'])->toBe('200');
 });
+
+
+test("That admin delete candidate", function () {
+    $adminUser = AdminUser::factory()->create();
+
+    $candidate = User::factory()->create();
+
+    $response = $this->actingAs($adminUser)->post("v1/admin/candidate/{$candidate->uuid}/delete");
+
+    expect($response->json()['status'])->toBe('200');
+
+    expect(User::count())->toBe(0);
+
+    expect(User::onlyTrashed()->count())->toBe(1);
+});

@@ -31,10 +31,8 @@ class CandidateResource extends JsonResource
 
     private function profileDetails(): array
     {
-        //$candidate = $this->profile_picture_url;
-
         return [
-            'accountInformation' => collect(new ProfileResource($this->resource))->except([
+            'accountInformation' => collect(new ProfileResource($this->resource) ?? null)->except([
                 'filterBy',
             ]),
             'cvInformation' => new CVResource($this->cv),

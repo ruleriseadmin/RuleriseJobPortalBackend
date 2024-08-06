@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Domain\Admin\Candidate;
+use App\Actions\Domain\Candidate\DeleteAccountAction;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Supports\ApiReturnResponse;
@@ -17,7 +18,7 @@ class CandidatesController extends BaseController
         return ApiReturnResponse::success(new CandidateFilterResource($request->input()));
     }
 
-    public function show(string $uuid, Request $request)
+    public function show(string $uuid, Request $request): JsonResponse
     {
         $candidate = User::whereUuid($uuid);
 
@@ -26,5 +27,16 @@ class CandidatesController extends BaseController
         $candidate['filter_by'] = $request->input('filterBy') ?? 'profile_details';
 
         return ApiReturnResponse::success(new CandidateResource($candidate));
+    }
+
+    public function delete(string $uuid): JsonResponse
+    {
+        $candidate = User::whereUuid($uuid);
+
+        if ( ! $candidate ) return ApiReturnResponse::notFound('Candidate does not exists');
+
+        return (new DeleteAccountAction)->execute($candidate)
+            ? ApiReturnResponse::success()
+            : ApiReturnResponse::failed();
     }
 }
