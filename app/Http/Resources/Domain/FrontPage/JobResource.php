@@ -20,6 +20,7 @@ class JobResource extends JsonResource
 
         $response = $response->merge([
             'created_at' => $this->created_at->toDateTimeString(),
+            'employer_name' => $this->employer->company_name,
         ]);
 
         return HelperSupport::snake_to_camel($response->toArray());
