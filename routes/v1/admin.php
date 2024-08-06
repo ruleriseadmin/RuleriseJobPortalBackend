@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Domain\Admin\Auth\LoginController;
 use App\Http\Controllers\Domain\Admin\Candidate\CandidatesController;
+use App\Http\Controllers\Domain\Admin\Employer\EmployersController;
 use App\Http\Controllers\Domain\Admin\SubscriptionPlan\SubscriptionPlansController;
 
 
@@ -16,6 +17,12 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
         Route::get('/', [CandidatesController::class, 'index']);
         Route::get('{uuid}', [CandidatesController::class, 'show']);
         Route::post('{uuid}/delete', [CandidatesController::class, 'delete']);
+    });
+
+    Route::prefix('employer')->group(function(){
+        Route::get('/', [EmployersController::class, 'index']);
+        //Route::get('{uuid}', [CandidatesController::class, 'show']);
+        //Route::post('{uuid}/delete', [CandidatesController::class, 'delete']);
     });
 
     Route::prefix('plan')->group(function(){
