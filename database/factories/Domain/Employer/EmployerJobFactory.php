@@ -31,6 +31,7 @@ class EmployerJobFactory extends Factory
             'easy_apply' => $this->faker->boolean(),
             'email_apply' => $this->faker->boolean(),
             'required_skills' => $this->faker->sentence(3),
+            'active' => true,
         ];
     }
 }

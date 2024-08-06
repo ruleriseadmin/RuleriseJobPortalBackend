@@ -8,6 +8,8 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 
+include 'v1/front-page.php';
+
 Route::prefix('employer')->group(function(){
     include 'v1/employer.php';
 });

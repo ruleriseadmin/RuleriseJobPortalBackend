@@ -37,6 +37,11 @@ class Employer extends Model
         return $this->hasMany(EmployerJob::class);
     }
 
+    public function openJobs(): HasMany
+    {
+        return $this->jobs()->where('active', true);
+    }
+
     public function candidatePools(): HasMany
     {
         return $this->hasMany(CandidateJobPool::class);
