@@ -25,7 +25,7 @@ class CandidateFilterResource extends JsonResource
         $candidates = $this->candidates;
 
         return [
-            'totalCandidates' => $candidates->count(),
+            'totalCandidates' => $candidates->total(),
             'totalActiveCandidates' => 0,
             'totalInactiveCandidates' => 0,
             'totalBlacklistedCandidates' => 0,
