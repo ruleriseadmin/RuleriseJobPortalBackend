@@ -13,6 +13,10 @@ class ApplyJobAction
 {
     public function execute(User $user, EmployerJob $employerJob, string $applyVia, string $cvId = null) : ?CandidateJobApplication
     {
+        $candidateJobApplication = $user->jobApplications()->where('job_id', $employerJob->id)->first();
+
+        if ( $candidateJobApplication ) return $candidateJobApplication;
+
         $cvUrl = $cvId ? $user->cvs()->where('uuid', $cvId)->first()->id : null;
 
         DB::beginTransaction();

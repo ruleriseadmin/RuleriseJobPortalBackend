@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Domain\Candidate\CVDocument;
+use App\Models\Domain\Candidate\Job\CandidateJobApplication;
 use App\Models\Domain\Candidate\Job\CandidateSavedJob;
 use App\Models\Domain\Candidate\User;
 use App\Models\Domain\Employer\Employer;
@@ -76,6 +77,28 @@ test('That candidate applied for a job', function () {
     expect($user->jobApplications->count())->toBe(1);
 
     expect($user->jobApplications->first()->status())->toBe('unsorted');
+});
+
+test('That candidate cannot apply for already applied job', function () {
+
+    $user = User::factory()->create();
+
+    Employer::factory()->create();
+
+    $job = EmployerJob::factory()->create();
+
+    CandidateJobApplication::factory()->create();
+
+    $response = $this->actingAs($user)->post("/v1/candidate/job/applyJob", [
+        'applyVia' => 'profile_cv',
+        'jobId' => $job->uuid,
+    ]);
+
+    expect($response->json()['status'])->toBe('200');
+
+    expect($user->jobApplications->count())->toBe(1);
+
+    expect($user->jobApplications->count())->toBe(1);
 });
 
 test('That candidate applied for a job with cv', function () {
