@@ -16,7 +16,7 @@ class AttachCandidatePoolAction
                 $candidateJobPool = CandidateJobPool::where('uuid', $candidateUuid)->first();
                 if ( ! $candidateJobPool ) continue;
                 $candidateJobPool->update([
-                    'candidate_ids' => $this->getCandidateIds($input['candidateIds']),
+                    'candidate_ids' => collect($candidateJobPool->candidate_ids ?? [])->merge($this->getCandidateIds($input['candidateIds'])),
                 ]);
             }
         }catch(Exception $ex){
