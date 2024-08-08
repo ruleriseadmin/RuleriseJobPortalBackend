@@ -27,7 +27,7 @@ class Employer extends Model
     public function users(): BelongsToMany
     {
         return $this->belongsToMany(EmployerUser::class, 'employer_accesses')
-            ->withPivot('position_title')
+            ->withPivot('position_title', 'first_name', 'last_name')
             ->withTimestamps()
             ->using(EmployerAccess::class);
     }
@@ -42,6 +42,11 @@ class Employer extends Model
         return $this->jobs()->where('active', true);
     }
 
+    public function closedJobs(): HasMany
+    {
+        return $this->jobs()->where('active', false);
+    }
+
     public function candidatePools(): HasMany
     {
         return $this->hasMany(CandidateJobPool::class);
@@ -50,5 +55,10 @@ class Employer extends Model
     public function jobNotificationTemplate(): HasOne
     {
         return $this->hasOne(JobNotificationTemplate::class);
+    }
+
+    public static function whereUuid(string $uuid)
+    {
+        return self::query()->where('uuid', $uuid)->first();
     }
 }

@@ -7,10 +7,10 @@ trait CandidateJobHiringStageTrait
     public function setStatus(string $status)
     {
         $statuses = collect($this->hiring_stage ?? [])
-            ->merge($this->getHiringStageUpdateAttributes($status));
+            ->merge([$this->getHiringStageUpdateAttributes($status)]);
 
         $this->update([
-            'hiring_stage' => [$statuses],
+            'hiring_stage' => $statuses,
         ]);
 
         $this->refresh();
@@ -18,9 +18,12 @@ trait CandidateJobHiringStageTrait
 
     public function status()
     {
-        $statuses = collect($this->hiring_stage)->last();
+        return $this->latestStatus()->status ?? null;
+    }
 
-        return $statuses['status'] ?? null;
+    public function latestStatus(): object
+    {
+        return (object) collect($this->hiring_stage)->last() ?? null;
     }
 
     protected function getHiringStageUpdateAttributes(string $status): array

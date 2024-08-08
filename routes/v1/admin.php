@@ -21,8 +21,8 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
 
     Route::prefix('employer')->group(function(){
         Route::get('/', [EmployersController::class, 'index']);
-        //Route::get('{uuid}', [CandidatesController::class, 'show']);
-        //Route::post('{uuid}/delete', [CandidatesController::class, 'delete']);
+        Route::get('{uuid}', [EmployersController::class, 'show']);
+        Route::post('{uuid}/delete', [EmployersController::class, 'delete']);
     });
 
     Route::prefix('plan')->group(function(){
