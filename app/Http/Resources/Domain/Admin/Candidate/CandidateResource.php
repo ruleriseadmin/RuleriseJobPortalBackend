@@ -21,6 +21,7 @@ class CandidateResource extends JsonResource
         $additionalInformation = match($this->filter_by){
             'profile_details' => $this->profileDetails(),
             'job_application' => $this->applications(),
+            'moderation' => $this->moderation(),
             default => $this->profileDetails(),
         };
 
@@ -46,5 +47,13 @@ class CandidateResource extends JsonResource
         ];
     }
 
-    private function moderation(){}
+    private function moderation()
+    {
+        return [
+            'isActive' => true,
+            'shadowBan' => [
+                'jobPosting' => false,
+            ],
+        ];
+    }
 }
