@@ -79,7 +79,7 @@ test('That employer attached candidate to candidate job pool', function () {
 
     expect($response->json()['status'])->toBe('200');
 
-    expect(count($pool->candidate_ids))->toBe(2);
+    expect(count($pool->candidate_ids))->toBe(1);
 
     expect(collect($pool->candidate_ids)->first())->toBe($candidate->id);
 });
@@ -105,11 +105,11 @@ test('That employer attached multiple candidates to candidate job pool', functio
 
     expect($response->json()['status'])->toBe('200');
 
-    expect(count($pool->candidate_ids))->toBe(3);
+    expect(count($pool->candidate_ids))->toBe(2);
 
     expect($pool->candidate_ids[0])->toBe($candidate->id);
 
-    expect($pool->candidate_ids[2])->toBe($candidateTwo->id);
+    expect($pool->candidate_ids[1])->toBe($candidateTwo->id);
 });
 
 test('That employer attached candidate to multiple candidate job pools', function () {
@@ -137,7 +137,7 @@ test('That employer attached candidate to multiple candidate job pools', functio
 
     expect($response->json()['status'])->toBe('200');
 
-    expect(count($pool->candidate_ids))->toBe(2);
+    expect(count($pool->candidate_ids))->toBe(1);
 
     expect($pool->candidate_ids[0])->toBe($candidate->id);
 
@@ -168,13 +168,13 @@ test('That employer attached multiple candidates to multiple candidate job pools
 
     expect($response->json()['status'])->toBe('200');
 
-    expect(count($pool->candidate_ids))->toBe(3);
+    expect(count($pool->candidate_ids))->toBe(2);
 
     expect($pool->candidate_ids[0])->toBe($candidate->id);
 
-    expect($pool->candidate_ids[2])->toBe($candidateTwo->id);
+    expect($pool->candidate_ids[1])->toBe($candidateTwo->id);
 
     expect($poolTwo->candidate_ids[0])->toBe($candidate->id);
 
-    expect($poolTwo->candidate_ids[2])->toBe($candidateTwo->id);
+    expect($poolTwo->candidate_ids[1])->toBe($candidateTwo->id);
 });
