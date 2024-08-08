@@ -137,7 +137,7 @@ class EmployerResource extends JsonResource
     private function moderation()
     {
         return [
-            'isActive' => true,
+            'isActive' => (bool) $this->active,
             'shadowBan' => [
                 'jobPosting' => false,
             ],

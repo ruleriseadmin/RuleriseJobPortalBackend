@@ -75,7 +75,7 @@ class CandidateResource extends JsonResource
     private function moderation()
     {
         return [
-            'isActive' => true,
+            'isActive' => (bool) $this->active,
             'shadowBan' => [
                 'applyJob' => false,
             ],
