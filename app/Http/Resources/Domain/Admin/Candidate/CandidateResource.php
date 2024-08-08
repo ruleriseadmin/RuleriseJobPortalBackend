@@ -42,8 +42,33 @@ class CandidateResource extends JsonResource
 
     private function applications()
     {
+        $paginatedApplications = $this->jobApplications()->paginate($this->perPage);
+
+        $applications = collect($paginatedApplications->items())->map(function ($application) {
+            $employer = $application->job->employer;
+
+            return [
+                'uuid' => $application->uuid,
+                'title' => $application->job->title,
+                'status' => $application->status(),
+                'applied_at' => $application->created_at->toDateTimeString(),
+                'employerInformation' => [
+                    'name' => $employer->company_name,
+                    'location' => $employer->state_city,
+                ],
+            ];
+        });
+
         return [
-            'jobApplications' => JobApplicationResource::collection($this->jobApplications),
+            'jobApplications' => [
+                'totalApplications' => $this->jobApplications->count(),
+                'jobs' => [
+                    'items' => $applications->toArray(),
+                    'page' => $paginatedApplications->currentPage(),
+                    'nextPage' =>  $paginatedApplications->currentPage() + ($paginatedApplications->hasMorePages() ? 1 : 0),
+                    'hasMorePages' => $paginatedApplications->hasMorePages(),
+                ],
+            ],
         ];
     }
 
