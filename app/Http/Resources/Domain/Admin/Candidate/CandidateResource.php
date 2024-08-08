@@ -77,7 +77,7 @@ class CandidateResource extends JsonResource
         return [
             'isActive' => (bool) $this->active,
             'shadowBan' => [
-                'applyJob' => false,
+                'applyJob' => $this->hasBan('ban_apply_job'),
             ],
         ];
     }

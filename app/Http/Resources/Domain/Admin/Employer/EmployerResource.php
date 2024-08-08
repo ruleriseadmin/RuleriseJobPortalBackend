@@ -139,7 +139,7 @@ class EmployerResource extends JsonResource
         return [
             'isActive' => (bool) $this->active,
             'shadowBan' => [
-                'jobPosting' => false,
+                'jobPosting' => $this->hasBan('ban_post_job'),
             ],
         ];
     }
