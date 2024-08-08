@@ -57,3 +57,19 @@ test("That admin deletes employer", function () {
 
     expect(EmployerUser::onlyTrashed()->count())->toBe(1);
 });
+
+test("That admin update employer account status", function () {
+    $adminUser = AdminUser::factory()->create();
+
+    $employer = Employer::factory()->create();
+
+    EmployerUser::factory()->create();
+
+    EmployerAccess::factory()->create();
+
+    $response = $this->actingAs($adminUser)->post("v1/admin/employer/{$employer->uuid}/moderateAccountStatus");
+
+    expect($response->json()['status'])->toBe('200');
+
+    expect($employer->refresh()->active)->toBe(0);
+});

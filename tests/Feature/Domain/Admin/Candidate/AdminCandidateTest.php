@@ -50,7 +50,6 @@ test("That admin view single candidate", function () {
     expect($response->json()['status'])->toBe('200');
 });
 
-
 test("That admin delete candidate", function () {
     $adminUser = AdminUser::factory()->create();
 
@@ -63,4 +62,16 @@ test("That admin delete candidate", function () {
     expect(User::count())->toBe(0);
 
     expect(User::onlyTrashed()->count())->toBe(1);
+});
+
+test("That admin update candidate account status", function () {
+    $adminUser = AdminUser::factory()->create();
+
+    $candidate = User::factory()->create();
+
+    $response = $this->actingAs($adminUser)->post("v1/admin/candidate/{$candidate->uuid}/moderateAccountStatus");
+
+    expect($response->json()['status'])->toBe('200');
+
+    expect((bool) $candidate->refresh()->active)->toBeFalse();
 });

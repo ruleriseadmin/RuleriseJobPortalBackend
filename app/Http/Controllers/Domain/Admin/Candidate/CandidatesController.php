@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Domain\Admin\Candidate;
+use App\Actions\Domain\Admin\AccountModeration\SetAccountActiveAction;
 use App\Actions\Domain\Candidate\DeleteAccountAction;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
@@ -36,6 +37,17 @@ class CandidatesController extends BaseController
         if ( ! $candidate ) return ApiReturnResponse::notFound('Candidate does not exists');
 
         return (new DeleteAccountAction)->execute($candidate)
+            ? ApiReturnResponse::success()
+            : ApiReturnResponse::failed();
+    }
+
+    public function moderateAccountStatus(string $uuid): JsonResponse
+    {
+        $candidate = User::whereUuid($uuid);
+
+        if ( ! $candidate ) return ApiReturnResponse::notFound('Candidate does not exists');
+
+        return (new SetAccountActiveAction)->execute($candidate)
             ? ApiReturnResponse::success()
             : ApiReturnResponse::failed();
     }
