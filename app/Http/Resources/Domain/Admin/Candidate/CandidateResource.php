@@ -77,7 +77,7 @@ class CandidateResource extends JsonResource
         return [
             'isActive' => true,
             'shadowBan' => [
-                'jobPosting' => false,
+                'applyJob' => false,
             ],
         ];
     }
