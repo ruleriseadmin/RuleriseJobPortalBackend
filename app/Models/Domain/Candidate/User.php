@@ -3,6 +3,7 @@
 namespace App\Models\Domain\Candidate;
 
 use App\Models\User as ModelsUser;
+use App\Traits\Domain\Shared\HasShadowBanTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -14,6 +15,7 @@ class User extends ModelsUser
 {
     use HasFactory;
     use SoftDeletes;
+    use HasShadowBanTrait;
 
     protected $fillable = [
         'uuid',

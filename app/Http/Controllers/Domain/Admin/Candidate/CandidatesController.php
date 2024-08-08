@@ -1,15 +1,17 @@
 <?php
 
 namespace App\Http\Controllers\Domain\Admin\Candidate;
-use App\Actions\Domain\Admin\AccountModeration\SetAccountActiveAction;
-use App\Actions\Domain\Candidate\DeleteAccountAction;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Supports\ApiReturnResponse;
 use App\Models\Domain\Candidate\User;
+use App\Actions\Domain\Candidate\DeleteAccountAction;
 use App\Http\Controllers\Domain\Admin\BaseController;
 use App\Http\Resources\Domain\Admin\Candidate\CandidateResource;
+use App\Actions\Domain\Admin\AccountModeration\SetShadowBanAction;
+use App\Http\Requests\Domain\Admin\Moderation\SetShadowBanRequest;
 use App\Http\Requests\Domain\Admin\Candidate\CandidateFilterRequest;
+use App\Actions\Domain\Admin\AccountModeration\SetAccountActiveAction;
 use App\Http\Resources\Domain\Admin\Candidate\CandidateFilterResource;
 
 class CandidatesController extends BaseController
@@ -48,6 +50,17 @@ class CandidatesController extends BaseController
         if ( ! $candidate ) return ApiReturnResponse::notFound('Candidate does not exists');
 
         return (new SetAccountActiveAction)->execute($candidate)
+            ? ApiReturnResponse::success()
+            : ApiReturnResponse::failed();
+    }
+
+    public function setShadowBan(string $uuid, SetShadowBanRequest $request): JsonResponse
+    {
+        $candidate = User::whereUuid($uuid);
+
+        if ( ! $candidate ) return ApiReturnResponse::notFound('Candidate does not exists');
+
+        return (new SetShadowBanAction)->execute($candidate, $request->input('type'))
             ? ApiReturnResponse::success()
             : ApiReturnResponse::failed();
     }

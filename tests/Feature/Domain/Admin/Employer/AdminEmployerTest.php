@@ -73,3 +73,21 @@ test("That admin update employer account status", function () {
 
     expect($employer->refresh()->active)->toBe(0);
 });
+
+test("That admin set shadow ban on employer", function () {
+    $adminUser = AdminUser::factory()->create();
+
+    $employer = Employer::factory()->create();
+
+    EmployerUser::factory()->create();
+
+    EmployerAccess::factory()->create();
+
+    $response = $this->actingAs($adminUser)->post("v1/admin/employer/{$employer->uuid}/setShadowBan", [
+        'type' => 'ban_post_job',
+    ]);
+
+    expect($response->json()['status'])->toBe('200');
+
+    expect($employer->refresh()->hasBan('ban_post_job'))->toBeTrue();
+});

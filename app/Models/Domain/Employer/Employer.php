@@ -2,6 +2,7 @@
 
 namespace App\Models\Domain\Employer;
 
+use App\Traits\Domain\Shared\HasShadowBanTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Traits\Domain\Shared\HasSubscriptionTrait;
@@ -17,6 +18,7 @@ class Employer extends Model
     use HasFactory;
     use SoftDeletes;
     use HasSubscriptionTrait;
+    use HasShadowBanTrait;
 
     protected $guarded = [];
 

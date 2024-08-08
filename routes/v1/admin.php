@@ -18,6 +18,7 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
         Route::get('{uuid}', [CandidatesController::class, 'show']);
         Route::post('{uuid}/delete', [CandidatesController::class, 'delete']);
         Route::post('{uuid}/moderateAccountStatus', [CandidatesController::class, 'moderateAccountStatus']);
+        Route::post('{uuid}/setShadowBan', [CandidatesController::class, 'setShadowBan']);
     });
 
     Route::prefix('employer')->group(function(){
@@ -25,6 +26,7 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
         Route::get('{uuid}', [EmployersController::class, 'show']);
         Route::post('{uuid}/delete', [EmployersController::class, 'delete']);
         Route::post('{uuid}/moderateAccountStatus', [EmployersController::class, 'moderateAccountStatus']);
+        Route::post('{uuid}/setShadowBan', [EmployersController::class, 'setShadowBan']);
     });
 
     Route::prefix('plan')->group(function(){
