@@ -10,7 +10,10 @@ class SetShadowBanAction
 {
     public function execute(Model $model, string $type): bool
     {
-        if ( $model->hasBan($type) ) return true;
+        if ( $model->hasBan($type) ){
+            $model->removeBan($type);
+            return true;
+        };
 
         try{
             $model->setBan($type);

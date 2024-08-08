@@ -14,6 +14,11 @@ trait HasShadowBanTrait
         return $this->morphMany(ShadowBan::class, 'modulable');
     }
 
+    public function shadowBan(string $type)
+    {
+        return $this->shadowBans()->where('type', $type)->first();
+    }
+
     public function hasBan(string $type): bool
     {
         return $this->shadowBans()->where('type', $type)->exists();
@@ -29,6 +34,16 @@ trait HasShadowBanTrait
         }catch(Exception $exception){
             Log::error("Error @ setBan: " . $exception->getMessage());
             throw new Exception('Error setting ban: ' . $exception->getMessage());
+        }
+    }
+
+    public function removeBan(string $type)
+    {
+        try{
+            $this->shadowBan($type)->delete();
+        }catch(Exception $exception){
+            Log::error("Error @ removeBan: " . $exception->getMessage());
+            throw new Exception('Error removing ban: ' . $exception->getMessage());
         }
     }
 }
