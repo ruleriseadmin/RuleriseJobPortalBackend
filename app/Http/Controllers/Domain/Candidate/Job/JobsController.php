@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Domain\Candidate\Job;
+use App\Http\Resources\Domain\Candidate\Job\SimilarJobResource;
 use Illuminate\Http\JsonResponse;
 use App\Supports\ApiReturnResponse;
 use App\Models\Domain\Employer\EmployerJob;
@@ -57,5 +58,12 @@ class JobsController extends BaseController
             : ApiReturnResponse::failed();
     }
 
-    public function viewJob(){}
+    public function similarJobs(string $uuid)
+    {
+        $job = EmployerJob::whereUuid($uuid);
+
+        if ( ! $job ) return ApiReturnResponse::notFound('Job not found');
+
+        return ApiReturnResponse::success(new SimilarJobResource($job));
+    }
 }

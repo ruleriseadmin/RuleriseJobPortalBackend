@@ -115,7 +115,7 @@ test('That candidate applied for a job', function () {
     expect($user->jobApplications->count())->toBe(1);
 
     expect($user->jobApplications->first()->status())->toBe('unsorted');
-    
+
     expect($job->jobViewCounts()->first()->apply_count)->toBe(1);
 });
 
@@ -164,4 +164,19 @@ test('That candidate applied for a job with cv', function () {
     expect($user->jobApplications->first()->status())->toBe('unsorted');
 
     expect($user->jobApplications->first()->cv_url)->toBe('1');
+});
+
+test('That candidate views similar job', function () {
+
+    $user = User::factory()->create();
+
+    Employer::factory()->create();
+
+    $job = EmployerJob::factory()->create();
+
+    collect(array_fill(0, 5, 1))->map(fn() => EmployerJob::factory()->create());
+
+    $response = $this->actingAs($user)->get("/v1/candidate/job/{$job->uuid}/similarJobs");
+
+    expect($response->json()['status'])->toBe('200');
 });

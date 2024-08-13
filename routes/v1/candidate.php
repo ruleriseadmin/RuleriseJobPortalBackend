@@ -66,6 +66,7 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
         Route::get('{uuid}/detail', [JobsController::class, 'show']);
         Route::post('{uuid}/saveJob', [JobsController::class, 'saveJob']);
         Route::post('applyJob', [JobsController::class, 'applyJob']);
+        Route::get('{uuid}/similarJobs', [JobsController::class, 'similarJobs']);
     });
 
     Route::prefix('profile')->group(function(){
