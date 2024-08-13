@@ -5,12 +5,13 @@ use Illuminate\Http\JsonResponse;
 use App\Supports\ApiReturnResponse;
 use App\Models\Domain\Employer\EmployerJob;
 use App\Actions\Domain\Candidate\Job\ApplyJobAction;
+use App\Http\Resources\Domain\Candidate\JobResource;
 use App\Http\Controllers\Domain\Candidate\BaseController;
 use App\Actions\Domain\Candidate\Job\SaveAndUnsafeJobAction;
 use App\Http\Requests\Domain\Candidate\Job\JobFilterRequest;
 use App\Http\Resources\Domain\Candidate\Job\JobFilterResource;
+use App\Actions\Domain\Candidate\Job\IncrementJobViewCountAction;
 use App\Http\Requests\Domain\Candidate\Job\JobApplicationRequest;
-use App\Http\Resources\Domain\Candidate\JobResource;
 
 class JobsController extends BaseController
 {
@@ -25,9 +26,12 @@ class JobsController extends BaseController
     {
         $job = EmployerJob::whereUuid($uuid);
 
-        return $job
-            ? ApiReturnResponse::success(new JobResource($job))
-            : ApiReturnResponse::notFound('Job not found');
+        if ( ! $job ) return ApiReturnResponse::notFound('Job not found');
+
+        //increment job view
+        (new IncrementJobViewCountAction)->execute($job);
+
+        return ApiReturnResponse::success(new JobResource($job));
     }
 
     public function applyJob(JobApplicationRequest $request) : JsonResponse
@@ -52,4 +56,6 @@ class JobsController extends BaseController
             ? ApiReturnResponse::success()
             : ApiReturnResponse::failed();
     }
+
+    public function viewJob(){}
 }

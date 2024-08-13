@@ -8,7 +8,9 @@ use App\Models\Domain\Employer\Employer;
 use App\Models\Domain\Employer\EmployerAccess;
 use App\Models\Domain\Employer\EmployerJob;
 use App\Models\Domain\Employer\EmployerUser;
+use App\Models\Domain\Employer\Job\EmployerJobViewCount;
 use Database\Seeders\RoleSeeder;
+use Illuminate\Support\Carbon;
 
 beforeEach(function () {
     $this->seed(RoleSeeder::class);
@@ -25,6 +27,42 @@ test('That candidate views a job', function () {
     $response = $this->actingAs($user)->get("/v1/candidate/job/{$job->uuid}/detail");
 
     expect($response->json()['status'])->toBe('200');
+});
+
+test('That candidate views a job and job view increments', function () {
+
+    $user = User::factory()->create();
+
+    Employer::factory()->create();
+
+    $job = EmployerJob::factory()->create();
+
+    $response = $this->actingAs($user)->get("/v1/candidate/job/{$job->uuid}/detail");
+
+    expect($response->json()['status'])->toBe('200');
+
+    expect($job->jobViewCounts()->count())->toBe(1);
+});
+
+test('That candidate views a job and job view increments and updates', function () {
+
+    $user = User::factory()->create();
+
+    Employer::factory()->create();
+
+    $job = EmployerJob::factory()->create();
+
+    $jobCount = EmployerJobViewCount::factory()->create([
+        'created_at' => Carbon::now()->addMinute(),
+    ]);
+
+    $response = $this->actingAs($user)->get("/v1/candidate/job/{$job->uuid}/detail");
+
+   expect($response->json()['status'])->toBe('200');
+
+    expect($job->jobViewCounts()->count())->toBe(1);
+
+    expect($jobCount->refresh()->view_count)->toBe(2);
 });
 
 test('That candidate saved a job', function () {
@@ -77,6 +115,8 @@ test('That candidate applied for a job', function () {
     expect($user->jobApplications->count())->toBe(1);
 
     expect($user->jobApplications->first()->status())->toBe('unsorted');
+    
+    expect($job->jobViewCounts()->first()->apply_count)->toBe(1);
 });
 
 test('That candidate cannot apply for already applied job', function () {

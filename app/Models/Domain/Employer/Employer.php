@@ -2,16 +2,17 @@
 
 namespace App\Models\Domain\Employer;
 
-use App\Traits\Domain\Shared\HasShadowBanTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Traits\Domain\Shared\HasShadowBanTrait;
 use App\Traits\Domain\Shared\HasSubscriptionTrait;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Models\Domain\Employer\Job\CandidateJobPool;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Domain\Employer\Job\EmployerJobViewCount;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use App\Models\Domain\Employer\Template\JobNotificationTemplate;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Employer extends Model
 {
@@ -37,6 +38,11 @@ class Employer extends Model
     public function jobs(): HasMany
     {
         return $this->hasMany(EmployerJob::class);
+    }
+
+    public function jobViewCounts(): HasMany
+    {
+        return $this->hasMany(EmployerJobViewCount::class);
     }
 
     public function openJobs(): HasMany

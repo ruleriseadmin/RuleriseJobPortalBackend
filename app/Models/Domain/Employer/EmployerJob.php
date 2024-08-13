@@ -3,6 +3,7 @@
 namespace App\Models\Domain\Employer;
 
 use App\Models\Domain\Candidate\Job\CandidateJobApplication;
+use App\Models\Domain\Employer\Job\EmployerJobViewCount;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -48,6 +49,11 @@ class EmployerJob extends Model
     public function applicants(): HasMany
     {
         return $this->hasMany(CandidateJobApplication::class, 'job_id', 'id');
+    }
+
+    public function jobViewCounts(): HasMany
+    {
+        return $this->hasMany(EmployerJobViewCount::class);
     }
 
     public static function whereUuid(string $uuid)

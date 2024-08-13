@@ -36,6 +36,8 @@ class ApplyJobAction
             return null;
         }
 
+        (new IncrementJobViewCountAction)->execute($employerJob, 'apply_count');
+
         return $jobApplication;
     }
 }

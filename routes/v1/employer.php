@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Domain\Employer\EmployersController;
 use App\Http\Controllers\Domain\Employer\Auth\LoginController;
+use App\Http\Controllers\Domain\Employer\DashboardsController;
 use App\Http\Controllers\Domain\Employer\Auth\RegisterController;
 use App\Http\Controllers\Domain\Employer\Job\EmployerJobsController;
 use App\Http\Controllers\Domain\Employer\Job\JobApplicantController;
@@ -11,9 +12,9 @@ use App\Http\Controllers\Domain\Employer\Auth\ForgotPasswordController;
 use App\Http\Controllers\Domain\Employer\Candidate\CandidatesController;
 use App\Http\Controllers\Domain\Employer\Job\CandidateJobPoolsController;
 use App\Http\Controllers\Domain\Employer\Plan\SubscriptionPaymentController;
-use App\Http\Controllers\Domain\Employer\Template\JobNotificationTemplatesController;
 use App\Http\Controllers\Domain\Shared\AccountSetting\ChangePasswordController;
 use App\Http\Controllers\Domain\Shared\AccountSetting\UserAccountSettingsController;
+use App\Http\Controllers\Domain\Employer\Template\JobNotificationTemplatesController;
 
 Route::prefix('auth')->group(function(){
     Route::post('register', [RegisterController::class, 'store']);
@@ -24,6 +25,8 @@ Route::prefix('auth')->group(function(){
 
 #authenticated routes
 Route::group(['middleware' => ['auth:sanctum']], function(){
+    Route::get('dashboard', [DashboardsController::class, 'index']);
+
     Route::prefix('job')->group(function(){
         Route::get('/', [EmployerJobsController::class, 'index']);
         Route::post('/', [EmployerJobsController::class, 'store']);
