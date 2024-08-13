@@ -89,11 +89,11 @@ class DashboardResource extends JsonResource
 
         $viewCountChange = $previousViewCount > 0
             ? (($currentViewCount - $previousViewCount) / $previousViewCount) * 100
-            : null;
+            : 0;
 
         $applyCountChange = $previousApplyCount > 0
             ? (($currentApplyCount - $previousApplyCount) / $previousApplyCount) * 100
-            : null;
+            : 0;
 
         // Determine if increase or decrease
         $viewCountChangeDirection = $viewCountChange > 0 ? 'increase' : ($viewCountChange < 0 ? 'decrease' : 'no change');
