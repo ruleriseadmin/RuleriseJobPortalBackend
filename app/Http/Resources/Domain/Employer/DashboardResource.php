@@ -82,9 +82,9 @@ class DashboardResource extends JsonResource
         $currentWeek = $weeks->last(); // Assuming current week is the last key
         $previousWeek = $weeks->slice(-2, 1)->first(); // Previous week is the second-to-last key
 
-        $currentViewCount = $viewCountSums[$currentWeek];
+        $currentViewCount = $viewCountSums[$currentWeek] ?? 0;
         $previousViewCount = $viewCountSums[$previousWeek] ?? 0;
-        $currentApplyCount = $applyCountSums[$currentWeek];
+        $currentApplyCount = $applyCountSums[$currentWeek] ?? 0;
         $previousApplyCount = $applyCountSums[$previousWeek] ?? 0;
 
         $viewCountChange = $previousViewCount > 0
