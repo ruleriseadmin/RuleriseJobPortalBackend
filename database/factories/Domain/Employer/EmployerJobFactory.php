@@ -30,7 +30,7 @@ class EmployerJobFactory extends Factory
             'salary' => $this->faker->randomFloat(2, 20000, 100000),
             'easy_apply' => $this->faker->boolean(),
             'email_apply' => $this->faker->boolean(),
-            'required_skills' => $this->faker->sentence(3),
+            'required_skills' => ['php', 'laravel', 'javascript'],
             'active' => true,
         ];
     }
