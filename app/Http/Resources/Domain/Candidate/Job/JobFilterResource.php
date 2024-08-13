@@ -29,7 +29,7 @@ class JobFilterResource extends JsonResource
 
     private function newJobs()
     {
-        return EmployerJob::query()->paginate($this->perPage); //->orderByDesc('created_at')
+        return EmployerJob::query()->orderByDesc('created_at')->paginate($this->perPage); //->orderByDesc('created_at')
     }
 
     private function recommendedJobs()

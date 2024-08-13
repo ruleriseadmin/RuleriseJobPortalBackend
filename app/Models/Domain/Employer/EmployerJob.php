@@ -2,13 +2,14 @@
 
 namespace App\Models\Domain\Employer;
 
-use App\Models\Domain\Candidate\Job\CandidateJobApplication;
-use App\Models\Domain\Employer\Job\EmployerJobViewCount;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Domain\Employer\Job\EmployerJobViewCount;
+use App\Models\Scopes\Domain\Employer\EmployerActiveScope;
+use App\Models\Domain\Candidate\Job\CandidateJobApplication;
 
 class EmployerJob extends Model
 {
@@ -40,6 +41,13 @@ class EmployerJob extends Model
         'easy_apply' => 'boolean',
         'email_apply' => 'boolean',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope(new EmployerActiveScope);
+    }
 
     public function employer(): BelongsTo
     {
