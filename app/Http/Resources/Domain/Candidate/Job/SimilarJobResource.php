@@ -14,17 +14,17 @@ class SimilarJobResource extends JsonResource
     public function toArray(Request $request): array
     {
         $similarJobs = EmployerJob::where('active', 1)
-        ->orWhere('title', 'LIKE', '%' . $this->title . '%')
+        //->orWhere('title', 'LIKE', '%' . $this->title . '%')
+        ->where('job_industry', $this->job_industry)
         ->where(function($query) {
             $query->where('job_type', $this->job_type)
                   ->orWhere('employment_type', $this->employment_type)
-                  ->orWhere('job_industry', $this->job_industry)
                   ->orWhere('job_level', $this->job_level)
                   ->orWhere('location', $this->location)
                   ->orWhere('years_experience', $this->years_experience)
                   ->orWhere('salary', $this->salary);
                  // ->orWhere('easy_apply', $this->easy_apply);
-                  foreach ($this->required_skills as $skill) {
+                  foreach ($this->required_skills ?? [] as $skill) {
                     $query->orWhereRaw('exists (select 1 from json_each(required_skills) where json_each.value = ?)', [$skill]);
                 }
         })->where('uuid', '!=', $this->uuid)->paginate($this->perPage);
