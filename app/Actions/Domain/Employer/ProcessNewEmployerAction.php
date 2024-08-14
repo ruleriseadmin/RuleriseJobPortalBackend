@@ -51,6 +51,12 @@ class ProcessNewEmployerAction
 
             //create default job notification template
             (new ProcessDefaultNotificationTemplateAction)->execute($employer);
+
+            //upload company logo
+            (new UploadLogoAction)->execute($employer, [
+                'imageExtension' => $inputs['logo']['imageExtension'],
+                'imageInBase64' => $inputs['logo']['imageInBase64'],
+            ]);
             DB::commit();
         }catch(Exception $e) {
             DB::rollBack();

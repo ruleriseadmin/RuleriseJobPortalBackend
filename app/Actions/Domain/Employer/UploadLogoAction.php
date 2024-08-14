@@ -23,7 +23,7 @@ class UploadLogoAction
             $employer->update(['logo_url' => $url]);
         }catch(Exception $ex){
             Log::error("Error @ UploadLogoAction: " . $ex->getMessage());
-            return false;
+            throw new Exception('Error @ UploadLogoAction: ' . $ex->getMessage());
         }
 
         return true;

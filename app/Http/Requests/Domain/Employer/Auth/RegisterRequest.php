@@ -22,6 +22,9 @@ class RegisterRequest extends BaseRequest
             'companyFounded' => ['required'],
             'stateCity' => ['required'],
             'address' => ['required'],
+            'logo' => ['required'],
+            'logo.imageInBase64' => ['required'],
+            'logo.imageExtension' => ['required'],
         ];
     }
 }
