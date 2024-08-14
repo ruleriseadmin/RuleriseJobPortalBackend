@@ -24,7 +24,7 @@ class EmployerJobFactory extends Factory
             'description' => $this->faker->paragraphs(10, true),
             'job_type' => 'full-time',
             'employment_type' => 'remote',
-            'job_industry' => $this->faker->word,
+            'job_industry' => 'IT',
             'location' => $this->faker->city,
             'years_experience' => $this->faker->numberBetween(1, 10),
             'salary' => $this->faker->randomFloat(2, 20000, 100000),
