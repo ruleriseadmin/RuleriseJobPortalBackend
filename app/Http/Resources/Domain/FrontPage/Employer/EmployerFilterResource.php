@@ -13,7 +13,7 @@ class EmployerFilterResource extends JsonResource
 
     public function toArray(Request $request): array
     {
-        $employers = Employer::orderByDesc('created_at')->paginate($this->perPage);
+        $employers = Employer::where('active', true)->orderByDesc('created_at')->paginate($this->perPage);
 
         return $this->returnResponse($employers);
     }
