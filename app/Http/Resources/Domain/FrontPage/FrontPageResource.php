@@ -14,7 +14,7 @@ class FrontPageResource extends JsonResource
     {
 
         $employers = Employer::all()
-            ->filter(fn($employer) => $employer->openJobs->count() > 0)
+            ->filter(fn($employer) => $employer->openJobs->count() > 0 && $employer->active)
             ->take(8)
             ->map(fn($employer) => [
                 'name' => $employer->company_name,
