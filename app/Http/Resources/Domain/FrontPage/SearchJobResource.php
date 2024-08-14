@@ -56,7 +56,7 @@ class SearchJobResource extends JsonResource
 
                     $job['employer_name'] = $job->employer->company_name;
 
-                    $job['employer_logo'] = $job->employer->logo_url ? asset($job->employer->logo_url) : null;
+                    $job['employer_logo'] = $job->employer->logo_url ? asset("storage/{$job->employer->logo_url}") : null;
 
                     // check if filter is applied then add extra details
                     if ( $user ){

@@ -22,7 +22,7 @@ class JobResource extends JsonResource
         $response = $response->merge([
             'created_at' => $this->created_at->toDateTimeString(),
             'employer_name' => $this->employer?->company_name,
-            'employer_logo' => $this->employer->logo_url ? asset($this->employer->logo_url) : null,
+            'employer_logo' => $this->employer->logo_url ? asset("storage/{$this->employer->logo_url}") : null,
         ]);
 
         return HelperSupport::snake_to_camel($response->toArray());

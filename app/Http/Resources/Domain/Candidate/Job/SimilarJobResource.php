@@ -41,6 +41,7 @@ class SimilarJobResource extends JsonResource
                     if ( ! $job->employer ) return null;
 
                     $job['employer_name'] = $job->employer->company_name;
+                    $job['employer_logo'] = $job->employer->logo_url ? asset("storage/{$job->employer->logo_url}") : null;
 
                     // check if filter is applied then add extra details
                     if ( $this->type == 'applied' ){
@@ -60,6 +61,7 @@ class SimilarJobResource extends JsonResource
                         'salary',
                         'employment_type',
                         'employer_name',
+                        'employer_logo',
                         'uuid',
                         'status',
                         'applied_at',

@@ -21,7 +21,7 @@ class EmployerResource extends JsonResource
 
         $response = collect($response)->merge([
             'open_jobs' => JobResource::collection($this->openJobs),
-            'logo_url' => $this->logo_url ? asset($this->logo_url) : null,
+            'logo_url' => $this->logo_url ? asset("storage/$this->logo_url") : null,
         ]);
 
         return HelperSupport::snake_to_camel($response->toArray());

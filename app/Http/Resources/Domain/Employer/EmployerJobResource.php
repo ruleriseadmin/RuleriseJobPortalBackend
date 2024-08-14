@@ -22,7 +22,7 @@ class EmployerJobResource extends JsonResource
             'createdAt' => $this->created_at->toDateTimeString(),
             'pools' => $this->employer->candidatePools->map(fn($pool) => $pool->only(['name', 'uuid'])),
             'numberOfApplications' => $this->applicants->count(),
-            'logoUrl' => $this->employer->logo_url ? asset($this->employer->logo_url) : null,
+            'logoUrl' => $this->employer->logo_url ? asset("storage/{$this->employer->logo_url}") : null,
         ]);
 
         return HelperSupport::snake_to_camel($response->toArray());

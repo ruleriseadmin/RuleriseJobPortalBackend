@@ -20,7 +20,7 @@ class FrontPageResource extends JsonResource
                 'name' => $employer->company_name,
                 'location' => $employer->state_city,
                 'openJobs' => $employer->openJobs->count(),
-                'logoUrl' => asset($employer->logo_url),
+                'logoUrl' => asset("storage/$employer->logo_url"),
         ])->toArray();
 
         $jobs = EmployerJob::all()->filter(fn($job) => $job->active && $job->employer)->sortByDesc('created_at')->take(6);

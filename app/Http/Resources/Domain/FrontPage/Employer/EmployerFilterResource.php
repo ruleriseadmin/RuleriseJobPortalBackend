@@ -26,7 +26,7 @@ class EmployerFilterResource extends JsonResource
 
                     $employer['totalOpenJobs'] = $employer->openJobs()->count();
 
-                    $employer['logoUrl'] = $employer->logo_url ? asset($employer->logo_url) : null;
+                    $employer['logoUrl'] = $employer->logo_url ? asset("storage/$employer->logo_url") : null;
 
                     $employer = HelperSupport::snake_to_camel(collect($employer)->except([
                         'id',
