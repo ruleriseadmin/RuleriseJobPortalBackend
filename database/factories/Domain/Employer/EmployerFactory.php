@@ -27,6 +27,7 @@ class EmployerFactory extends Factory
             'address' => '1234 Main St.',
             'benefit_offered' => ['team vacations', 'health insurance'],
             'profile_summary' => 'We are company',
+            'logo_url' => null,
         ];
     }
 }

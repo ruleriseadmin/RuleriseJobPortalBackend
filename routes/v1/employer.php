@@ -52,6 +52,7 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
     Route::prefix('profile')->group(function(){
         Route::get('/', [EmployersController::class, 'getProfile']);
         Route::post('/', [EmployersController::class, 'updateProfile']);
+        Route::post('upload-logo', [EmployersController::class, 'uploadLogo']);
         Route::post('delete-account', [EmployersController::class, 'deleteAccount']);
         Route::post('change-password', [ChangePasswordController::class, 'store']);
         Route::post('upload-profile-picture', [UserAccountSettingsController::class, 'uploadProfilePicture']);
