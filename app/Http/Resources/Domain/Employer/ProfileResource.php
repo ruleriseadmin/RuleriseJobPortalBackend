@@ -15,7 +15,10 @@ class ProfileResource extends JsonResource
             'updated_at',
             'deleted_at',
             'id',
+            'logo_url',
         ])->toArray());
+
+        $response['companyInformation']['logo_url'] = $this->logo_url ? asset($this->logo_url) : null;
 
         $user = auth()->user();
 

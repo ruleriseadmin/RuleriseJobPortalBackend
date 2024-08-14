@@ -24,9 +24,9 @@ class EmployerFilterResource extends JsonResource
                     ->map(function($employer){
                     //$job['createdAt'] = $job->created_at->toDateTimeString();
 
-                    $employer['logo'] = null;
-
                     $employer['totalOpenJobs'] = $employer->openJobs()->count();
+
+                    $employer['logoUrl'] = $employer->logo_url ? asset($employer->logo_url) : null;
 
                     $employer = HelperSupport::snake_to_camel(collect($employer)->except([
                         'id',
@@ -34,6 +34,7 @@ class EmployerFilterResource extends JsonResource
                         'updated_at',
                         'deleted_at',
                         'active',
+                        'logo_url',
                     ])->toArray());
 
              return $employer;

@@ -24,6 +24,7 @@ class JobResource extends JsonResource
             'created_at' => $this->created_at->toDateTimeString(),
             'saved' => (bool) collect($user->savedJobs?->job_ids ?? [])->contains($this->id),
             'employer_name' => $this->employer->company_name,
+            'employer_logo' => asset($this->employer->logo_url),
         ]);
 
         $application = $user->jobApplications->where('job_id', $this->id)->first();
