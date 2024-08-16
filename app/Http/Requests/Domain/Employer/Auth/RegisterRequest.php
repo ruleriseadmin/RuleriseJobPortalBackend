@@ -35,7 +35,7 @@ class RegisterRequest extends BaseRequest
     {
         $validator->after(function ($validator){
             //insert rule inside
-            if ( $this->filled('logo') ){
+            if ( $this->filled('logo.imageInBase64') ){
                 HelperSupport::getBase64Size($this->input('logo.imageInBase64')) >= 5000 ? $validator->errors()->add('logo', 'Company logo size must be less than 5MB') : null;
             }
         });
