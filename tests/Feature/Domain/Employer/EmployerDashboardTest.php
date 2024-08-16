@@ -28,11 +28,13 @@ test('That employer dashboard is retrieved successfully', function () {
 
     CandidateJobApplication::factory()->create();
 
-    //EmployerJobViewCount::factory()->create();
+    EmployerJobViewCount::factory()->create();
 
-    //EmployerJobViewCount::factory()->create(['employer_job_id' => 2, 'apply_count' => 0]);
+    EmployerJobViewCount::factory()->create(['employer_job_id' => 2, 'apply_count' => 0]);
 
-    $response = $this->actingAs($user)->get("/v1/employer/dashboard?filterOverview=week");
+    $response = $this->actingAs($user)->get("/v1/employer/dashboard?filterOverview=year");
 
     expect($response->json()['status'])->toBe('200');
+
+    //dd($response->json());
 });

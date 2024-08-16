@@ -49,7 +49,8 @@ class CandidateFilterResource extends JsonResource
                     'status',
                     'applicant_information',
                     'applied_at',
-                    'job_applied'
+                    'job_applied',
+                    'uuid',
                 ])->toArray());
             });
 

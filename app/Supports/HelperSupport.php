@@ -45,4 +45,19 @@ class HelperSupport
 
         return $newInput;
     }
+
+    public static function getBase64Size($base64String)
+    {
+
+        // Calculate the length of the base64 string excluding the data prefix
+        $stringLength = strlen($base64String) - strlen('data:image/jpeg;base64,');
+
+        // Calculate the size in bytes
+        $sizeInBytes = 4 * ceil($stringLength / 3) * 0.5624896334383812;
+
+        // Convert the size to kilobytes
+        $sizeInKb = $sizeInBytes / 1000;
+
+        return $sizeInKb / 1024;
+    }
 }
