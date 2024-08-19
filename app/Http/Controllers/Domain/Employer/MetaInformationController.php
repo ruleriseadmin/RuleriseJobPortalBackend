@@ -8,11 +8,6 @@ class MetaInformationController extends BaseController
 {
     public function getJobCategory()
     {
-        return ApiReturnResponse::success([
-            [
-                'name' => 'Agriculture',
-                'uuid' => str()->uuid(),
-            ],
-        ]);
+        return ApiReturnResponse::success(['Agriculture']);
     }
 }
