@@ -11,7 +11,7 @@ class ChangeHiringStageRequest extends BaseRequest
     {
         return [
             'hiringStage' => ['required', Rule::in(CandidateJobApplication::STATUSES)],
-            'applicationIds' ['required'],
+            'applicationIds' => ['required', 'array'],
             'applicationIds.*' => ['required', 'exists:candidate_job_applications,uuid']
         ];
     }

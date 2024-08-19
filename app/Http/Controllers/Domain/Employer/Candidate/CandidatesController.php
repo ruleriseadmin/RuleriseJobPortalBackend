@@ -8,6 +8,7 @@ use App\Http\Controllers\Domain\Employer\BaseController;
 use App\Http\Resources\Domain\Employer\Candidate\CandidateResource;
 use App\Http\Requests\Domain\Employer\Candidate\ChangeHiringStageRequest;
 use App\Http\Resources\Domain\Employer\Candidate\CandidateFilterResource;
+use App\Actions\Domain\Employer\Candidate\ChangeApplicationHiringStageAction;
 
 class CandidatesController extends BaseController
 {
@@ -27,6 +28,8 @@ class CandidatesController extends BaseController
 
     public function changeHiringStage(ChangeHiringStageRequest $request)
     {
-        return ApiReturnResponse::success();
+        return (new ChangeApplicationHiringStageAction)->execute($request->input())
+            ? ApiReturnResponse::success()
+            : ApiReturnResponse::failed();
     }
 }

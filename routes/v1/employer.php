@@ -49,6 +49,7 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
     Route::prefix('candidate')->group(function(){
         Route::get('/', [CandidatesController::class, 'index']);
         Route::get('{uuid}', [CandidatesController::class, 'show']);
+        Route::post('application/change-hiring-stage', [CandidatesController::class, 'changeHiringStage']);
     });
 
     Route::prefix('profile')->group(function(){

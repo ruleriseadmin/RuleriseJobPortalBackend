@@ -8,6 +8,7 @@ use App\Models\Domain\Employer\Employer;
 use App\Models\Domain\Employer\EmployerAccess;
 use App\Models\Domain\Employer\EmployerJob;
 use App\Models\Domain\Employer\EmployerUser;
+use App\Models\Domain\Employer\Template\JobNotificationTemplate;
 use Database\Seeders\RoleSeeder;
 
 beforeEach(function () {
@@ -28,6 +29,8 @@ test('That employer change job applicant hiring stage as shortlisted', function 
     $application = CandidateJobApplication::factory()->create();
 
     $application->setStatus('unsorted');
+
+    JobNotificationTemplate::factory()->create();
 
     $response = $this->actingAs($user)->post("/v1/employer/job/applicants/update-hiring-stage", [
         'jobId' => $job->uuid,
