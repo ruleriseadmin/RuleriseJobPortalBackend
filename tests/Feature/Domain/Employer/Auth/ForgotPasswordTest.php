@@ -27,3 +27,21 @@ test('That employer user forgot reset link is sent', function () {
         'email' => $user->email
     ]);
 });
+
+test('That employer verify forgot reset link is sent', function () {
+
+    Employer::factory()->create();
+
+    $user = EmployerUser::factory()->create();
+
+    EmployerAccess::factory()->create();
+
+    $response = $this->post("/v1/employer/auth/forgot-password/{$user->email}");
+
+    $response = $this->post("/v1/employer/auth/verify-forgot-password", [
+        'email' => $user->email,
+        'token' => str()->random(60),
+    ]);
+
+    expect($response->json()['status'])->toBe('300');
+});

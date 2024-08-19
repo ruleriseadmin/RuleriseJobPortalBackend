@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Notifications\Domain\Shared\Auth\ForgotPasswordNotification;
 use App\Notifications\Domain\Shared\NotificationWithActionButton;
 use Exception;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -23,7 +24,7 @@ class ForgotPasswordAction
     {
         $this->user = $user;
 
-        $token = Crypt::encrypt($domain);//str()->random(60);
+        $token = Crypt::encrypt(Carbon::now()->addHours(5));
 
         $this->domain = $domain;
 
