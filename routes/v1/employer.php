@@ -5,6 +5,7 @@ use App\Http\Controllers\Domain\Employer\EmployersController;
 use App\Http\Controllers\Domain\Employer\Auth\LoginController;
 use App\Http\Controllers\Domain\Employer\DashboardsController;
 use App\Http\Controllers\Domain\Employer\Auth\RegisterController;
+use App\Http\Controllers\Domain\Employer\MetaInformationController;
 use App\Http\Controllers\Domain\Employer\Job\EmployerJobsController;
 use App\Http\Controllers\Domain\Employer\Job\JobApplicantController;
 use App\Http\Controllers\Domain\Employer\Plan\SubscriptionsController;
@@ -28,6 +29,8 @@ Route::prefix('auth')->group(function(){
 #authenticated routes
 Route::group(['middleware' => ['auth:sanctum']], function(){
     Route::get('dashboard', [DashboardsController::class, 'index']);
+
+    Route::get('jobCategory', [MetaInformationController::class, 'getJobCategory']);
 
     Route::prefix('job')->group(function(){
         Route::get('/', [EmployerJobsController::class, 'index']);
