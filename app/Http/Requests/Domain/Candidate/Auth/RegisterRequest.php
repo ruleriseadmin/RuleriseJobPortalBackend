@@ -22,7 +22,7 @@ class RegisterRequest extends BaseRequest
             'yearOfExperience' => ['required'],
             'preferJobIndustry' => ['required'],
             'availableToWork' => ['required', 'boolean'],
-            'skills' => ['nullable', 'array'],
+            'skills' => ['nullable', 'array', 'max:10'],
         ];
     }
 }

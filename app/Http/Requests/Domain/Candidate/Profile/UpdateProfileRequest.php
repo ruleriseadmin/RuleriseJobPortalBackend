@@ -22,6 +22,7 @@ class UpdateProfileRequest extends BaseRequest
             'dob' => ['nullable', 'date'],
             'gender' => [Rule::in(['male', 'female'])],
             'jobTitle' => ['nullable'],
+            'skills' => ['nullable', 'array', 'max:10'],
         ];
     }
 
