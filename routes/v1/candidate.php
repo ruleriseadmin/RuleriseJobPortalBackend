@@ -12,6 +12,7 @@ use App\Http\Controllers\Domain\Candidate\Data\WorkExperiencesController;
 use App\Http\Controllers\Domain\Candidate\Data\CandidateLanguagesController;
 use App\Http\Controllers\Domain\Candidate\Data\EducationHistoriesController;
 use App\Http\Controllers\Domain\Candidate\Job\CVsController;
+use App\Http\Controllers\Domain\Candidate\MetaInformationController;
 use App\Http\Controllers\Domain\Shared\AccountSetting\ChangePasswordController;
 use App\Http\Controllers\Domain\Shared\AccountSetting\UserAccountSettingsController;
 
@@ -25,6 +26,9 @@ Route::prefix('auth')->group(function(){
 
 #authenticated routes
 Route::group(['middleware' => ['auth:sanctum']], function(){
+
+    Route::get('languageProficiency', [MetaInformationController::class, 'languageProficiency']);
+
     Route::get('profile', [CandidatesController::class, 'getProfile']);
     Route::post('update-profile', [CandidatesController::class, 'updateProfile']);
     Route::get('account-setting', [AccountSettingsController::class, 'index']);
