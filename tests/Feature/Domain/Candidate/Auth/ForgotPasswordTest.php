@@ -21,3 +21,18 @@ test('That candidate user forgot reset link is sent', function () {
         'email' => $user->email
     ]);
 });
+
+
+test('That candidate verify forgot reset link is sent', function () {
+
+    $user = User::factory()->create();
+
+    $response = $this->post("/v1/candidate/auth/forgot-password/{$user->email}");
+
+    $response = $this->post("/v1/candidate/auth/verify-forgot-password", [
+        'email' => $user->email,
+        'token' => str()->random(60),
+    ]);
+
+    expect($response->json()['status'])->toBe('300');
+});

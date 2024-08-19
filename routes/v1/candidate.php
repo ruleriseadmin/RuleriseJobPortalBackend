@@ -19,6 +19,7 @@ Route::prefix('auth')->group(function(){
     Route::post('register', [RegisterController::class, 'store']);
     Route::post('login', [LoginController::class, 'store']);
     Route::post('forgot-password/{email}', [ForgotPasswordController::class, 'sendResetPasswordLink']);
+    Route::post('verify-forgot-password', [ForgotPasswordController::class, 'verifyResetPasswordLink']);
 });
 
 #authenticated routes
