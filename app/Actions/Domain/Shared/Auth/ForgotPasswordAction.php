@@ -51,6 +51,9 @@ class ForgotPasswordAction
 
     public function sendEmail()
     {
+
+        $resetPasswordUrl = $this->domain == 'candidate' ? config('env.candidate.reset_password_url') : config('env.employer.reset_password_url');
+
         try{
             Notification::route('mail', $this->user->email)->notify(new NotificationWithActionButton([
                 'subject' => 'Reset Password',
@@ -60,7 +63,7 @@ class ForgotPasswordAction
                     "If you didn't request for a password change, kindly ignore this email.",
                 ],
                 'actionText' => 'Reset Password',
-                'actionUrl' => "{$this->domain}/reset-password?token={$this->token}",
+                'actionUrl' => "{$resetPasswordUrl}?token={$this->token}",
             ]));
         }catch(Exception $ex){
             Log::error("Error @ ForgotPasswordAction::sendEmail : {$ex->getMessage()}");
