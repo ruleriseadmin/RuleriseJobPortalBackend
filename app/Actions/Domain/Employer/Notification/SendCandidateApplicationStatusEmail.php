@@ -12,6 +12,8 @@ class SendCandidateApplicationStatusEmail
 {
     public function execute(CandidateJobApplication $application, string $hiringStage)
     {
+        if ( ! $application->job ) return;
+
         if ( ! $application->job->employer ) return;
 
         $template = "{$hiringStage}_template";
