@@ -84,4 +84,9 @@ class User extends ModelsUser
     {
         return self::query()->where('uuid', $uuid)->first();
     }
+
+    public static function whereEmail(string $email)
+    {
+        return self::query()->where('email', $email)->first();
+    }
 }

@@ -31,4 +31,9 @@ class EmployerUser extends User
     {
         return $this->hasMany(EmployerAccess::class);
     }
+
+    public static function whereEmail(string $email)
+    {
+        return self::query()->where('email', $email)->first();
+    }
 }

@@ -21,6 +21,7 @@ Route::prefix('auth')->group(function(){
     Route::post('login', [LoginController::class, 'store']);
     Route::post('forgot-password/{email}', [ForgotPasswordController::class, 'sendResetPasswordLink']);
     Route::post('verify-forgot-password', [ForgotPasswordController::class, 'verifyResetPasswordLink']);
+    Route::post('reset-password', [ForgotPasswordController::class, 'resetPassword']);
 });
 
 
