@@ -4,6 +4,7 @@ namespace App\Actions\Domain\Shared\Auth;
 
 use Exception;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Hash;
 
@@ -13,10 +14,14 @@ class ResetPasswordAction
     {
         if ( ! (new VerifyForgotPasswordAction)->execute($domain, $user->email, $token) ) return false;
 
+        DB::beginTransaction();
         try{
             $user->update(['password' => Hash::make($password)]);
+            DB::table('password_reset_tokens')->where('email', $user->email)->delete();
+            DB::commit();
             return true;
         }catch(Exception $ex){
+            DB::rollBack();
             Log::error("Error @ ResetPasswordAction::execute : {$ex->getMessage()}");
             return false;
         }
