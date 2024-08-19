@@ -8,6 +8,7 @@ use App\Models\Domain\Candidate\User;
 use App\Models\Domain\Employer\Employer;
 use App\Models\Domain\Employer\EmployerJob;
 use App\Models\Domain\Candidate\Job\CandidateJobApplication;
+use App\Actions\Domain\Employer\Notification\SendCandidateApplicationStatusEmail;
 
 class ChangeHiringStageAction
 {
@@ -25,7 +26,7 @@ class ChangeHiringStageAction
 
             $application->setStatus($input['hiringStage']);
 
-            //@todo send email notification...
+            (new SendCandidateApplicationStatusEmail)->execute($application, $input['hiringStage']);
         }
         }catch(Exception $ex){
             Log::error("Error @ ChangeHiringStageAction: " . $ex->getMessage());

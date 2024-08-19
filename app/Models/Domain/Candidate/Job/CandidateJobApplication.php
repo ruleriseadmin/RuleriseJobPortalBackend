@@ -54,4 +54,9 @@ class CandidateJobApplication extends Model
     {
         return $this->belongsTo(EmployerJob::class, 'job_id', 'id');
     }
+
+    public static function whereUuid(string $uuid)
+    {
+        return self::query()->where('uuid', $uuid)->first();
+    }
 }
