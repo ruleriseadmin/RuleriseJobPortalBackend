@@ -66,4 +66,13 @@ class JobsController extends BaseController
 
         return ApiReturnResponse::success(new SimilarJobResource($job));
     }
+
+    public function reportJob(string $uuid)
+    {
+        $job = EmployerJob::whereUuid($uuid);
+
+        if ( ! $job ) return ApiReturnResponse::notFound('Job not found');
+
+        return ApiReturnResponse::success();
+    }
 }
