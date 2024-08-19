@@ -33,6 +33,11 @@ class EmployerJob extends Model
         'email_apply',
         'required_skills',
         'active',
+        'number_vacancy',
+        'application_expiry',
+        'language_required',
+        'email_to_apply',
+        'career_level',
     ];
 
     protected $casts = [
