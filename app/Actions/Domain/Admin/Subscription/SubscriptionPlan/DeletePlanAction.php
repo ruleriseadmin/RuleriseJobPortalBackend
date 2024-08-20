@@ -18,7 +18,7 @@ class DeletePlanAction
 
             (new Plan($plan->plan_id))->delete();
 
-            (new Product())->delete([$plan->product_id]);
+            (new Product($plan->product_id))->delete();
 
             $action = $plan->delete();
         }catch(Exception $ex){
