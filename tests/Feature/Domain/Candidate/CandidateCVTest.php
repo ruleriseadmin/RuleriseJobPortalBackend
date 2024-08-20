@@ -51,4 +51,21 @@ test('That candidate view cv detail successfully', function () {
     expect($response['data'][0]['cvDocumentUrl'])->toBe(asset("storage/cv/{$user->email}-curriculum-vitae-0.pdf"));
 
     Storage::delete("public/{$user->cvs()->first()->cv_document_url}");
-;});
+});
+
+test('That candidate delete cv successfully', function () {
+
+    $user = User::factory()->create();
+
+    $cv = CVDocument::factory()->create();
+
+    $cv->update(['cv_document_url' => "cv/{$user->email}-curriculum-vitae-0.pdf"]);
+
+    $response = $this->actingAs($user)->post("/v1/candidate/cv/{$cv->uuid}/delete");
+
+    expect($response['status'])->toBe('200');
+
+    expect($user->cvs()->count())->toBe(0);
+
+    Storage::assertMissing("public/{$user->email}-curriculum-vitae-0.pdf");
+});

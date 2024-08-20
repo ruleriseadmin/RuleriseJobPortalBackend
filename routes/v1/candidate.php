@@ -40,6 +40,7 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
     Route::prefix('cv')->group(function(){
         Route::post('upload', [CVsController::class, 'uploadCv']);
         Route::get('detail', [CVsController::class, 'cvDetail']);
+        Route::post('{uuid}/delete', [CVsController::class, 'delete']);
     });
 
     Route::prefix('work-experience')->group(function(){

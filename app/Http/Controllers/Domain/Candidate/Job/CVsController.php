@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Domain\Candidate\Job;
+use App\Actions\Domain\Candidate\Job\DeleteCVAction;
 use App\Http\Resources\Domain\Candidate\CVResource;
 use Illuminate\Http\JsonResponse;
 use App\Supports\ApiReturnResponse;
@@ -20,5 +21,16 @@ class CVsController extends BaseController
         $cvDocument = (new UploadCVAction)->execute($request->input());
 
         return $cvDocument ? ApiReturnResponse::success(new CVResource($cvDocument)) : ApiReturnResponse::failed();
+    }
+
+    public function delete(string $uuid)
+    {
+        $cv = $this->user->cvs()->where('uuid', $uuid)->first();
+
+        if ( ! $cv ) return ApiReturnResponse::notFound('Cv not found');
+
+        return (new DeleteCVAction)->execute($cv)
+            ? ApiReturnResponse::success()
+            : ApiReturnResponse::failed();
     }
 }
