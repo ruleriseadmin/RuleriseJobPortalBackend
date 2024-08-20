@@ -7,9 +7,8 @@ use Stripe\Plan;
 use Stripe\Product;
 use Illuminate\Support\Facades\Log;
 use App\Models\Domain\Shared\Subscription\SubscriptionPlan;
-use Stripe\Customer;
+use App\Supports\HelperSupport;
 use Stripe\Stripe;
-use Stripe\Subscription;
 
 class CreatePlanAction
 {
@@ -24,7 +23,7 @@ class CreatePlanAction
 
             $stripePlan = Plan::create([
                 'product' => $stripeProduct['id'],
-                'amount' => $inputs['price'],
+                'amount' => HelperSupport::convert_to_cents($inputs['price']),
                 'currency' => 'usd',
                 'interval' => $inputs['interval'],
                 'interval_count' => $inputs['duration'],

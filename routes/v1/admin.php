@@ -34,7 +34,7 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
         Route::post('/', [SubscriptionPlansController::class, 'store']);
         Route::get('{uuid}', [SubscriptionPlansController::class, 'show']);
         Route::post('update', [SubscriptionPlansController::class, 'update']);
-        Route::post('delete', [SubscriptionPlansController::class, 'destroy']);
+        Route::post('{uuid}/delete', [SubscriptionPlansController::class, 'destroy']);
         Route::post('setActive', [SubscriptionPlansController::class, 'setActive']);
     });
 });

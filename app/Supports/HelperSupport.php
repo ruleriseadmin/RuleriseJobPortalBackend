@@ -60,4 +60,9 @@ class HelperSupport
 
         return $sizeInKb / 1024;
     }
+
+    public static function convert_to_cents($amount): float|int
+    {
+        return $amount * 100;
+    }
 }
