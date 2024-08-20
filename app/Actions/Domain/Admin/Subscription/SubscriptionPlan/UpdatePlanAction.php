@@ -22,16 +22,14 @@ class UpdatePlanAction
             ]);
 
             Plan::update($plan->plan_id, [
-               // 'amount' => $inputs['price'],
-               // 'currency' => 'usd',
-                //'interval' => $inputs['interval'],
+                'active' => $inputs['active'] ?? $plan->active,
             ]);
-
-            $inputs['quota'] = $inputs['numberOfCandidate'];
 
             $plan->update([
                 'name' => $inputs['name'],
-            ]); //HelperSupport::camel_to_snake($inputs)
+                'active' => $inputs['active'] ?? $plan->active,
+                'quota' => $inputs['numberOfCandidate'],
+            ]);
         }catch(Exception $ex){
             Log::error("Error @ UpdatePlanAction: " . $ex->getMessage());
             return null;

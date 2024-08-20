@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Domain\Shared\Subscription\SubscriptionPlan;
 use App\Http\Requests\Domain\Admin\Subscription\Plan\SetActiveRequest;
 use App\Http\Requests\Domain\Admin\Subscription\Plan\StorePlanRequest;
+use App\Http\Requests\Domain\Admin\Subscription\Plan\UpdatePlanRequest;
 use App\Actions\Domain\Admin\Subscription\SubscriptionPlan\CreatePlanAction;
 use App\Actions\Domain\Admin\Subscription\SubscriptionPlan\DeletePlanAction;
 use App\Actions\Domain\Admin\Subscription\SubscriptionPlan\UpdatePlanAction;
@@ -34,7 +35,7 @@ class SubscriptionPlansController extends Controller
         //
     }
 
-    public function update(StorePlanRequest $request): JsonResponse
+    public function update(UpdatePlanRequest $request): JsonResponse
     {
         $plan = SubscriptionPlan::whereUuid($request->input('planId'));
 
