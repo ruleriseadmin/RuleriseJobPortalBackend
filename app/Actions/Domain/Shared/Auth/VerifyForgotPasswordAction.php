@@ -8,14 +8,16 @@ use Illuminate\Support\Facades\DB;
 
 class VerifyForgotPasswordAction
 {
-    public function execute(string $domain, string $email, string $token): bool
+    public function execute(string $domain, string $token): ?string
     {
-        $password = DB::table('password_reset_tokens')->where('email', $email)->where('token', $token)->first();
+        $password = DB::table('password_reset_tokens')->where('token', $token)->first();
 
         if ( ! $password ) return false;
 
         $decodeToken = Crypt::decrypt($token);
 
-        return Carbon::now()->lessThan($decodeToken);
+        if ( Carbon::now()->greaterThan($decodeToken ) ) return null;
+
+        return $password->email;
     }
 }

@@ -30,8 +30,10 @@ class ForgotPasswordController extends Controller
 
     public function verifyResetPasswordLink(VerifyResetPasswordLinkRequest $request): JsonResponse
     {
-        return (new VerifyForgotPasswordAction)->execute('candidate', $request->input('email'), $request->input('token'))
-            ? ApiReturnResponse::success()
+        $email = (new VerifyForgotPasswordAction)->execute('candidate', $request->input('token'));
+
+        return $email
+            ? ApiReturnResponse::success(['email' => $email])
             : ApiReturnResponse::failed();
     }
 
