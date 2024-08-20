@@ -16,7 +16,7 @@ class DeletePlanAction
         try{
             Stripe::setApiKey(config('services.stripe.secret'));
 
-            (new Plan())->delete([$plan->plan_id]);
+            (new Plan($plan->plan_id))->delete();
 
             (new Product())->delete([$plan->product_id]);
 
