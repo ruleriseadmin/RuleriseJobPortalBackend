@@ -43,6 +43,7 @@ class CreatePlanAction
                 'currency' => 'usd',
                 'interval' => $inputs['interval'],
                 'interval_count' => $inputs['duration'],
+                'duration' => $inputs['duration'],
                 'trial_period_days' => null,
                 'quota' => $inputs['numberOfCandidate'],
             ]);
