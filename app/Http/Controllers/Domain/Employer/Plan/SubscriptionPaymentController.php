@@ -26,6 +26,8 @@ class SubscriptionPaymentController extends BaseController
             return ApiReturnResponse::failed('Plan not found');
         }
 
+        if ( ! $plan->active ) return ApiReturnResponse::failed('Plan not active');
+
         $paymentLink = (new CreatePaymentLinkAction)->execute($this->employer, $plan);
 
         return $paymentLink
