@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Domain\Admin\Auth\LoginController;
 use App\Http\Controllers\Domain\Admin\Candidate\CandidatesController;
 use App\Http\Controllers\Domain\Admin\Employer\EmployersController;
+use App\Http\Controllers\Domain\Admin\Job\JobCategoriesController;
 use App\Http\Controllers\Domain\Admin\SubscriptionPlan\SubscriptionPlansController;
 
 
@@ -36,6 +37,14 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
         Route::post('update', [SubscriptionPlansController::class, 'update']);
         Route::post('{uuid}/delete', [SubscriptionPlansController::class, 'destroy']);
         Route::post('setActive', [SubscriptionPlansController::class, 'setActive']);
+    });
+
+    Route::prefix('job-category')->group(function(){
+        Route::get('/', [JobCategoriesController::class, 'index']);
+        Route::post('/', [JobCategoriesController::class, 'store']);
+        Route::get('{uuid}', [JobCategoriesController::class, 'show']);
+        Route::post('update', [JobCategoriesController::class, 'update']);
+        Route::post('{uuid}/delete', [JobCategoriesController::class, 'delete']);
     });
 });
 
