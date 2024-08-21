@@ -7,6 +7,7 @@ use App\Supports\HelperSupport;
 use App\Models\Domain\Employer\EmployerJob;
 use Illuminate\Support\Facades\Log;
 use App\Models\Domain\Employer\Employer;
+use App\Models\Domain\Shared\Job\JobCategories;
 
 class CreateJobAction
 {
@@ -14,6 +15,8 @@ class CreateJobAction
     {
         try{
             $input['uuid'] = str()->uuid();
+
+            $input['category_id'] = JobCategories::whereUuid('categoryId')->id;
 
             $job = $employer->jobs()->create(HelperSupport::camel_to_snake($input));
         }catch(Exception $ex){

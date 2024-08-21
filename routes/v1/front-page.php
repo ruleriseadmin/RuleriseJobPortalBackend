@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Domain\FrontPage\MetaInformationController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Domain\FrontPage\JobsController;
 use App\Http\Controllers\Domain\FrontPage\EmployersController;
@@ -10,6 +11,8 @@ Route::get('front-page', [FrontPagesController::class, 'index']);
 Route::get('search-jobs', [JobsController::class, 'searchJobs']);
 
 Route::get('latest-jobs', [JobsController::class, 'latestJobs']);
+
+Route::get('job-categories', [MetaInformationController::class, 'getJobCategory']);
 
 Route::prefix('employers')->group(function(){
     Route::get('/', [EmployersController::class, 'index']);

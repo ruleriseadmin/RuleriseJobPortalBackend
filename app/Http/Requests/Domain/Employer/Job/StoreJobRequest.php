@@ -11,6 +11,7 @@ class StoreJobRequest extends BaseRequest
             'title' => ['required'],
             'summary' => ['required'],
             'description' => ['required'],
+            'categoryId' => ['required', 'exists:job_categories,uuid'],
             // 'jobType',
             // 'employmentType',
             // 'jobIndustry',
