@@ -24,7 +24,17 @@ class ForgotPasswordAction
     {
         $this->user = $user;
 
-        $token = Crypt::encrypt(Carbon::now()->addHours(5));
+        $expiredAt = Carbon::now()->addHours(5);
+
+        $randomString = str()->uuid();
+
+        $token = json_encode([
+            'email' => $user->email,
+            'token' => $randomString,
+            'expired_at' => $expiredAt
+        ]);
+
+        $token = Crypt::encrypt($token);
 
         $this->domain = $domain;
 

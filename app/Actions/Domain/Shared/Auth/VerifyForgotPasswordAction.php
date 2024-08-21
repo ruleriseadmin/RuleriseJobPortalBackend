@@ -16,7 +16,9 @@ class VerifyForgotPasswordAction
 
         $decodeToken = Crypt::decrypt($token);
 
-        if ( Carbon::now()->greaterThan($decodeToken ) ) return null;
+        $decodeToken = (object) json_decode($decodeToken);
+
+        if ( Carbon::now()->greaterThan($decodeToken->expired_at) ) return null;
 
         return $password->email;
     }
