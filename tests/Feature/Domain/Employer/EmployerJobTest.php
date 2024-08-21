@@ -5,6 +5,7 @@ use App\Models\Domain\Employer\EmployerAccess;
 use App\Models\Domain\Employer\EmployerJob;
 use App\Models\Domain\Employer\EmployerUser;
 use App\Models\Domain\Employer\Job\CandidateJobPool;
+use App\Models\Domain\Shared\Job\JobCategories;
 use Database\Seeders\RoleSeeder;
 
 beforeEach(function () {
@@ -89,6 +90,8 @@ test('That employer created job', function () {
 
     EmployerAccess::factory()->create();
 
+    $category = JobCategories::factory()->create();
+
     $response = $this->actingAs($user)->post("/v1/employer/job", [
         'title' => 'Software Engineer',
         'summary' => 'job summary',
@@ -102,6 +105,7 @@ test('That employer created job', function () {
         'easyApply' => true,
         'emailApply' => false,
         'requiredSkills' => ['php', 'javascript'],
+        'categoryId' => $category->uuid,
     ]);
 
     expect($response->json()['status'])->toBe('200');
@@ -119,6 +123,8 @@ test('That employer created job as draft', function () {
 
     EmployerAccess::factory()->create();
 
+    $category = JobCategories::factory()->create();
+
     $response = $this->actingAs($user)->post("/v1/employer/job", [
         'title' => 'Software Engineer',
         'summary' => 'job summary',
@@ -133,6 +139,7 @@ test('That employer created job as draft', function () {
         'emailApply' => false,
         'requiredSkills' => ['php', 'javascript'],
         'active' => false,
+        'categoryId' => $category->uuid,
     ]);
 
     expect($response->json()['status'])->toBe('200');
@@ -152,6 +159,8 @@ test('That employer created job as published', function () {
 
     EmployerAccess::factory()->create();
 
+    $category = JobCategories::factory()->create();
+
     $response = $this->actingAs($user)->post("/v1/employer/job", [
         'title' => 'Software Engineer',
         'summary' => 'job summary',
@@ -166,6 +175,7 @@ test('That employer created job as published', function () {
         'emailApply' => false,
         'requiredSkills' => ['php', 'javascript'],
         'active' => true,
+        'categoryId' => $category->uuid,
     ]);
 
     expect($response->json()['status'])->toBe('200');
@@ -187,11 +197,14 @@ test('That employer updated job', function () {
 
     $job = EmployerJob::factory()->create();
 
+    $category = JobCategories::factory()->create();
+
     $response = $this->actingAs($user)->post("/v1/employer/job/update", [
         'uuid' => $job->uuid,
         'title' => 'Software Developer',
         'summary' => 'job summary',
         'description' => 'quick job description',
+        'categoryId' => $category->uuid,
     ]);
 
     expect($response->json()['status'])->toBe('200');

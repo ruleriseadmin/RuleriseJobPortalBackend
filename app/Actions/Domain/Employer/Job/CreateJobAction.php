@@ -16,7 +16,7 @@ class CreateJobAction
         try{
             $input['uuid'] = str()->uuid();
 
-            $input['category_id'] = JobCategories::whereUuid('categoryId')->id;
+            $input['category_id'] = JobCategories::whereUuid($input['categoryId'])->id;
 
             $job = $employer->jobs()->create(HelperSupport::camel_to_snake($input));
         }catch(Exception $ex){
