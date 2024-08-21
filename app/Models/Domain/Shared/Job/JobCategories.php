@@ -2,8 +2,10 @@
 
 namespace App\Models\Domain\Shared\Job;
 
+use App\Models\Domain\Employer\EmployerJob;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class JobCategories extends Model
@@ -23,6 +25,16 @@ class JobCategories extends Model
         static::creating(function ($model) {
             $model->uuid = (string) str()->uuid();
         });
+    }
+
+    public function jobs(): HasMany
+    {
+        return $this->hasMany(EmployerJob::class, 'category_id', 'id');
+    }
+
+    public function openJobs(): HasMany
+    {
+        return $this->jobs()->where('active', true);
     }
 
     public static function whereUuid(string $uuid)

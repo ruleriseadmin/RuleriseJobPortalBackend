@@ -2,11 +2,13 @@
 
 namespace App\Http\Resources\Domain\FrontPage;
 
+use Illuminate\Http\Request;
+use App\Supports\HelperSupport;
 use App\Models\Domain\Employer\Employer;
 use App\Models\Domain\Employer\EmployerJob;
-use App\Supports\HelperSupport;
-use Illuminate\Http\Request;
+use App\Models\Domain\Shared\Job\JobCategories;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Domain\Admin\Job\CategoryResource;
 
 class FrontPageResource extends JsonResource
 {
@@ -28,7 +30,7 @@ class FrontPageResource extends JsonResource
         return [
             'latestJobs' => JobResource::collection($jobs),
             'companies' => HelperSupport::snake_to_camel($employers),
-            'categories' => [],
+            'categories' => CategoryResource::collection(JobCategories::all()),
         ];
     }
 
