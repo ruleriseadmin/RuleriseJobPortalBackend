@@ -35,7 +35,10 @@ class SendEmailVerificationAction
         try{
             Notification::route('mail', $user->email)->notify(new NotificationWithActionButton([
                 'subject' => 'Email Verification',
-                'greeting' => "Hello {$user->full_name}! \n Welcome to Talent Beyond Border",
+                'greeting' => "Hello {$user->full_name}!",
+                'headings' => [
+                    'Welcome to Talent Beyond Border',
+                ],
                 'messages' => [
                     'Click the button below to get started.',
                 ],

@@ -79,6 +79,9 @@
         <div class="email-content-outer">
             <div class="email-content">
                 <h1>{{ $greeting ?? 'Hello' }}</h1>
+                @foreach ($headings as $heading)
+                    <h1>{{ $heading }}</h1>
+                @endforeach
                 @foreach ($messages ?? [] as $message)
                 <p>
                     {{ $message }}
