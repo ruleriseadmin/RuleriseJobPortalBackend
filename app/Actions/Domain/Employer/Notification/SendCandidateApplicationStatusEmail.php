@@ -30,7 +30,7 @@ class SendCandidateApplicationStatusEmail
                 'greeting' => $user->full_name,
                 'messages' => [
                     $template['email'] ?? 'Your have an update on your job application.',
-                    'Job Title: '.$application->job->title,
+                    'Job Title: ',
                 ],
                 'actionText' => 'View Job',
                 'actionUrl' => config('env.candidate.base_url')."/job/{$application->job->id}",
