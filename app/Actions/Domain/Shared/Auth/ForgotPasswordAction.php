@@ -70,8 +70,10 @@ class ForgotPasswordAction
                 'subject' => 'Reset Password',
                 'name' => $this->user->full_name,
                 'messages' => [
-                    "You've requested for a password change, kindly click the button below to reset your password.",
-                    "If you didn't request for a password change, kindly ignore this email.",
+                    "You have requested to reset the password to your account on Talent Beyond Borders. Click the button below to get started",
+                ],
+                'messagesAfterAction' => [
+                    "If you did not initiate this request, please ignore this email, or write to xyz@gmail.com so we can look into a possible attempt to breach your account.",
                 ],
                 'actionText' => 'Reset Password',
                 'actionUrl' => "{$resetPasswordUrl}?token={$this->token}",

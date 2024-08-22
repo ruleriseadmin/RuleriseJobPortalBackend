@@ -78,17 +78,18 @@
         </div>
         <div class="email-content-outer">
             <div class="email-content">
-                <h1>Hello Soyemi Olashile!</h1>
+                <h1>{{ $greeting }}</h1>
+                @foreach ($messages ?? [] as $message)
                 <p>
-                    You have requested to reset the password to your account on Talent Beyond Borders.
-                    Click the button below to get started.
+                    {{ $message }}
                 </p>
-                <a href="reset-link-here" class="email-button">Reset my password</a>
+                @endforeach
+                <a href="{{ $url }}" class="email-button">{{ $text }}</a>
+                @foreach ($messagesAfterAction ?? [] as $text)
                 <p>
-                    If you did not initiate this request, please ignore this email,
-                    or write to <a href="mailto:xyz@gmail.com">xyz@gmail.com</a>
-                    so we can look into a possible attempt to breach your account.
+                    {{ $text }}
                 </p>
+                @endforeach
             </div>
             <div class="email-footer">
                 © Talent Beyond Borders 2024
