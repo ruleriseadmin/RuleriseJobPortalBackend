@@ -16,6 +16,8 @@ class SendCandidateApplicationStatusEmail
 
         if ( ! $application->job->employer ) return;
 
+        logger($application->job);
+
         $template = "{$hiringStage}_template";
 
         $template = $application->job->employer->jobNotificationTemplate->$template;
@@ -25,7 +27,7 @@ class SendCandidateApplicationStatusEmail
 
             Notification::route('email', $user->email)->notify(new NotificationWithActionButton([
                 'subject' => $template['subject'] ?? 'Application Status Update',
-                'name' => $user->full_name,
+                'greeting' => $user->full_name,
                 'messages' => [
                     $template['email'] ?? 'Your have an update on your job application.',
                     'Job Title: '.$application->job->title,
