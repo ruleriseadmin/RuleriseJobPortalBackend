@@ -13,7 +13,7 @@
             color: #333;
         }
       	body a{
-      		color:#333;
+      		color:#333 !important;
       	}
         .email-container {
             max-width: 600px;
@@ -55,7 +55,7 @@
             display: inline-block;
             padding: 12px 24px;
             background-color: #26A4FF;
-            color: #fff;
+            color: #fff !important;
             text-decoration: none;
             border-radius: 30px;
             font-size: 16px;
@@ -78,7 +78,7 @@
         </div>
         <div class="email-content-outer">
             <div class="email-content">
-                <h1>{{ $greeting }}</h1>
+                <h1>Hello Soyemi Olashile!</h1>
                 <p>
                     You have requested to reset the password to your account on Talent Beyond Borders.
                     Click the button below to get started.
