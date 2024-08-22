@@ -16,6 +16,8 @@ class AccountEmailVerificationsController
 
         if ( ! $user ) return ApiReturnResponse::notFound('User not found');
 
+        if ( $user->email_verified_at ) return ApiReturnResponse::failed(message: 'Email already verified');
+
         (new SendEmailVerificationAction)->execute('candidate', $user);
 
         return ApiReturnResponse::success(message: 'Please check your email to verify your account');
