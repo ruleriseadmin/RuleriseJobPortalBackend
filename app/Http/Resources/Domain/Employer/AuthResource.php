@@ -16,7 +16,10 @@ class AuthResource extends JsonResource
             'deleted_at',
             'id',
             'email_verified_token',
+            'email_verified_at',
         ]);
+
+        $response['email_verified'] = $this->hasVerifiedEmail();
 
         $response['profile_picture_url'] = $this->profile_picture_url ? asset("storage/$this->profile_picture_url") : null;
 
