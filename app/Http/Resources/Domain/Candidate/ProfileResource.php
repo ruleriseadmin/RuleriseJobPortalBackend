@@ -22,6 +22,7 @@ class ProfileResource extends JsonResource
             'deleted_at',
             'id',
             'only_account',
+            'email_verified_token',
         ])->toArray();
 
         $response['profile_picture_url'] = $this->profile_picture_url ? asset("storage/$this->profile_picture_url") : null;

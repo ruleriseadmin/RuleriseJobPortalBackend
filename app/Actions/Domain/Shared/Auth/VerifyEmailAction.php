@@ -27,6 +27,8 @@ class VerifyEmailAction
 
         if ( ! $user ) return false;
 
+        if ( $user->email_verified_at ) return false;
+
         $user->update([
             'email_verified_at' => Carbon::now(),
             'email_verified_token' => null,
