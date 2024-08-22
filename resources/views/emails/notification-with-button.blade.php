@@ -92,7 +92,7 @@
                 @endforeach
             </div>
             <div class="email-footer">
-                © Talent Beyond Borders 2024
+                © {{ config('app.name') }} 2024
             </div>
         </div>
     </div>
