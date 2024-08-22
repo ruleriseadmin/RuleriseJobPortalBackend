@@ -11,7 +11,7 @@ class SubscriptionPackagesResource extends JsonResource
 
     public function toArray(Request $request): array
     {
-        return HelperSupport::snake_to_camel(collect(parent::toArray($request))->only([
+        $response = collect(parent::toArray($request))->only([
             // 'id',
             // 'created_at',
             // 'updated_at',
@@ -24,6 +24,12 @@ class SubscriptionPackagesResource extends JsonResource
             'currency',
             'interval',
             'interval_count',
-        ])->toArray());
+        ]);
+
+        $response = collect($response)->merge([
+            'number_candidates' => $this->quota,
+        ]);
+
+        return HelperSupport::snake_to_camel($response->toArray());
     }
 }
