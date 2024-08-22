@@ -71,6 +71,10 @@ test('That employer user send resent verification email', function () {
 
     $user = EmployerUser::factory()->create();
 
+    $user->update([
+        'email_verified_at' => null,
+    ]);
+
     $response = $this->post("/v1/employer/auth/resendEmailVerification/{$user->email}");
 
     expect($response->json()['status'])->toBe('200');
