@@ -30,7 +30,7 @@ class SendEmailVerificationAction
             'email_verified_token' => $token,
         ]);
 
-        $url = $domain == 'candidate' ? config('env.candidate.reset_password_url') : config('env.employer.reset_password_url');
+        $url = $domain == 'candidate' ? config('env.candidate.verify_email_url') : config('env.employer.verify_email_url');
 
         try{
             Notification::route('mail', $user->email)->notify(new NotificationWithActionButton([

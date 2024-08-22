@@ -62,7 +62,6 @@ class ForgotPasswordAction
 
     public function sendEmail()
     {
-
         $resetPasswordUrl = $this->domain == 'candidate' ? config('env.candidate.reset_password_url') : config('env.employer.reset_password_url');
 
         try{
@@ -75,7 +74,7 @@ class ForgotPasswordAction
                 'messagesAfterAction' => [
                     "If you did not initiate this request, please ignore this email, or write to xyz@gmail.com so we can look into a possible attempt to breach your account.",
                 ],
-                'actionText' => 'Reset Password',
+                'actionText' => 'Reset my password',
                 'actionUrl' => "{$resetPasswordUrl}?token={$this->token}",
             ]));
         }catch(Exception $ex){
