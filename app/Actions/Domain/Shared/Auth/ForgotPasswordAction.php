@@ -68,7 +68,7 @@ class ForgotPasswordAction
         try{
             Notification::route('mail', $this->user->email)->notify(new NotificationWithActionButton([
                 'subject' => 'Reset Password',
-                'name' => $this->user->full_name,
+                'greeting' => "Hello {$this->user->full_name}!",
                 'messages' => [
                     "You have requested to reset the password to your account on Talent Beyond Borders. Click the button below to get started",
                 ],

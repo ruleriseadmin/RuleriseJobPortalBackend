@@ -34,12 +34,9 @@ class NotificationWithActionButton extends Notification
      */
     public function toMail(object $notifiable): MailMessage
     {
-        return (new MailMessage)->view('emails.notification-with-button', $this->mailData)
+        return (new MailMessage)
                     ->subject(config('app.name').': '.$this->mailData['subject']??'Notification')
-                    ->greeting('Hello '.$this->mailData['name']??'')
-                    ->lines($this->mailData['messages']??'')
-                    ->action($this->mailData['actionText']??'Click Here', $this->mailData['actionUrl']??'')
-                    ->lines($this->mailData['messagesAfterAction']??'');
+                    ->view('emails.notification-with-button', $this->mailData);
     }
 
     /**

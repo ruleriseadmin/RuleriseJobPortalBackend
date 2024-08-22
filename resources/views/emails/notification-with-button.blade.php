@@ -84,7 +84,7 @@
                     {{ $message }}
                 </p>
                 @endforeach
-                <a href="{{ $url }}" class="email-button">{{ $text }}</a>
+                <a href="{{ $actionUrl }}" class="email-button">{{ $actionText }}</a>
                 @foreach ($messagesAfterAction ?? [] as $text)
                 <p>
                     {{ $text }}
