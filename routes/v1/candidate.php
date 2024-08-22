@@ -1,23 +1,26 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Domain\Candidate\Job\CVsController;
 use App\Http\Controllers\Domain\Candidate\Job\JobsController;
 use App\Http\Controllers\Domain\Candidate\Auth\LoginController;
 use App\Http\Controllers\Domain\Candidate\CandidatesController;
 use App\Http\Controllers\Domain\Candidate\Auth\RegisterController;
 use App\Http\Controllers\Domain\Candidate\AccountSettingsController;
+use App\Http\Controllers\Domain\Candidate\MetaInformationController;
 use App\Http\Controllers\Domain\Candidate\Data\CredentialsController;
 use App\Http\Controllers\Domain\Candidate\Auth\ForgotPasswordController;
 use App\Http\Controllers\Domain\Candidate\Data\WorkExperiencesController;
 use App\Http\Controllers\Domain\Candidate\Data\CandidateLanguagesController;
 use App\Http\Controllers\Domain\Candidate\Data\EducationHistoriesController;
-use App\Http\Controllers\Domain\Candidate\Job\CVsController;
-use App\Http\Controllers\Domain\Candidate\MetaInformationController;
 use App\Http\Controllers\Domain\Shared\AccountSetting\ChangePasswordController;
+use App\Http\Controllers\Domain\Candidate\Auth\AccountEmailVerificationsController;
 use App\Http\Controllers\Domain\Shared\AccountSetting\UserAccountSettingsController;
 
 Route::prefix('auth')->group(function(){
     Route::post('register', [RegisterController::class, 'store']);
+    Route::post('resendEmailVerification/{email}', [AccountEmailVerificationsController::class, 'resendEmailVerification']);
+    Route::post('verifyEmail', [AccountEmailVerificationsController::class, 'verifyEmail']);
     Route::post('login', [LoginController::class, 'store']);
     Route::post('forgot-password/{email}', [ForgotPasswordController::class, 'sendResetPasswordLink']);
     Route::post('verify-forgot-password', [ForgotPasswordController::class, 'verifyResetPasswordLink']);
@@ -25,7 +28,7 @@ Route::prefix('auth')->group(function(){
 });
 
 #authenticated routes
-Route::group(['middleware' => ['auth:sanctum']], function(){
+Route::group(['middleware' => ['auth:sanctum', 'user.ensureEmailIsVerified']], function(){
 
     Route::get('languageProficiency', [MetaInformationController::class, 'languageProficiency']);
 

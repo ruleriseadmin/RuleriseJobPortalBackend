@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Domain\Employer\Auth\AccountEmailVerificationsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Domain\Employer\EmployersController;
 use App\Http\Controllers\Domain\Employer\Auth\LoginController;
@@ -19,6 +20,8 @@ use App\Http\Controllers\Domain\Employer\Template\JobNotificationTemplatesContro
 
 Route::prefix('auth')->group(function(){
     Route::post('register', [RegisterController::class, 'store']);
+    Route::post('resendEmailVerification/{email}', [AccountEmailVerificationsController::class, 'resendEmailVerification']);
+    Route::post('verifyEmail', [AccountEmailVerificationsController::class, 'verifyEmail']);
     Route::post('login', [LoginController::class, 'store']);
     Route::post('forgot-password/{email}', [ForgotPasswordController::class, 'sendResetPasswordLink']);
     Route::post('verify-forgot-password', [ForgotPasswordController::class, 'verifyResetPasswordLink']);
@@ -27,7 +30,7 @@ Route::prefix('auth')->group(function(){
 
 
 #authenticated routes
-Route::group(['middleware' => ['auth:sanctum']], function(){
+Route::group(['middleware' => ['auth:sanctum', 'user.ensureEmailIsVerified']], function(){
     Route::get('dashboard', [DashboardsController::class, 'index']);
 
     Route::get('jobCategory', [MetaInformationController::class, 'getJobCategory']);

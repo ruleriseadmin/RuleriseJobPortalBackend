@@ -33,6 +33,9 @@ class User extends ModelsUser
         'job_title',
         'profile_picture_url',
         'active',
+        'email_verified',
+        'email_verified_token',
+        'email_verified_at',
     ];
 
     public function qualification(): HasOne

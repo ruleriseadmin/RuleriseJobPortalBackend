@@ -35,4 +35,9 @@ class User extends Authenticatable implements CanResetPassword
     {
         return "$this->first_name $this->last_name";
     }
+
+    public function hasVerifiedEmail(): bool
+    {
+        return (bool) ! is_null($this->email_verified_at);
+    }
 }

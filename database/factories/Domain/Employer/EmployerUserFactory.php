@@ -15,6 +15,7 @@ class EmployerUserFactory extends Factory
             'uuid' => $this->faker->uuid,
             'email' => 'test@example.com',
             'password' => 'password',
+            'email_verified_at' => now(),
         ];
     }
 }

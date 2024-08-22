@@ -3,6 +3,7 @@
 use Database\Seeders\RoleSeeder;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Domain\Employer\Employer;
+use App\Models\Domain\Employer\EmployerUser;
 
 beforeEach(function () {
     $this->seed(RoleSeeder::class);
@@ -61,5 +62,18 @@ test('Test that an employer is created', function () {
 
     expect($employer->logo_url)->toBe("company-logos/{$employer->uuid}-company-logo.png");
 
+    expect($employer->users()->first()->email_verified_token)->toBeString();
+
     Storage::delete("public/{$employer->logo_url}");
+});
+
+test('That employer user send resent verification email', function () {
+
+    $user = EmployerUser::factory()->create();
+
+    $response = $this->post("/v1/employer/auth/resendEmailVerification/{$user->email}");
+
+    expect($response->json()['status'])->toBe('200');
+
+    expect($user->refresh()->email_verified_token)->toBeString();
 });

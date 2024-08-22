@@ -41,4 +41,17 @@ test('Test that a candidate is created', function () {
     expect($candidate->qualification->skills[0])->toBe('php');
 
     expect(count($candidate->qualification->skills))->toBe(2);
+
+    expect($candidate->email_verified_token)->toBeString();
+});
+
+test('That candidate send resent verification email', function () {
+
+    $user = User::factory()->create();
+
+    $response = $this->post("/v1/candidate/auth/resendEmailVerification/{$user->email}");
+
+    expect($response->json()['status'])->toBe('200');
+
+    expect($user->refresh()->email_verified_token)->toBeString();
 });

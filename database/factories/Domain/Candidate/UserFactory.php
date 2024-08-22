@@ -30,6 +30,7 @@ class UserFactory extends Factory
             'job_title' => 'Software Developer',
             'gender' => $this->faker->randomElement(['male', 'female']),
             'profile_summary' => $this->faker->sentence(10),
+            'email_verified_at' => now(),
         ];
     }
 }
