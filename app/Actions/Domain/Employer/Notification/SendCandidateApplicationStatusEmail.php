@@ -23,14 +23,14 @@ class SendCandidateApplicationStatusEmail
         $template = $application->job->employer->jobNotificationTemplate->$template;
 
         try{
-            $user = $application = $application->applicant;
+            $user = $application->applicant;
 
             Notification::route('email', $user->email)->notify(new NotificationWithActionButton([
                 'subject' => $template['subject'] ?? 'Application Status Update',
                 'greeting' => $user->full_name,
                 'messages' => [
                     $template['email'] ?? 'Your have an update on your job application.',
-                    'Job Title: ',
+                    'Job Title: '.$application->job->title,
                 ],
                 'actionText' => 'View Job',
                 'actionUrl' => config('env.candidate.base_url')."/job/{$application->job->id}",
