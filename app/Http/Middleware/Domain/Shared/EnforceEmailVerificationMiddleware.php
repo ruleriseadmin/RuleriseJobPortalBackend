@@ -11,9 +11,9 @@ class EnforceEmailVerificationMiddleware
 {
     public function handle(Request $request, Closure $next): Response
     {
-        if ( ! $request->user()->hasVerifiedEmail() ) {
-            return ApiReturnResponse::unAuthorized(message: 'Please verify your email first');
-        }
+        // if ( ! $request->user()->hasVerifiedEmail() ) {
+        //     return ApiReturnResponse::unAuthorized(message: 'Please verify your email first');
+        // }
         return $next($request);
     }
 }
