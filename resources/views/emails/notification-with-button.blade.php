@@ -78,13 +78,13 @@
         </div>
         <div class="email-content-outer">
             <div class="email-content">
-                <h1>{{ $greeting }}</h1>
+                <h1>{{ $greeting ?? 'Hello' }}</h1>
                 @foreach ($messages ?? [] as $message)
                 <p>
                     {{ $message }}
                 </p>
                 @endforeach
-                <a href="{{ $actionUrl }}" class="email-button">{{ $actionText }}</a>
+                <a href="{{ $actionUrl ?? '' }}" class="email-button">{{ $actionText ?? 'Click Here' }}</a>
                 @foreach ($messagesAfterAction ?? [] as $text)
                 <p>
                     {{ $text }}
