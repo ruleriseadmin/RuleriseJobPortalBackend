@@ -12,7 +12,7 @@ class ResetPasswordAction
 {
     public function execute(string $domain, User $user, string $password, string $token): bool
     {
-        if ( ! (new VerifyForgotPasswordAction)->execute($domain, $user->email, $token) ) return false;
+        if ( ! (new VerifyForgotPasswordAction)->execute($domain, $token) ) return false;
 
         DB::beginTransaction();
         try{
