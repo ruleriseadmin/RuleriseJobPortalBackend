@@ -78,7 +78,7 @@
         </div>
         <div class="email-content-outer">
             <div class="email-content">
-                <h1>Hello Soyemi Olashile!</h1>
+                <h1>{{ $greeting }}</h1>
                 <p>
                     You have requested to reset the password to your account on Talent Beyond Borders.
                     Click the button below to get started.
