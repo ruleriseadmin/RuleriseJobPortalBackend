@@ -16,8 +16,6 @@ class SendCandidateApplicationStatusEmail
 
         if ( ! $application->job->employer ) return;
 
-        logger($application->job);
-
         $template = "{$hiringStage}_template";
 
         $template = $application->job->employer->jobNotificationTemplate->$template;
