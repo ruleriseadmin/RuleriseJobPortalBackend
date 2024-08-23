@@ -19,6 +19,27 @@ test("That admin fetches job category", function () {
     expect($response->json()['status'])->toBe('200');
 });
 
+test("That admin creates job category", function () {
+
+    $adminUser = AdminUser::factory()->create();
+
+    $response = $this->actingAs($adminUser)->post('v1/admin/job-category', [
+        'name' => 'Transportation Machinery',
+        'subcategories' => ['Shipping', 'mechanical engineering'],
+        'svgIcon' => '<svg>'
+    ]);
+
+    expect($response->json()['status'])->toBe('200');
+
+    expect(JobCategories::count())->toBe(1);
+
+    expect(JobCategories::first()->name)->toBe('Transportation Machinery');
+
+    expect(JobCategories::first()->svg_icon)->toBe('<svg>');
+
+    expect(JobCategories::first()->subcategories)->toBe(['Shipping', 'mechanical engineering']);
+});
+
 test("That admin updates job category", function () {
 
     $adminUser = AdminUser::factory()->create();
