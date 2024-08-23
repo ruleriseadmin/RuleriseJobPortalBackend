@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Domain\Employer\Job;
 
+use App\Http\Resources\Domain\Employer\EmployerJobFilterResource;
 use Illuminate\Http\JsonResponse;
 use App\Supports\ApiReturnResponse;
 use App\Actions\Domain\Employer\Job\CreateJobAction;
@@ -11,12 +12,17 @@ use App\Http\Controllers\Domain\Employer\BaseController;
 use App\Http\Requests\Domain\Employer\Job\StoreJobRequest;
 use App\Http\Requests\Domain\Employer\Job\UpdateJobRequest;
 use App\Http\Resources\Domain\Employer\EmployerJobResource;
+use Illuminate\Http\Request;
 
 class EmployerJobsController extends BaseController
 {
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
-        return ApiReturnResponse::success(EmployerJobResource::collection($this->employer->jobs));
+        $employer = $this->employer;
+
+        $employer['filterBy'] = $request->input('filterBy') ?? '';
+
+        return ApiReturnResponse::success(new EmployerJobFilterResource($employer)); //EmployerJobResource::collection($this->employer->jobs)
     }
 
     public function store(StoreJobRequest $request)

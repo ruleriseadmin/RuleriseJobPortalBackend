@@ -27,22 +27,29 @@ test('That employer job is retrieved successfully', function () {
     expect($response->json()['status'])->toBe('200');
 
     $response->assertJsonStructure([
-        'data' => ['*' => [
-            'uuid',
-            'title',
-            'summary',
-            'description',
-            'jobType',
-            'employmentType',
-            'salary',
-            'easyApply',
-            'emailApply',
-            'active',
-            'requiredSkills',
-            'location',
-            'yearsExperience',
-            'salary',
-        ]],
+        'data' => [
+            'totalJobs',
+            'totalOpenJobs',
+            'totalClosedJobs',
+            'jobs' => [
+                'items' => ['*' => [
+                    'uuid',
+                    'title',
+                    'summary',
+                    'description',
+                    'jobType',
+                    'employmentType',
+                    'salary',
+                    'easyApply',
+                    'emailApply',
+                    'active',
+                    'requiredSkills',
+                    'location',
+                    'yearsExperience',
+                    'salary',
+                ]]
+            ],
+        ],
     ]);
 });
 
