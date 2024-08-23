@@ -7,13 +7,14 @@ use App\Supports\HelperSupport;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Validation\Rule;
 
 class RegisterRequest extends BaseRequest
 {
     public function rules(): array
     {
         return [
-            'email' => ['required', 'unique:employer_users,email', 'email'],
+            'email' => ['required', 'email', Rule::unique('employer_users')->whereNull('deleted_at')],
             'password' => ['required', Password::min(8)->letters()->numbers()],
             'firstName' => ['required'],
             'lastName' => ['required'],
