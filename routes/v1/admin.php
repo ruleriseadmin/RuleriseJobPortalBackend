@@ -2,10 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Domain\Admin\Auth\LoginController;
-use App\Http\Controllers\Domain\Admin\Candidate\CandidatesController;
-use App\Http\Controllers\Domain\Admin\Employer\EmployersController;
 use App\Http\Controllers\Domain\Admin\Job\JobCategoriesController;
+use App\Http\Controllers\Domain\Admin\Employer\EmployersController;
+use App\Http\Controllers\Domain\Admin\Candidate\CandidatesController;
 use App\Http\Controllers\Domain\Admin\SubscriptionPlan\SubscriptionPlansController;
+use App\Http\Controllers\Domain\Admin\WebsiteCustomization\WebsiteCustomizationsController;
 
 
 Route::prefix('auth')->group(function(){
@@ -45,6 +46,12 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
         Route::get('{uuid}', [JobCategoriesController::class, 'show']);
         Route::post('update', [JobCategoriesController::class, 'update']);
         Route::post('{uuid}/delete', [JobCategoriesController::class, 'delete']);
+    });
+
+    Route::prefix('website-customization')->group(function(){
+        Route::post('/', [WebsiteCustomizationsController::class, 'store']);
+        Route::get('{type}', [WebsiteCustomizationsController::class, 'index']);
+        Route::post('createNewContact', [WebsiteCustomizationsController::class, 'addNewContact']);
     });
 });
 

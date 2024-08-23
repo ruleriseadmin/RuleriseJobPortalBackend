@@ -17,7 +17,7 @@ class ApplyJobAction
 
         if ( $candidateJobApplication ) return $candidateJobApplication;
 
-        $cvUrl = $cvId ? $user->cvs()->where('uuid', $cvId)->first()->id : null;
+        $cvUrl = $cvId ? $user->cvs()->where('uuid', $cvId)->first()?->id : null;
 
         DB::beginTransaction();
         try{
