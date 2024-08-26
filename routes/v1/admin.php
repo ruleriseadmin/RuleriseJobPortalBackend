@@ -5,6 +5,7 @@ use App\Http\Controllers\Domain\Admin\Auth\LoginController;
 use App\Http\Controllers\Domain\Admin\Job\JobCategoriesController;
 use App\Http\Controllers\Domain\Admin\Employer\EmployersController;
 use App\Http\Controllers\Domain\Admin\Candidate\CandidatesController;
+use App\Http\Controllers\Domain\Admin\GeneralSetting\GeneralSettingsController;
 use App\Http\Controllers\Domain\Admin\SubscriptionPlan\SubscriptionPlansController;
 use App\Http\Controllers\Domain\Admin\WebsiteCustomization\WebsiteCustomizationsController;
 
@@ -52,6 +53,11 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
         Route::post('/', [WebsiteCustomizationsController::class, 'store']);
         Route::get('{type}', [WebsiteCustomizationsController::class, 'index']);
         Route::post('createNewContact', [WebsiteCustomizationsController::class, 'addNewContact']);
+    });
+
+    Route::prefix('general-setting')->group(function(){
+        Route::get('/', [GeneralSettingsController::class, 'index']);
+        Route::post('/', [GeneralSettingsController::class, 'store']);
     });
 });
 
