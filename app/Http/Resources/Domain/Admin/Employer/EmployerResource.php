@@ -40,6 +40,10 @@ class EmployerResource extends JsonResource
     {
         $user = $this->users()->first(); //to change for multiple users
 
+        $employer = $this->resource;
+
+        $employer['logoUrl'] = $employer->logo_url ? asset("storage/$employer->logo_url") : null;
+
         return [
             'personContact' => [
                 'firstName' => $user->pivot->first_name,
@@ -47,13 +51,14 @@ class EmployerResource extends JsonResource
                 'positionTitle' => $user->pivot->position_title,
                 'email' => $user->email,
             ],
-            'companyInformation' => HelperSupport::snake_to_camel(collect($this->resource)->except([
+            'companyInformation' => HelperSupport::snake_to_camel(collect($employer)->except([
                 'created_at',
                 'updated_at',
                 'deleted_at',
                 'id',
                 'jobs',
                 'filter_by',
+                'logo_url',
             ])->toArray()),
         ];
     }
