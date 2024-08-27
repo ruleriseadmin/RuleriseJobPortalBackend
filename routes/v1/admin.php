@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Domain\Admin\DashboardController;
 use App\Http\Controllers\Domain\Admin\Auth\LoginController;
 use App\Http\Controllers\Domain\Admin\Job\JobCategoriesController;
 use App\Http\Controllers\Domain\Admin\Employer\EmployersController;
@@ -16,6 +17,9 @@ Route::prefix('auth')->group(function(){
 
 #authenticated routes
 Route::group(['middleware' => ['auth:sanctum']], function(){
+
+    Route::get('dashboard-overview', [DashboardController::class, 'index']);
+
     Route::prefix('candidate')->group(function(){
         Route::get('/', [CandidatesController::class, 'index']);
         Route::get('{uuid}', [CandidatesController::class, 'show']);
