@@ -28,7 +28,9 @@ class ProfileResource extends JsonResource
 
         //$response['email_verified_at'] = $this->email_verified_at->toDateTimeString();
 
-        $response['email_verified'] = $this->hasVerifiedEmail();
+        if ( auth()->check() ){
+            $response['email_verified'] = $this->hasVerifiedEmail();
+        }
 
         $response['profile_picture_url'] = $this->profile_picture_url ? asset("storage/$this->profile_picture_url") : null;
 
