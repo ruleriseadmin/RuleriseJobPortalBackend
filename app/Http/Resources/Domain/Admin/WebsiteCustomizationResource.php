@@ -19,7 +19,7 @@ class WebsiteCustomizationResource extends JsonResource
                     'name' => 'images',
                     'value' => collect($section?->meta)->map(fn($image) => [
                         'imageBox' => $image['image_box'],
-                        'url' => asset($image['url']),
+                        'url' => asset("storage/{$image['url']}"),
                     ]),
                 ];
                 continue;
