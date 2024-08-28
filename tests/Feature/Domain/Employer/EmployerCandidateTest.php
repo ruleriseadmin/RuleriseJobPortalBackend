@@ -6,6 +6,7 @@ use App\Models\Domain\Candidate\CandidateLanguage;
 use App\Models\Domain\Candidate\CandidatePortfolio;
 use App\Models\Domain\Candidate\CandidateQualification;
 use App\Models\Domain\Candidate\CandidateWorkExperience;
+use App\Models\Domain\Candidate\CVDocument;
 use App\Models\Domain\Candidate\Job\CandidateJobApplication;
 use App\Models\Domain\Candidate\User;
 use App\Models\Domain\Employer\Employer;
@@ -34,6 +35,36 @@ test('That employer filter job candidates', function () {
     CandidateEducationHistory::factory()->create();
 
     $application = CandidateJobApplication::factory()->create();
+    $application->setStatus('applied');
+
+    $response = $this->actingAs($user)->get("/v1/employer/candidate");
+
+    expect($response->json()['status'])->toBe('200');
+});
+
+test('That employer filter job candidates via cv upload', function () {
+    Employer::factory()->create();
+
+    $user = EmployerUser::factory()->create();
+
+    EmployerAccess::factory()->create();
+
+    User::factory()->create();
+
+    $cv = CVDocument::factory()->create();
+
+    $job = EmployerJob::factory()->create();
+
+
+    CandidateWorkExperience::factory()->create();
+
+    CandidateEducationHistory::factory()->create();
+
+    $application = CandidateJobApplication::factory()->create();
+    $application->update([
+        'cv_url' => $cv->id,
+        'applied_via' => 'custom_cv',
+    ]);
     $application->setStatus('applied');
 
     $response = $this->actingAs($user)->get("/v1/employer/candidate");

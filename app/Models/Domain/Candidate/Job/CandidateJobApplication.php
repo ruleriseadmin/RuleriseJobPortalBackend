@@ -4,8 +4,9 @@ namespace App\Models\Domain\Candidate\Job;
 
 use Spatie\ModelStatus\HasStatuses;
 use App\Models\Domain\Candidate\User;
-use App\Models\Domain\Employer\EmployerJob;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Domain\Candidate\CVDocument;
+use App\Models\Domain\Employer\EmployerJob;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -53,6 +54,11 @@ class CandidateJobApplication extends Model
     public function job(): BelongsTo
     {
         return $this->belongsTo(EmployerJob::class, 'job_id', 'id');
+    }
+
+    public function cv(): BelongsTo
+    {
+        return $this->belongsTo(CVDocument::class, 'cv_url', 'id');
     }
 
     public static function whereUuid(string $uuid)
