@@ -36,4 +36,9 @@ class WebsiteCustomization extends Model
     {
         return self::query()->where('type', $type)->get();
     }
+
+    public static function getImagesByType(string $type)
+    {
+        return self::query()->where('type', $type)->where('name', 'images')->first();
+    }
 }

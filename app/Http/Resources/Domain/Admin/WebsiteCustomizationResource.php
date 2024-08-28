@@ -15,6 +15,13 @@ class WebsiteCustomizationResource extends JsonResource
         foreach($this['sections'] as $section){
             if ($section['name'] == 'images') {
                 //@todo handle images
+                $sections [] = [
+                    'name' => 'images',
+                    'value' => collect($section?->meta)->map(fn($image) => [
+                        'imageBox' => $image['image_box'],
+                        'url' => asset($image['url']),
+                    ]),
+                ];
                 continue;
             }
 

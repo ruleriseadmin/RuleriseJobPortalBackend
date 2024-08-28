@@ -57,6 +57,7 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
         Route::post('/', [WebsiteCustomizationsController::class, 'store']);
         Route::get('{type}', [WebsiteCustomizationsController::class, 'index']);
         Route::post('createNewContact', [WebsiteCustomizationsController::class, 'addNewContact']);
+        Route::post('uploadImage', [WebsiteCustomizationsController::class, 'uploadImage']);
     });
 
     Route::prefix('general-setting')->group(function(){

@@ -5,11 +5,13 @@ namespace App\Http\Controllers\Domain\Admin\WebsiteCustomization;
 use App\Supports\ApiReturnResponse;
 use App\Models\Domain\Shared\WebsiteCustomization;
 use App\Http\Controllers\Domain\Admin\BaseController;
+use App\Actions\Domain\Admin\WebsiteCrm\UploadImageAction;
 use App\Actions\Domain\Admin\WebsiteCrm\AddNewContactAction;
 use App\Actions\Domain\Admin\WebsiteCrm\SetCustomizationAction;
 use App\Http\Resources\Domain\Admin\WebsiteCustomizationResource;
 use App\Http\Requests\Domain\Admin\WebsiteCustomization\AddNewContactRequest;
 use App\Http\Requests\Domain\Admin\WebsiteCustomization\StoreWebsiteCustomizationRequest;
+use App\Http\Requests\Domain\Admin\WebsiteCustomization\UploadImageWebsiteCustomizationRequest;
 
 class WebsiteCustomizationsController extends BaseController
 {
@@ -36,6 +38,13 @@ class WebsiteCustomizationsController extends BaseController
     public function addNewContact(AddNewContactRequest $request)
     {
         return (new AddNewContactAction)->execute($request->input())
+            ? ApiReturnResponse::success()
+            : ApiReturnResponse::failed();
+    }
+
+    public function uploadImage(UploadImageWebsiteCustomizationRequest $request)
+    {
+        return (new UploadImageAction)->execute($request->input())
             ? ApiReturnResponse::success()
             : ApiReturnResponse::failed();
     }
