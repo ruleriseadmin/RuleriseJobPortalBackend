@@ -41,7 +41,7 @@ class CandidateFilterResource extends JsonResource
                 $application['applied_at'] = $application->created_at->toDateTimeString();
                 $application['job_applied'] = $application->job->title;
                 $application['applied_via'] = $application->applied_via;
-                $application['cc'] = $application->cv ?? null;
+               // $application['cc'] = $application->cv ?? null;
                 $application['cv_url'] = $application->cv ? asset("storage/{$application->cv->cv_document_url}") : null;
                 $application['applicant_information'] = [
                     'fullName' => $applicant->getFullNameAttribute(),
@@ -56,7 +56,7 @@ class CandidateFilterResource extends JsonResource
                     'uuid',
                     'applied_via',
                     'cv_url',
-                    'cc'
+                    //'cc'
                 ])->toArray());
             });
 
