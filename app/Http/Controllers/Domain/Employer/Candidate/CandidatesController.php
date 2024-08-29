@@ -17,14 +17,6 @@ class CandidatesController extends BaseController
         return ApiReturnResponse::success(new CandidateFilterResource($this->employer));
     }
 
-    public function show(string $uuid)
-    {
-        $candidate = User::where('uuid', $uuid)->first();
-
-        return $candidate
-            ? ApiReturnResponse::success(new CandidateResource($candidate))
-            : ApiReturnResponse::notFound('Candidate not found');
-    }
 
     public function changeHiringStage(ChangeHiringStageRequest $request)
     {
