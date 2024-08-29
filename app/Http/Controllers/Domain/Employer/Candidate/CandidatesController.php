@@ -17,14 +17,6 @@ class CandidatesController extends BaseController
         return ApiReturnResponse::success(new CandidateFilterResource($this->employer));
     }
 
-<<<<<<<<<<<<<<  ✨ Codeium Command ⭐  >>>>>>>>>>>>>>>>
-    /**
-     * Show a single candidate
-     *
-     * @param string $uuid
-     * @return JsonResponse
-     */
-<<<<<<<  c4aa2d1c-c920-4b7e-bfd9-c02f6e406c58  >>>>>>>
     public function show(string $uuid)
     {
         $candidate = User::where('uuid', $uuid)->first();
