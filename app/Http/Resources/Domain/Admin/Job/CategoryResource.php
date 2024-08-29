@@ -17,6 +17,7 @@ class CategoryResource extends JsonResource
         ]);
 
         $response = $response->merge([
+            'active' => (bool) $this->active,
             'openJobs' => $this->openJobs()->count(),
         ]);
 
