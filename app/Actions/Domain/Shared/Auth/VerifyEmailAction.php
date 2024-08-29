@@ -39,7 +39,7 @@ class VerifyEmailAction
         return true;
     }
 
-    private function sendNotification(string $domain, User $user)
+    private function sendNotification(string $domain, $user)
     {
         try{
             Notification::route('mail', $user->email)->notify(new NotificationWithActionButton([
