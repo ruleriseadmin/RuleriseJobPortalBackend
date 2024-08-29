@@ -75,3 +75,20 @@ test("That admin deletes job category", function () {
 
     expect(JobCategories::onlyTrashed()->count())->toBe(1);
 });
+
+test("That admin active - inactive job category", function () {
+
+    $adminUser = AdminUser::factory()->create();
+
+    $category = JobCategories::factory()->create();
+
+    $response = $this->actingAs($adminUser)->post("v1/admin/job-category/{$category->uuid}/setActive");
+
+    expect($response->json()['status'])->toBe('200');
+
+    expect((bool) $category->refresh()->active)->toBe(false);
+
+    //expect(JobCategories::count())->toBe(0);
+
+    //expect(JobCategories::onlyTrashed()->count())->toBe(1);
+});

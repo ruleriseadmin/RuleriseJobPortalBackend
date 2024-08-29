@@ -8,6 +8,6 @@ class SetCategoryActiveAction
 {
     public function execute(JobCategories $jobCategory)
     {
-        $jobCategory->update(['active' => ! $jobCategory->active]);
+        return $jobCategory->update(['active' => ! $jobCategory->active]);
     }
 }
