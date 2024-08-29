@@ -51,6 +51,7 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
         Route::get('{uuid}', [JobCategoriesController::class, 'show']);
         Route::post('update', [JobCategoriesController::class, 'update']);
         Route::post('{uuid}/delete', [JobCategoriesController::class, 'delete']);
+        Route::post('{uuid}/setActive', [JobCategoriesController::class, 'setActive']);
     });
 
     Route::prefix('website-customization')->group(function(){

@@ -7,6 +7,7 @@ use App\Models\Domain\Shared\Job\JobCategories;
 use App\Http\Resources\Domain\Admin\Job\CategoryResource;
 use App\Actions\Domain\Admin\Job\Category\CreateJobCategoryAction;
 use App\Actions\Domain\Admin\Job\Category\DeleteJobCategoryAction;
+use App\Actions\Domain\Admin\Job\Category\SetCategoryActiveAction;
 use App\Actions\Domain\Admin\Job\Category\UpdateJobCategoryAction;
 use App\Http\Requests\Domain\Admin\Job\Category\JobCategoryStoreRequest;
 use App\Http\Requests\Domain\Admin\Job\Category\JobCategoryUpdateRequest;
@@ -52,6 +53,17 @@ class JobCategoriesController
         if ( ! $category ) return ApiReturnResponse::notFound('Category does not exists');
 
         return (new DeleteJobCategoryAction)->execute($category)
+            ? ApiReturnResponse::success()
+            : ApiReturnResponse::failed();
+    }
+
+    public function setActive(string $uuid)
+    {
+        $category = JobCategories::whereUuid($uuid);
+
+        if ( ! $category ) return ApiReturnResponse::notFound('Category does not exists');
+
+        return (new SetCategoryActiveAction)->execute($category)
             ? ApiReturnResponse::success()
             : ApiReturnResponse::failed();
     }

@@ -12,7 +12,7 @@ class JobCategories extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['uuid', 'name', 'subcategories', 'svg_icon'];
+    protected $fillable = ['uuid', 'name', 'subcategories', 'svg_icon', 'active'];
 
     protected $casts = [
         'subcategories' => 'array',
