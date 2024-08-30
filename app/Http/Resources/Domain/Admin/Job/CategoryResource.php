@@ -14,6 +14,7 @@ class CategoryResource extends JsonResource
             'uuid',
             'name',
             'subcategories',
+            'svg_icon',
         ]);
 
         $response = $response->merge([
