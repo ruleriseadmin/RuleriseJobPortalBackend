@@ -39,6 +39,7 @@ class CreateUserAction
                 'messages' => [
                     'You have been invited to access the admin portal. Please click the button below to login.',
                     'If you did not request this invitation, please ignore this email.',
+                    "Password: {$input['password']}",
                 ],
                 'actionText' => 'Login',
                 'actionUrl' => config('env.admin.base_url'),
