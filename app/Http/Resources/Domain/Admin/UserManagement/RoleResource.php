@@ -17,6 +17,10 @@ class RoleResource extends JsonResource
 
         $response['createdAt'] = $this->created_at->toDateTimeString();
 
-        return HelperSupport::snake_to_camel($response->toArray());
+        return [
+            'name' => str_replace('_', ' ', $this->name),
+            'slug' => $this->name,
+            'createdAt' => $this->created_at->toDateTimeString(),
+        ];
     }
 }

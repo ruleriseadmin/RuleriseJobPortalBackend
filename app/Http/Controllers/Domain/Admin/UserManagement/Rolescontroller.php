@@ -38,7 +38,7 @@ class Rolescontroller extends BaseController
 
     public function update(UpdateRoleRequest $request)
     {
-        $role = Role::where('name', $request->input('roleName'))->first();
+        $role = Role::where('name', $request->input('slug'))->first();
 
         return (new UpdateRoleAction)->execute($role, $request->input('newRoleName'))
             ? ApiReturnResponse::success()

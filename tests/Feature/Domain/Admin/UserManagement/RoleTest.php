@@ -65,7 +65,7 @@ test('That admin update role', function () {
     ]);
 
     $response = $this->actingAs($user)->post("/v1/admin/user-management/role/update", [
-        'roleName' => 'test_role',
+        'slug' => 'test_role',
         'newRoleName' => 'admin',
     ]);
 
@@ -83,7 +83,7 @@ test('That admin cannot update admin role', function () {
     ]);
 
     $response = $this->actingAs($user)->post("/v1/admin/user-management/role/update", [
-        'roleName' => 'super_admin',
+        'slug' => 'super_admin',
         'newRoleName' => 'admin',
     ]);
 
