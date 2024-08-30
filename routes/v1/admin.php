@@ -7,6 +7,7 @@ use App\Http\Controllers\Domain\Admin\Job\JobCategoriesController;
 use App\Http\Controllers\Domain\Admin\Employer\EmployersController;
 use App\Http\Controllers\Domain\Admin\Candidate\CandidatesController;
 use App\Http\Controllers\Domain\Admin\UserManagement\Rolescontroller;
+use App\Http\Controllers\Domain\Admin\UserManagement\UsersController;
 use App\Http\Controllers\Domain\Admin\GeneralSetting\GeneralSettingsController;
 use App\Http\Controllers\Domain\Admin\SubscriptionPlan\SubscriptionPlansController;
 use App\Http\Controllers\Domain\Admin\WebsiteCustomization\WebsiteCustomizationsController;
@@ -74,6 +75,14 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
             Route::post('/', [Rolescontroller::class, 'store']);
             Route::post('update', [Rolescontroller::class, 'update']);
             Route::post('{roleName}/delete', [Rolescontroller::class, 'delete']);
+        });
+
+        Route::prefix('user')->group(function(){
+            Route::get('/', [UsersController::class, 'index']);
+            Route::get('{uuid}', [UsersController::class, 'show']);
+            Route::post('/', [UsersController::class, 'store']);
+            Route::post('update', [UsersController::class, 'update']);
+            Route::post('{uuid}/delete', [UsersController::class, 'delete']);
         });
     });
 });

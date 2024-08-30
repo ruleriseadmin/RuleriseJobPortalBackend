@@ -14,4 +14,7 @@ return [
         'profile_url' => env('EMPLOYER_PROFILE_URL'),
         'verify_email_url' => env('EMPLOYER_VERIFY_EMAIL_URL'),
     ],
+    'admin' => [
+        'login_url' => env('ADMIN_LOGIN_URL'),
+    ],
 ];

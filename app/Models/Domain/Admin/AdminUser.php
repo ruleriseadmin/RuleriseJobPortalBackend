@@ -12,4 +12,9 @@ class AdminUser extends User
     use SoftDeletes;
 
     protected $guarded = [];
+
+    public static function whereUuid(string $uuid) : ?self
+    {
+        return self::where('uuid', $uuid)->first();
+    }
 }

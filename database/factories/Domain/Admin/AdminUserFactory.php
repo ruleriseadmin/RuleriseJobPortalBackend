@@ -14,7 +14,7 @@ class AdminUserFactory extends Factory
     {
         return [
             'uuid' => str()->uuid(),
-            'email' => 'admin@example.com',
+            'email' => $this->faker->email,
             'password' => Hash::make('password'),
             'first_name' => 'Admin',
             'last_name' => 'User',
