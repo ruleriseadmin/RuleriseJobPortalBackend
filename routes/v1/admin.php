@@ -6,6 +6,7 @@ use App\Http\Controllers\Domain\Admin\Auth\LoginController;
 use App\Http\Controllers\Domain\Admin\Job\JobCategoriesController;
 use App\Http\Controllers\Domain\Admin\Employer\EmployersController;
 use App\Http\Controllers\Domain\Admin\Candidate\CandidatesController;
+use App\Http\Controllers\Domain\Admin\UserManagement\Rolescontroller;
 use App\Http\Controllers\Domain\Admin\GeneralSetting\GeneralSettingsController;
 use App\Http\Controllers\Domain\Admin\SubscriptionPlan\SubscriptionPlansController;
 use App\Http\Controllers\Domain\Admin\WebsiteCustomization\WebsiteCustomizationsController;
@@ -64,6 +65,16 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
     Route::prefix('general-setting')->group(function(){
         Route::get('/', [GeneralSettingsController::class, 'index']);
         Route::post('/', [GeneralSettingsController::class, 'store']);
+    });
+
+    Route::prefix('user-management')->group(function(){
+        Route::prefix('role')->group(function(){
+            Route::get('/', [Rolescontroller::class, 'index']);
+            Route::get('{roleName}', [Rolescontroller::class, 'show']);
+            Route::post('/', [Rolescontroller::class, 'store']);
+            Route::post('update', [Rolescontroller::class, 'update']);
+            Route::post('{roleName}/delete', [Rolescontroller::class, 'delete']);
+        });
     });
 });
 
