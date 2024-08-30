@@ -32,6 +32,7 @@ class EmployerJobFactory extends Factory
             'email_apply' => $this->faker->boolean(),
             'required_skills' => ['php', 'laravel', 'javascript'],
             'active' => true,
+            'category_id' => 1,
         ];
     }
 }

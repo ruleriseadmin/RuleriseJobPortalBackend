@@ -2,9 +2,12 @@
 
 use App\Models\Domain\Employer\Employer;
 use App\Models\Domain\Employer\EmployerJob;
+use App\Models\Domain\Shared\Job\JobCategories;
 
 test('That front page is retrieved successfully', function () {
     collect(array_fill(0, 5, 1))->map(fn() => Employer::factory()->create());
+
+    JobCategories::factory()->create();
 
     collect(array_fill(0, 5, 1))->map(fn() => EmployerJob::factory()->create());
 
