@@ -72,7 +72,7 @@ class ForgotPasswordAction
                     "You have requested to reset the password to your account on Talent Beyond Borders. Click the button below to get started",
                 ],
                 'messagesAfterAction' => [
-                    "If you did not initiate this request, please ignore this email, or write to xyz@gmail.com so we can look into a possible attempt to breach your account.",
+                    "If you did not initiate this request, please ignore this email, or write to hft@rulerise.ca so we can look into a possible attempt to breach your account.",
                 ],
                 'actionText' => 'Reset my password',
                 'actionUrl' => "{$resetPasswordUrl}?token={$this->token}",
