@@ -29,12 +29,19 @@ class JobFilterResource extends JsonResource
 
     private function newJobs()
     {
-        return EmployerJob::query()->orderByDesc('created_at')->paginate($this->perPage); //->orderByDesc('created_at')
+        return EmployerJob::query()
+            ->where('active', true)
+            ->where('is_draft', false)
+            ->orderByDesc('created_at')
+            ->paginate($this->perPage); //->orderByDesc('created_at')
     }
 
     private function recommendedJobs()
     {
-        return EmployerJob::query()->paginate($this->perPage);
+        return EmployerJob::query()
+            ->where('active', true)
+            ->where('is_draft', false)
+            ->paginate($this->perPage);
     }
 
     private function savedJobs()
@@ -64,7 +71,7 @@ class JobFilterResource extends JsonResource
                     $job['employer_name'] = $job->employer->company_name;
                     $job['employer_logo'] = $job->employer->logo_url ? asset("storage/{$job->employer->logo_url}") : null;
                     $job['job_status'] = $job->status;
-                    
+
                     // check if filter is applied then add extra details
                     if ( $this->type == 'applied' ){
                         $application = $user->jobApplications->where('job_id', $job->id)->first();
