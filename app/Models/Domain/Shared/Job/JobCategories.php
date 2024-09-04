@@ -34,7 +34,7 @@ class JobCategories extends Model
 
     public function openJobs(): HasMany
     {
-        return $this->jobs()->where('active', true);
+        return $this->jobs()->where('active', true)->where('is_draft', false);
     }
 
     public static function whereUuid(string $uuid)
