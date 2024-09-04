@@ -15,6 +15,7 @@ class EmployerJobFilterResource extends JsonResource
         $jobs = match($this->filterBy){
             'open' => $this->paginateOpenJobs(),
             'close' => $this->paginateCloseJobs(),
+            'draft' => $this->paginateDraftJobs(),
             default => $this->allJobs(),
         };
 
@@ -22,6 +23,7 @@ class EmployerJobFilterResource extends JsonResource
             'totalJobs' => $this->jobs()->count(),
             'totalOpenJobs' => $this->openJobs()->count(),
             'totalClosedJobs' => $this->closedJobs()->count(),
+            'totalDraftJobs' => $this->draftJobs()->count(),
             'jobs' => $this->jobResponse($jobs),
         ];
     }
@@ -39,6 +41,11 @@ class EmployerJobFilterResource extends JsonResource
     private function paginateCloseJobs()
     {
         return $this->closedJobs()->paginate($this->perPage);
+    }
+
+    private function paginateDraftJobs()
+    {
+        return $this->draftJobs()->paginate($this->perPage);
     }
 
     private function jobResponse($paginatedJobs)

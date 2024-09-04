@@ -55,6 +55,11 @@ class Employer extends Model
         return $this->jobs()->where('active', false)->where('is_draft', false);
     }
 
+    public function draftJobs(): HasMany
+    {
+        return $this->jobs()->where('is_draft', true);
+    }
+
     public function candidatePools(): HasMany
     {
         return $this->hasMany(CandidateJobPool::class);
