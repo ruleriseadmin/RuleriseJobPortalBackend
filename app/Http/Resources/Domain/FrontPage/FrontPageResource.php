@@ -25,7 +25,7 @@ class FrontPageResource extends JsonResource
                 'logoUrl' => $employer->logo_url ? asset("storage/$employer->logo_url") : null,
         ])->toArray();
 
-        $jobs = EmployerJob::all()->filter(fn($job) => $job->active && $job->employer)->sortByDesc('created_at')->take(6);
+        $jobs = EmployerJob::all()->filter(fn($job) => $job->status == 'open' && $job->employer)->sortByDesc('created_at')->take(6);
 
         return [
             'latestJobs' => JobResource::collection($jobs),

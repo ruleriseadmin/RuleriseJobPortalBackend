@@ -13,7 +13,11 @@ class LatestJobResource extends JsonResource
 
     public function toArray(Request $request): array
     {
-        $jobs = EmployerJob::orderByDesc('created_at')->paginate($this->perPage);
+        $jobs = EmployerJob::query()
+            ->where('active', true)
+            ->where('is_draft', false)
+            ->orderByDesc('created_at')
+            ->paginate($this->perPage);
 
         return $this->returnResponse($jobs);
     }

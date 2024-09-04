@@ -85,6 +85,7 @@ test('That employer single job is retrieved successfully', function () {
             'location',
             'yearsExperience',
             'salary',
+            'status',
         ],
     ]);
 });
@@ -109,6 +110,7 @@ test('That employer created job', function () {
         'location' => 'Lagos',
         'yearsExperience' => '2',
         'salary' => '10000',
+        'salaryPaymentMode' => 'monthly',
         'easyApply' => true,
         'emailApply' => false,
         'requiredSkills' => ['php', 'javascript'],
@@ -142,8 +144,10 @@ test('That employer created job as draft', function () {
         'location' => 'Lagos',
         'yearsExperience' => '2',
         'salary' => '10000',
+        'salaryPaymentMode' => 'monthly',
         'easyApply' => true,
         'emailApply' => false,
+        'isDraft' => true,
         'requiredSkills' => ['php', 'javascript'],
         'active' => false,
         'categoryId' => $category->uuid,
@@ -154,6 +158,10 @@ test('That employer created job as draft', function () {
     expect($response['data']['title'])->toBe('Software Engineer');
 
     expect(EmployerJob::first()->active)->toBeFalse();
+
+    expect(EmployerJob::first()->is_draft)->toBeTrue();
+
+    expect(EmployerJob::first()->status)->toBe('draft');
 
     expect(EmployerJob::count())->toBe(1);
 });
@@ -174,15 +182,18 @@ test('That employer created job as published', function () {
         'description' => 'quick job description',
         'jobType' => 'full-time',
         'employmentType' => 'full-time',
-        'jobIndustry' => 'IT',
+        //'jobIndustry' => 'IT',
         'location' => 'Lagos',
         'yearsExperience' => '2',
         'salary' => '10000',
+        'salaryPaymentMode' => 'monthly',
         'easyApply' => true,
-        'emailApply' => false,
+        'emailApply' => true,
         'requiredSkills' => ['php', 'javascript'],
         'active' => true,
+        'isDraft' => false,
         'categoryId' => $category->uuid,
+        'emailToApply' => 'employer@example.com'
     ]);
 
     expect($response->json()['status'])->toBe('200');
@@ -190,6 +201,8 @@ test('That employer created job as published', function () {
     expect($response['data']['title'])->toBe('Software Engineer');
 
     expect(EmployerJob::first()->active)->toBeTrue();
+
+    expect(EmployerJob::first()->status)->toBe('open');
 
     expect(EmployerJob::count())->toBe(1);
 });

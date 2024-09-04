@@ -47,12 +47,12 @@ class Employer extends Model
 
     public function openJobs(): HasMany
     {
-        return $this->jobs()->where('active', true);
+        return $this->jobs()->where('active', true)->where('is_draft', false);
     }
 
     public function closedJobs(): HasMany
     {
-        return $this->jobs()->where('active', false);
+        return $this->jobs()->where('active', false)->where('is_draft', false);
     }
 
     public function candidatePools(): HasMany

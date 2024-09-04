@@ -30,6 +30,7 @@ class EmployerJob extends Model
         'location',
         'years_experience',
         'salary',
+        'salary_payment_mode',
         'easy_apply',
         'email_apply',
         'required_skills',
@@ -39,6 +40,7 @@ class EmployerJob extends Model
         'language_required',
         'email_to_apply',
         'career_level',
+        'is_draft',
     ];
 
     protected $casts = [
@@ -46,6 +48,7 @@ class EmployerJob extends Model
         'active' => 'boolean',
         'easy_apply' => 'boolean',
         'email_apply' => 'boolean',
+        'is_draft' => 'boolean',
     ];
 
     protected static function boot()
@@ -73,5 +76,12 @@ class EmployerJob extends Model
     public static function whereUuid(string $uuid)
     {
         return self::query()->where('uuid', $uuid)->first();
+    }
+
+    public function getStatusAttribute(): string
+    {
+        if ( $this->is_draft ) return 'draft';
+
+        return $this->active ? 'open' : 'closed';
     }
 }

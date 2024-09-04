@@ -34,7 +34,7 @@ class BaseRequest extends FormRequest
     {
         //$validator->errors()->add('', '');
 
-        $validator->after(function (){
+        $validator->after(function ($validator){
             //insert rule inside
         });
     }

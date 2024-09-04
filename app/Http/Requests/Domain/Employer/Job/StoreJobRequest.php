@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Domain\Employer\Job;
 use App\Http\Requests\BaseRequest;
+use Illuminate\Contracts\Validation\Validator;
 
 class StoreJobRequest extends BaseRequest
 {
@@ -12,6 +13,7 @@ class StoreJobRequest extends BaseRequest
             'summary' => ['required'],
             'description' => ['required'],
             'categoryId' => ['required', 'exists:job_categories,uuid'],
+            'emailToApply' => ['required_if:emailApply,true'],
             // 'jobType',
             // 'employmentType',
             // 'jobIndustry',
@@ -22,5 +24,15 @@ class StoreJobRequest extends BaseRequest
             // 'emailApply',
             // 'requiredSkills',
         ];
+    }
+
+    public function withValidator(Validator $validator)
+    {
+        $validator->after(function ($validator){
+            if ( $this->filled('salary') ){
+                ! $this->filled('salaryPaymentMode')
+                    ? $validator->errors()->add('salaryPaymentMode', 'Salary payment mode is expected.') : null;
+            }
+        });
     }
 }

@@ -19,6 +19,7 @@ class EmployerJobResource extends JsonResource
         ]);
 
         $response = collect($response)->merge([
+            'status' => $this->status,
             'createdAt' => $this->created_at->toDateTimeString(),
             'pools' => $this->employer->candidatePools->map(fn($pool) => $pool->only(['name', 'uuid'])),
             'numberOfApplications' => $this->applicants->count(),

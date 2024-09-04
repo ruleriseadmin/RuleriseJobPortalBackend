@@ -20,6 +20,7 @@ class JobResource extends JsonResource
         ]);
 
         $response = $response->merge([
+            'status' => $this->status,
             'created_at' => $this->created_at->toDateTimeString(),
             'employer_name' => $this->employer?->company_name,
             'employer_logo' => $this->employer->logo_url ? asset("storage/{$this->employer->logo_url}") : null,
