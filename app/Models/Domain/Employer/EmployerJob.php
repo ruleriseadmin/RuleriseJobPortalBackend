@@ -28,6 +28,7 @@ class EmployerJob extends Model
         'job_industry',
         'job_level',
         'location',
+        'state_province',
         'years_experience',
         'salary',
         'salary_payment_mode',
