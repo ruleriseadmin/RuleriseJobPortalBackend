@@ -43,7 +43,7 @@ class SendEmailVerificationAction
                     'Click the button below to get started.',
                 ],
                 'messagesAfterAction' => [
-                    'If you did not initiate this request, please ignore this email, or write to xyz@gmail.com so we can look into a possible attempt to breach your account.',
+                    'If you did not initiate this request, please ignore this email, or write to hft@rulerise.co so we can look into a possible attempt to breach your account.',
                 ],
                 'actionText' => 'Verify email',
                 'actionUrl' => "{$url}?token={$token}",
