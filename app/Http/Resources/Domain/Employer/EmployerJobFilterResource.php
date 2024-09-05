@@ -30,22 +30,22 @@ class EmployerJobFilterResource extends JsonResource
 
     private function allJobs()
     {
-        return $this->jobs()->paginate($this->perPage);
+        return $this->jobs()->orderByDesc('created_at')->paginate($this->perPage);
     }
 
     private function paginateOpenJobs()
     {
-        return $this->openJobs()->paginate($this->perPage);
+        return $this->openJobs()->orderByDesc('created_at')->paginate($this->perPage);
     }
 
     private function paginateCloseJobs()
     {
-        return $this->closedJobs()->paginate($this->perPage);
+        return $this->closedJobs()->orderByDesc('created_at')->paginate($this->perPage);
     }
 
     private function paginateDraftJobs()
     {
-        return $this->draftJobs()->paginate($this->perPage);
+        return $this->draftJobs()->orderByDesc('created_at')->paginate($this->perPage);
     }
 
     private function jobResponse($paginatedJobs)

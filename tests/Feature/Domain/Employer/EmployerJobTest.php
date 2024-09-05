@@ -250,3 +250,26 @@ test('That employer deleted job', function () {
 
     expect(EmployerJob::onlyTrashed()->count())->toBe(1);
 });
+
+test('That employer open / close job', function () {
+
+    Employer::factory()->create();
+
+    $user = EmployerUser::factory()->create();
+
+    EmployerAccess::factory()->create();
+
+    $job = EmployerJob::factory()->create();
+
+    $open = $this->actingAs($user)->post("/v1/employer/job/{$job->uuid}/setOpenClose");
+
+    expect($open->json()['status'])->toBe('200');
+
+    expect($job->refresh()->status)->toBe('closed');
+
+    $closed = $this->actingAs($user)->post("/v1/employer/job/{$job->uuid}/setOpenClose");
+
+    expect($closed->json()['status'])->toBe('200');
+
+    expect($job->refresh()->status)->toBe('open');
+});

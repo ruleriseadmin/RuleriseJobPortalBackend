@@ -26,6 +26,7 @@ class SearchJobResource extends JsonResource
         $datePosted = $this->date_posted ?? '';
 
         $jobs = EmployerJob::query()
+        ->orderByDesc('created_at')
         ->when($title, function($query, $title) {
             $query->where('title', 'LIKE', '%' . $title . '%');
         })

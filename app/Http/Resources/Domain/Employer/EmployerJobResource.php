@@ -16,9 +16,13 @@ class EmployerJobResource extends JsonResource
             'updated_at',
             'deleted_at',
             'employer_id',
+            'category_id',
+            'job_industry',
         ]);
 
         $response = collect($response)->merge([
+            'jobIndustryName' => $this->job_industry,
+            'jobIndustry' => $this->category?->uuid,
             'status' => $this->status,
             'createdAt' => $this->created_at->toDateTimeString(),
             'pools' => $this->employer->candidatePools->map(fn($pool) => $pool->only(['name', 'uuid'])),

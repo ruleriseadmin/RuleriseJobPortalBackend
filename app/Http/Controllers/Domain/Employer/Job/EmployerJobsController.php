@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Domain\Employer\Job;
 
+use App\Actions\Domain\Employer\Job\SetOpenCloseAction;
 use App\Http\Resources\Domain\Employer\EmployerJobFilterResource;
 use Illuminate\Http\JsonResponse;
 use App\Supports\ApiReturnResponse;
@@ -72,5 +73,14 @@ class EmployerJobsController extends BaseController
             : ApiReturnResponse::failed();
     }
 
-    public function setActiveJob(){}
+    public function setOpenClose(string $uuid)
+    {
+        $job = $this->employer->jobs()->where('uuid', $uuid)->first();
+
+        if ( ! $job ) return ApiReturnResponse::notFound('Job does not exists');
+
+        return (new SetOpenCloseAction)->execute($job)
+            ? ApiReturnResponse::success()
+            : ApiReturnResponse::failed();
+    }
 }

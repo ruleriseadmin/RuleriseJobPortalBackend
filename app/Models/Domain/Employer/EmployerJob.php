@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\Domain\Employer\Job\EmployerJobViewCount;
 use App\Models\Scopes\Domain\Employer\EmployerActiveScope;
 use App\Models\Domain\Candidate\Job\CandidateJobApplication;
+use App\Models\Domain\Shared\Job\JobCategories;
 
 class EmployerJob extends Model
 {
@@ -77,6 +78,11 @@ class EmployerJob extends Model
     public static function whereUuid(string $uuid)
     {
         return self::query()->where('uuid', $uuid)->first();
+    }
+
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(JobCategories::class, 'category_id', 'id');
     }
 
     public function getStatusAttribute(): string
