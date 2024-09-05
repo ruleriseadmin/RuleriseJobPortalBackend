@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers\Domain\Employer\Job;
 
-use App\Actions\Domain\Employer\Job\SetOpenCloseAction;
-use App\Http\Resources\Domain\Employer\EmployerJobFilterResource;
+use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Supports\ApiReturnResponse;
 use App\Actions\Domain\Employer\Job\CreateJobAction;
 use App\Actions\Domain\Employer\Job\DeleteJobAction;
 use App\Actions\Domain\Employer\Job\UpdateJobAction;
+use App\Actions\Domain\Employer\Job\PublishJobAction;
+use App\Actions\Domain\Employer\Job\SetOpenCloseAction;
 use App\Http\Controllers\Domain\Employer\BaseController;
 use App\Http\Requests\Domain\Employer\Job\StoreJobRequest;
 use App\Http\Requests\Domain\Employer\Job\UpdateJobRequest;
 use App\Http\Resources\Domain\Employer\EmployerJobResource;
-use Illuminate\Http\Request;
+use App\Http\Resources\Domain\Employer\EmployerJobFilterResource;
 
 class EmployerJobsController extends BaseController
 {
@@ -80,6 +81,17 @@ class EmployerJobsController extends BaseController
         if ( ! $job ) return ApiReturnResponse::notFound('Job does not exists');
 
         return (new SetOpenCloseAction)->execute($job)
+            ? ApiReturnResponse::success()
+            : ApiReturnResponse::failed();
+    }
+
+    public function publishJob(string $uuid)
+    {
+        $job = $this->employer->jobs()->where('uuid', $uuid)->first();
+
+        if ( ! $job ) return ApiReturnResponse::notFound('Job does not exists');
+
+        return (new PublishJobAction)->execute($job)
             ? ApiReturnResponse::success()
             : ApiReturnResponse::failed();
     }

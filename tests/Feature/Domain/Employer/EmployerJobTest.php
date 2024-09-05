@@ -273,3 +273,22 @@ test('That employer open / close job', function () {
 
     expect($job->refresh()->status)->toBe('open');
 });
+
+test('That employer publish job', function () {
+
+    Employer::factory()->create();
+
+    $user = EmployerUser::factory()->create();
+
+    EmployerAccess::factory()->create();
+
+    $job = EmployerJob::factory()->create();
+
+    $open = $this->actingAs($user)->post("/v1/employer/job/{$job->uuid}/publishJob");
+
+    expect($open->json()['status'])->toBe('200');
+
+    expect($job->refresh()->status)->toBe('open');
+
+    expect($job->refresh()->is_draft)->toBeFalse();
+});
