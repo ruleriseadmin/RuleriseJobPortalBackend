@@ -4,9 +4,10 @@ namespace App\Http\Resources\Domain\Candidate\Job;
 
 use Illuminate\Http\Request;
 use App\Supports\HelperSupport;
+use Illuminate\Support\Facades\DB;
+use App\Models\Domain\Admin\GeneralSetting;
 use App\Models\Domain\Employer\EmployerJob;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Facades\DB;
 
 class JobFilterResource extends JsonResource
 {
@@ -71,6 +72,7 @@ class JobFilterResource extends JsonResource
                     $job['employer_name'] = $job->employer->company_name;
                     $job['employer_logo'] = $job->employer->logo_url ? asset("storage/{$job->employer->logo_url}") : null;
                     $job['job_status'] = $job->status;
+                    $job['currency'] = GeneralSetting::defaultCurrency();
 
                     // check if filter is applied then add extra details
                     if ( $this->type == 'applied' ){
@@ -88,6 +90,8 @@ class JobFilterResource extends JsonResource
                         'title',
                         'location',
                         'salary',
+                        'salary_payment_mode',
+                        'currency',
                         'employment_type',
                         'employer_name',
                         'employer_logo',

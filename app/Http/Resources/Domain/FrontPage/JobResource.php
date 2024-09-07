@@ -2,8 +2,9 @@
 
 namespace App\Http\Resources\Domain\FrontPage;
 
-use App\Supports\HelperSupport;
 use Illuminate\Http\Request;
+use App\Supports\HelperSupport;
+use App\Models\Domain\Admin\GeneralSetting;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class JobResource extends JsonResource
@@ -24,6 +25,7 @@ class JobResource extends JsonResource
             'created_at' => $this->created_at->toDateTimeString(),
             'employer_name' => $this->employer?->company_name,
             'employer_logo' => $this->employer->logo_url ? asset("storage/{$this->employer->logo_url}") : null,
+            'currency' => GeneralSetting::defaultCurrency(),
         ]);
 
         return HelperSupport::snake_to_camel($response->toArray());

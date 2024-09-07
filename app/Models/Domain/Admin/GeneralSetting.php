@@ -25,4 +25,9 @@ class GeneralSetting extends Model
     {
         return self::query()->where('name', $name)->first();
     }
+
+    public static function defaultCurrency(): string
+    {
+        return self::whereName('default_currency')->value;
+    }
 }
