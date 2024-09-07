@@ -36,7 +36,7 @@ class LatestJobResource extends JsonResource
                     $job['employer_logo'] = $job->employer->logo_url ? asset("storage/{$job->employer->logo_url}") : null;
 
                     $job['job_status'] = $job->status;
-                    
+
                     $job['currency'] = GeneralSetting::defaultCurrency();
 
                     // check if filter is applied then add extra details
@@ -67,6 +67,7 @@ class LatestJobResource extends JsonResource
                         'applied_at',
                         'saved',
                         'createdAt',
+                        'job_status',
                     ])->toArray());
 
              return $job;

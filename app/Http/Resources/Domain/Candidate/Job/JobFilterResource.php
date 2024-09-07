@@ -100,6 +100,7 @@ class JobFilterResource extends JsonResource
                         'applied_at',
                         'saved',
                         'createdAt',
+                        'job_status',
                     ])->toArray());
 
              return $job;

@@ -4,6 +4,7 @@ namespace App\Http\Resources\Domain\Candidate\Job;
 
 use Illuminate\Http\Request;
 use App\Supports\HelperSupport;
+use App\Models\Domain\Admin\GeneralSetting;
 use App\Models\Domain\Employer\EmployerJob;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -53,12 +54,18 @@ class SimilarJobResource extends JsonResource
                     // check if user has saved job
                     $job['saved'] = (bool) collect($user->savedJobs?->job_ids ?? [])->contains($job->id);
 
+                    $job['job_status'] = $job->status;
+
+                    $job['currency'] = GeneralSetting::defaultCurrency();
+
                     $job['createdAt'] = $job->created_at->toDateTimeString();
 
                     $job = HelperSupport::snake_to_camel(collect($job)->only([
                         'title',
                         'location',
                         'salary',
+                        'salary_payment_mode',
+                        'currency',
                         'employment_type',
                         'employer_name',
                         'employer_logo',
@@ -67,6 +74,7 @@ class SimilarJobResource extends JsonResource
                         'applied_at',
                         'saved',
                         'createdAt',
+                        'job_status',
                     ])->toArray());
 
              return $job;

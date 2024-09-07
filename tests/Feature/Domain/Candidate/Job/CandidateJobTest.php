@@ -184,6 +184,11 @@ test('That candidate applied for a job with cv', function () {
 
 test('That candidate views similar job', function () {
 
+    GeneralSetting::factory()->create([
+    'name' => 'default_currency',
+    'value' => 'NGN',
+    ]);
+
     $user = User::factory()->create();
 
     Employer::factory()->create();
