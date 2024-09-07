@@ -1,12 +1,18 @@
 <?php
 
 use App\Models\Domain\Employer\Employer;
+use App\Models\Domain\Admin\GeneralSetting;
 use App\Models\Domain\Employer\EmployerJob;
 
 test('That front page search jobs successfully', function () {
     collect(array_fill(0, 5, 1))->map(fn() => Employer::factory()->create());
 
     collect(array_fill(0, 5, 1))->map(fn() => EmployerJob::factory()->create());
+
+    GeneralSetting::factory()->create([
+        'name' => 'default_currency',
+        'value' => 'NGN',
+    ]);
 
     $response = $this->get('v1/search-jobs?title=engineer');
 
@@ -18,6 +24,11 @@ test('That front page get latest jobs successfully', function () {
     collect(array_fill(0, 5, 1))->map(fn() => Employer::factory()->create());
 
     collect(array_fill(0, 5, 1))->map(fn() => EmployerJob::factory()->create());
+
+    GeneralSetting::factory()->create([
+        'name' => 'default_currency',
+        'value' => 'NGN',
+    ]);
 
     $response = $this->get('v1/latest-jobs');
 

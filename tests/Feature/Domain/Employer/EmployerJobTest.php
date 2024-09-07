@@ -1,18 +1,24 @@
 <?php
 
+use Database\Seeders\RoleSeeder;
 use App\Models\Domain\Employer\Employer;
-use App\Models\Domain\Employer\EmployerAccess;
+use App\Models\Domain\Admin\GeneralSetting;
 use App\Models\Domain\Employer\EmployerJob;
 use App\Models\Domain\Employer\EmployerUser;
-use App\Models\Domain\Employer\Job\CandidateJobPool;
+use App\Models\Domain\Employer\EmployerAccess;
 use App\Models\Domain\Shared\Job\JobCategories;
-use Database\Seeders\RoleSeeder;
+use App\Models\Domain\Employer\Job\CandidateJobPool;
 
 beforeEach(function () {
     $this->seed(RoleSeeder::class);
 });
 
 test('That employer job is retrieved successfully', function () {
+
+    GeneralSetting::factory()->create([
+        'name' => 'default_currency',
+        'value' => 'NGN',
+    ]);
 
     Employer::factory()->create();
 
@@ -55,6 +61,11 @@ test('That employer job is retrieved successfully', function () {
 
 test('That employer single job is retrieved successfully', function () {
 
+    GeneralSetting::factory()->create([
+        'name' => 'default_currency',
+        'value' => 'NGN',
+    ]);
+
     Employer::factory()->create();
 
     $user = EmployerUser::factory()->create();
@@ -92,6 +103,11 @@ test('That employer single job is retrieved successfully', function () {
 
 test('That employer created job', function () {
 
+    GeneralSetting::factory()->create([
+        'name' => 'default_currency',
+        'value' => 'NGN',
+    ]);
+
     Employer::factory()->create();
 
     $user = EmployerUser::factory()->create();
@@ -125,6 +141,11 @@ test('That employer created job', function () {
 });
 
 test('That employer created job as draft', function () {
+
+    GeneralSetting::factory()->create([
+        'name' => 'default_currency',
+        'value' => 'NGN',
+    ]);
 
     Employer::factory()->create();
 
@@ -168,6 +189,11 @@ test('That employer created job as draft', function () {
 
 test('That employer created job as published', function () {
 
+    GeneralSetting::factory()->create([
+        'name' => 'default_currency',
+        'value' => 'NGN',
+    ]);
+
     Employer::factory()->create();
 
     $user = EmployerUser::factory()->create();
@@ -208,6 +234,11 @@ test('That employer created job as published', function () {
 });
 
 test('That employer updated job', function () {
+
+    GeneralSetting::factory()->create([
+        'name' => 'default_currency',
+        'value' => 'NGN',
+    ]);
 
     Employer::factory()->create();
 
@@ -275,6 +306,11 @@ test('That employer open / close job', function () {
 });
 
 test('That employer publish job', function () {
+
+    GeneralSetting::factory()->create([
+        'name' => 'default_currency',
+        'value' => 'NGN',
+    ]);
 
     Employer::factory()->create();
 

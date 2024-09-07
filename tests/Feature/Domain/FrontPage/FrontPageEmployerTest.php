@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Domain\Admin\GeneralSetting;
 use App\Models\Domain\Employer\Employer;
 use App\Models\Domain\Employer\EmployerJob;
 
@@ -17,6 +18,11 @@ test('front page show employer', function () {
     $employer = Employer::factory()->create();
 
     EmployerJob::factory()->create();
+
+    GeneralSetting::factory()->create([
+        'name' => 'default_currency',
+        'value' => 'NGN',
+    ]);
 
     $response = $this->get("/v1/employers/{$employer->uuid}");
 

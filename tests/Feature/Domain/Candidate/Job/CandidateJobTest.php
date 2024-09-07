@@ -1,22 +1,28 @@
 <?php
 
-use App\Models\Domain\Candidate\CVDocument;
-use App\Models\Domain\Candidate\Job\CandidateJobApplication;
-use App\Models\Domain\Candidate\Job\CandidateSavedJob;
+use Illuminate\Support\Carbon;
+use Database\Seeders\RoleSeeder;
 use App\Models\Domain\Candidate\User;
 use App\Models\Domain\Employer\Employer;
-use App\Models\Domain\Employer\EmployerAccess;
+use App\Models\Domain\Admin\GeneralSetting;
+use App\Models\Domain\Candidate\CVDocument;
 use App\Models\Domain\Employer\EmployerJob;
 use App\Models\Domain\Employer\EmployerUser;
+use App\Models\Domain\Employer\EmployerAccess;
+use App\Models\Domain\Candidate\Job\CandidateSavedJob;
 use App\Models\Domain\Employer\Job\EmployerJobViewCount;
-use Database\Seeders\RoleSeeder;
-use Illuminate\Support\Carbon;
+use App\Models\Domain\Candidate\Job\CandidateJobApplication;
 
 beforeEach(function () {
     $this->seed(RoleSeeder::class);
 });
 
 test('That candidate views a job', function () {
+
+    GeneralSetting::factory()->create([
+        'name' => 'default_currency',
+        'value' => 'NGN',
+    ]);
 
     $user = User::factory()->create();
 
@@ -30,6 +36,11 @@ test('That candidate views a job', function () {
 });
 
 test('That candidate views a job and job view increments', function () {
+
+    GeneralSetting::factory()->create([
+        'name' => 'default_currency',
+        'value' => 'NGN',
+    ]);
 
     $user = User::factory()->create();
 
@@ -45,6 +56,11 @@ test('That candidate views a job and job view increments', function () {
 });
 
 test('That candidate views a job and job view increments and updates', function () {
+
+    GeneralSetting::factory()->create([
+        'name' => 'default_currency',
+        'value' => 'NGN',
+    ]);
 
     $user = User::factory()->create();
 

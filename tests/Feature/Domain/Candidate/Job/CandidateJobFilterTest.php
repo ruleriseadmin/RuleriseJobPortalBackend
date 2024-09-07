@@ -1,19 +1,25 @@
 <?php
 
-use App\Models\Domain\Candidate\Job\CandidateJobApplication;
-use App\Models\Domain\Candidate\Job\CandidateSavedJob;
+use Database\Seeders\RoleSeeder;
 use App\Models\Domain\Candidate\User;
 use App\Models\Domain\Employer\Employer;
-use App\Models\Domain\Employer\EmployerAccess;
+use App\Models\Domain\Admin\GeneralSetting;
 use App\Models\Domain\Employer\EmployerJob;
 use App\Models\Domain\Employer\EmployerUser;
-use Database\Seeders\RoleSeeder;
+use App\Models\Domain\Employer\EmployerAccess;
+use App\Models\Domain\Candidate\Job\CandidateSavedJob;
+use App\Models\Domain\Candidate\Job\CandidateJobApplication;
 
 beforeEach(function () {
     $this->seed(RoleSeeder::class);
 });
 
 test('That candidate filter job as new', function () {
+
+    GeneralSetting::factory()->create([
+        'name' => 'default_currency',
+        'value' => 'NGN',
+    ]);
 
     $user = User::factory()->create();
 
@@ -46,6 +52,11 @@ test('That candidate filter job as new', function () {
 });
 
 test('That candidate filter job as saved', function () {
+
+    GeneralSetting::factory()->create([
+        'name' => 'default_currency',
+        'value' => 'NGN',
+    ]);
 
     $user = User::factory()->create();
 
@@ -80,6 +91,11 @@ test('That candidate filter job as saved', function () {
 });
 
 test('That candidate filter job as applied', function () {
+
+    GeneralSetting::factory()->create([
+        'name' => 'default_currency',
+        'value' => 'NGN',
+    ]);
 
     $user = User::factory()->create();
 

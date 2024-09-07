@@ -1,10 +1,17 @@
 <?php
 
 use App\Models\Domain\Employer\Employer;
+use App\Models\Domain\Admin\GeneralSetting;
 use App\Models\Domain\Employer\EmployerJob;
 use App\Models\Domain\Shared\Job\JobCategories;
 
 test('That front page is retrieved successfully', function () {
+
+    GeneralSetting::factory()->create([
+        'name' => 'default_currency',
+        'value' => 'NGN',
+    ]);
+    
     collect(array_fill(0, 5, 1))->map(fn() => Employer::factory()->create());
 
     JobCategories::factory()->create();
@@ -17,6 +24,12 @@ test('That front page is retrieved successfully', function () {
 });
 
 test('That front page latest jobs is retrieved successfully', function () {
+
+    GeneralSetting::factory()->create([
+        'name' => 'default_currency',
+        'value' => 'NGN',
+    ]);
+
     collect(array_fill(0, 5, 1))->map(fn() => Employer::factory()->create());
 
     JobCategories::factory()->create();
