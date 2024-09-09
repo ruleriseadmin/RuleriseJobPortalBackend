@@ -43,7 +43,7 @@ class JobsController extends BaseController
             ->execute($this->user, $job, $request->input('applyVia'), $request->input('cvId'));
 
         return $appliedJob
-            ? ApiReturnResponse::success()
+            ? ApiReturnResponse::success(new JobResource($job->refresh()))
             : ApiReturnResponse::failed();
     }
 
