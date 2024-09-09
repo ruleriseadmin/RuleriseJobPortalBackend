@@ -115,6 +115,11 @@ test('That candidate unsaved a job', function () {
 
 test('That candidate applied for a job', function () {
 
+    GeneralSetting::factory()->create([
+        'name' => 'default_currency',
+        'value' => 'NGN',
+    ]);
+    
     $user = User::factory()->create();
 
     Employer::factory()->create();
@@ -137,6 +142,11 @@ test('That candidate applied for a job', function () {
 
 test('That candidate cannot apply for already applied job', function () {
 
+    GeneralSetting::factory()->create([
+        'name' => 'default_currency',
+        'value' => 'NGN',
+    ]);
+
     $user = User::factory()->create();
 
     Employer::factory()->create();
@@ -158,6 +168,11 @@ test('That candidate cannot apply for already applied job', function () {
 });
 
 test('That candidate applied for a job with cv', function () {
+
+    GeneralSetting::factory()->create([
+        'name' => 'default_currency',
+        'value' => 'NGN',
+    ]);
 
     $user = User::factory()->create();
 
