@@ -20,6 +20,7 @@ class FrontPageResource extends JsonResource
             ->take(8)
             ->map(fn($employer) => [
                 'name' => $employer->company_name,
+                'uuid' => $employer->uuid,
                 'location' => $employer->state_city,
                 'openJobs' => $employer->openJobs->count(),
                 'logoUrl' => $employer->logo_url ? asset("storage/$employer->logo_url") : null,
