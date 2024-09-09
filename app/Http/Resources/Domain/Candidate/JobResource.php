@@ -28,6 +28,7 @@ class JobResource extends JsonResource
             'employer_logo' => $this->employer->logo_url ? asset("storage/{$this->employer->logo_url}") : null,
             'employer_id' => $this->employer->uuid,
             'currency' => GeneralSetting::defaultCurrency(),
+            'applied' => false,
         ]);
 
         $application = $user->jobApplications->where('job_id', $this->id)->first();
@@ -36,6 +37,7 @@ class JobResource extends JsonResource
             $response = collect($response)->merge([
                 'status' => $application->status(),
                 'applied_at' => $application->created_at->toDateTimeString(),
+                'applied' => true,
             ]);
         }
 
