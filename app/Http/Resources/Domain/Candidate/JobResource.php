@@ -26,6 +26,7 @@ class JobResource extends JsonResource
             'saved' => (bool) collect($user->savedJobs?->job_ids ?? [])->contains($this->id),
             'employer_name' => $this->employer->company_name,
             'employer_logo' => $this->employer->logo_url ? asset("storage/{$this->employer->logo_url}") : null,
+            'employer_id' => $this->employer->uuid,
             'currency' => GeneralSetting::defaultCurrency(),
         ]);
 
