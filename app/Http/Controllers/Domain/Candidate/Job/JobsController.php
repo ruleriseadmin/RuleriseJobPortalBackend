@@ -1,16 +1,18 @@
 <?php
 
 namespace App\Http\Controllers\Domain\Candidate\Job;
-use App\Http\Resources\Domain\Candidate\Job\SimilarJobResource;
 use Illuminate\Http\JsonResponse;
 use App\Supports\ApiReturnResponse;
 use App\Models\Domain\Employer\EmployerJob;
 use App\Actions\Domain\Candidate\Job\ApplyJobAction;
 use App\Http\Resources\Domain\Candidate\JobResource;
+use App\Actions\Domain\Candidate\Job\ReportJobAction;
 use App\Http\Controllers\Domain\Candidate\BaseController;
 use App\Actions\Domain\Candidate\Job\SaveAndUnsafeJobAction;
 use App\Http\Requests\Domain\Candidate\Job\JobFilterRequest;
+use App\Http\Requests\Domain\Candidate\Job\ReportJobRequest;
 use App\Http\Resources\Domain\Candidate\Job\JobFilterResource;
+use App\Http\Resources\Domain\Candidate\Job\SimilarJobResource;
 use App\Actions\Domain\Candidate\Job\IncrementJobViewCountAction;
 use App\Http\Requests\Domain\Candidate\Job\JobApplicationRequest;
 
@@ -67,12 +69,16 @@ class JobsController extends BaseController
         return ApiReturnResponse::success(new SimilarJobResource($job));
     }
 
-    public function reportJob(string $uuid)
+    public function reportJob(string $uuid, ReportJobRequest $request)
     {
         $job = EmployerJob::whereUuid($uuid);
 
         if ( ! $job ) return ApiReturnResponse::notFound('Job not found');
 
-        return ApiReturnResponse::success();
+       $reportedJob = (new ReportJobAction)->execute($this->user, $job, $request->input());
+
+        return $reportedJob
+            ? ApiReturnResponse::success(new JobResource($job->refresh()))
+            : ApiReturnResponse::failed();
     }
 }

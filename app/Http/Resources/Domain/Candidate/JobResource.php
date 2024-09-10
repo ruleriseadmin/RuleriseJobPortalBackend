@@ -29,6 +29,7 @@ class JobResource extends JsonResource
             'employer_id' => $this->employer->uuid,
             'currency' => GeneralSetting::defaultCurrency(),
             'applied' => false,
+            'reported' => false,
         ]);
 
         $application = $user->jobApplications->where('job_id', $this->id)->first();
@@ -38,6 +39,15 @@ class JobResource extends JsonResource
                 'status' => $application->status(),
                 'applied_at' => $application->created_at->toDateTimeString(),
                 'applied' => true,
+            ]);
+        }
+
+        $reported = $user->reportedJobs->where('job_id', $this->id)->first();
+
+        if ( $reported ){
+            $response = collect($response)->merge([
+                'reported_at' => $reported->created_at->toDateTimeString(),
+                'reported' => true,
             ]);
         }
 

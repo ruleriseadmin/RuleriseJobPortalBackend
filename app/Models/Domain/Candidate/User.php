@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Models\Domain\Candidate\Job\CandidateSavedJob;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\Domain\Candidate\Job\CandidateJobApplication;
+use App\Models\Domain\Shared\ReportedJob;
 
 class User extends ModelsUser
 {
@@ -81,6 +82,11 @@ class User extends ModelsUser
     public function cvs(): HasMany
     {
         return $this->hasMany(CVDocument::class);
+    }
+
+    public function reportedJobs(): HasMany
+    {
+        return $this->hasMany(ReportedJob::class);
     }
 
     public static function whereUuid(string $uuid)

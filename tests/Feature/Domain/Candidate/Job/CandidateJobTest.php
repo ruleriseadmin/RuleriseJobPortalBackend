@@ -119,7 +119,7 @@ test('That candidate applied for a job', function () {
         'name' => 'default_currency',
         'value' => 'NGN',
     ]);
-    
+
     $user = User::factory()->create();
 
     Employer::factory()->create();
@@ -215,4 +215,26 @@ test('That candidate views similar job', function () {
     $response = $this->actingAs($user)->get("/v1/candidate/job/{$job->uuid}/similarJobs");
 
     expect($response->json()['status'])->toBe('200');
+});
+
+test('That candidate report job', function () {
+
+    GeneralSetting::factory()->create([
+    'name' => 'default_currency',
+    'value' => 'NGN',
+    ]);
+
+    $user = User::factory()->create();
+
+    Employer::factory()->create();
+
+    $job = EmployerJob::factory()->create();
+
+    $response = $this->actingAs($user)->post("/v1/candidate/job/{$job->uuid}/reportJob", [
+        'reason' => 'Fake Job posting'
+    ]);
+
+    expect($response->json()['status'])->toBe('200');
+
+    expect($response->json()['data']['reported'])->toBe(true);
 });
