@@ -12,8 +12,8 @@ class RegisterRequest extends BaseRequest
         return [
             'email' => ['required', 'unique:users,email', 'email'],
             'password' => ['required', Password::min(8)->letters()->numbers()],
-            'firstName' => ['required'],
-            'lastName' => ['required'],
+            'firstName' => ['required', 'string', 'min:2', 'max:255', 'regex:/^[a-zA-Z]+(?:[\s-][a-zA-Z]+)*$/'],
+            'lastName' => ['required', 'string', 'min:2', 'max:255', 'regex:/^[a-zA-Z]+(?:[\s-][a-zA-Z]+)*$/'],
             'mobileNumber' => ['required', 'numeric'],
             'mobileCountryCode' => ['required'],
             'nationality' => ['required'],
