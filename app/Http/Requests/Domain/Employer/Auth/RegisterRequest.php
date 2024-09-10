@@ -16,8 +16,8 @@ class RegisterRequest extends BaseRequest
         return [
             'email' => ['required', 'email', Rule::unique('employer_users')->whereNull('deleted_at')],
             'password' => ['required', Password::min(8)->letters()->numbers()],
-            'firstName' => ['required'],
-            'lastName' => ['required'],
+            'firstName' => ['required', 'string', 'min:2', 'max:255', 'regex:/^[a-zA-Z]+(?:[\s-][a-zA-Z]+)*$/'],
+            'lastName' => ['required', 'string', 'min:2', 'max:255', 'regex:/^[a-zA-Z]+(?:[\s-][a-zA-Z]+)*$/'],
             'companyName' => ['required', 'unique:employers,company_name,except,id', 'regex:/^(?=.*[a-zA-Z])[a-zA-Z\d]{3,}$/'],
             'positionTitle' => ['required'],
             'officialEmail' => ['required', 'email'],
