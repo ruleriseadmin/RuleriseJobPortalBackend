@@ -9,6 +9,7 @@ use App\Http\Resources\Domain\Employer\Candidate\CandidateResource;
 use App\Http\Requests\Domain\Employer\Candidate\ChangeHiringStageRequest;
 use App\Http\Resources\Domain\Employer\Candidate\CandidateFilterResource;
 use App\Actions\Domain\Employer\Candidate\ChangeApplicationHiringStageAction;
+use Illuminate\Support\Facades\Log;
 
 class CandidatesController extends BaseController
 {
@@ -28,6 +29,7 @@ class CandidatesController extends BaseController
 
     public function changeHiringStage(ChangeHiringStageRequest $request)
     {
+        Log::error('go here');
         return (new ChangeApplicationHiringStageAction)->execute($request->input())
             ? ApiReturnResponse::success()
             : ApiReturnResponse::failed();

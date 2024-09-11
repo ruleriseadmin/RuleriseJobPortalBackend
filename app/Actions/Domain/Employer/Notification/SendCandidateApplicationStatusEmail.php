@@ -12,9 +12,15 @@ class SendCandidateApplicationStatusEmail
 {
     public function execute(CandidateJobApplication $application, string $hiringStage)
     {
-        if ( ! $application->job ) return;
+        if ( ! $application->job ) {
+            Log::error("Error @ SendCandidateApplicationStatusEmail: Job not found");
+            return;
+        }
 
-        if ( ! $application->job->employer ) return;
+        if ( ! $application->job->employer ) {
+            Log::error("Error @ SendCandidateApplicationStatusEmail: Employer not found");
+            return;
+        }
 
         $template = "{$hiringStage}_template";
 
