@@ -27,6 +27,7 @@ class JobApplicantController extends BaseController
 
     public function changeHiringStage(ChangeHiringStageRequest $request): JsonResponse
     {
+        logger('oya na');
         $job = $this->employer->jobs()->where('uuid', $request->input('jobId'))->first();
 
         if ( ! $job ) return ApiReturnResponse::notFound('Job does not exists');

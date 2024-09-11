@@ -29,6 +29,7 @@ class CandidatesController extends BaseController
 
     public function changeHiringStage(ChangeHiringStageRequest $request)
     {
+        logger('here');
         Log::error('go here');
         return (new ChangeApplicationHiringStageAction)->execute($request->input())
             ? ApiReturnResponse::success()
