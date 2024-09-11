@@ -13,11 +13,13 @@ class SendCandidateApplicationStatusEmail
     public function execute(CandidateJobApplication $application, string $hiringStage)
     {
         if ( ! $application->job ) {
+            logger('rrr');
             Log::error("Error @ SendCandidateApplicationStatusEmail: Job not found");
             return;
         }
 
         if ( ! $application->job->employer ) {
+            logger('ddd');
             Log::error("Error @ SendCandidateApplicationStatusEmail: Employer not found");
             return;
         }
@@ -40,6 +42,7 @@ class SendCandidateApplicationStatusEmail
                 'actionUrl' => config('env.candidate.base_url')."/job/{$application->job->id}",
             ]));
         }catch(Exception $ex){
+            logger($ex->getMessage());
             Log::error("Error @ SendCandidateApplicationStatusEmail: " . $ex->getMessage());
         }
     }
