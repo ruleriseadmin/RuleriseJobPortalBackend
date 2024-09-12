@@ -30,7 +30,7 @@ class CategoryResource extends JsonResource
 
         if ( $this->withJobs ?? false ){
             $response = $response->merge([
-                'jobs' => $this->paginateFromCollection(JobResource::collection($this->openJobs), 10),
+                'jobs' => $this->paginateFromCollection(JobResource::collection($this->openJobs()->orderByDesc('created_at')->get()), 10),
             ]);
         }
 
