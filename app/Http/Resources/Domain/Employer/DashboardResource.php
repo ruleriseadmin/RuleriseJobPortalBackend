@@ -41,7 +41,7 @@ class DashboardResource extends JsonResource
             'messagedReceived' => 0,
             'candidatesApplied' => $applications->count(),
             'stats' => $this->getStats($filterOverview[0]),
-            'extraStats' => $this->getExtraStats($filterOverview[0]),
+            'extraStats' => $this->getExtraStats($filterOverview[1]),
         ];
     }
 
