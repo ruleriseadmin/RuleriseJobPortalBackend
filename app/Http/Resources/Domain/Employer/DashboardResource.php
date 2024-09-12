@@ -60,8 +60,8 @@ class DashboardResource extends JsonResource
         // Merge the results into the $jobs collection
         foreach ($viewCountSums as $day => $viewCountSum) {
             $jobs[$day] = collect([
-                'view_count' => ($jobs->get($day)['view_count'] ?? 0) + $viewCountSum,
-                'apply_count' => ($jobs->get($day)['apply_count'] ?? 0) + $applyCountSums[$day],
+                'view_count' => ceil(($jobs->get($day)['view_count'] ?? 0) + $viewCountSum),
+                'apply_count' => ceil(($jobs->get($day)['apply_count'] ?? 0) + $applyCountSums[$day]),
             ]);
         }
 
@@ -101,13 +101,13 @@ class DashboardResource extends JsonResource
 
         return [
             'jobView' => [
-                'total' => $currentViewCount,
-                'percentage' => $viewCountChange,
+                'total' => ceil($currentViewCount),
+                'percentage' => ceil($viewCountChange),
                 'value_change' =>  $viewCountChangeDirection,
             ],
             'jobApply' => [
-                'total' => $currentApplyCount,
-                'percentage' => $applyCountChange,
+                'total' => ceil($currentApplyCount),
+                'percentage' => ceil($applyCountChange),
                 'value_change' => $applyCountChangeDirection,
             ],
         ];

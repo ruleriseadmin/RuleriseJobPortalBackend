@@ -18,7 +18,7 @@ class RegisterRequest extends BaseRequest
             'password' => ['required', Password::min(8)->letters()->numbers()],
             'firstName' => ['required', 'string', 'min:2', 'max:255', 'regex:/^[a-zA-Z]+(?:[\s-][a-zA-Z]+)*$/'],
             'lastName' => ['required', 'string', 'min:2', 'max:255', 'regex:/^[a-zA-Z]+(?:[\s-][a-zA-Z]+)*$/'],
-            'companyName' => ['required', 'unique:employers,company_name,except,id', 'regex:/^(?=.*[a-zA-Z])[a-zA-Z\d]{3,}$/'],
+            'companyName' => ['required', 'unique:employers,company_name,except,id', 'regex:/^(?=.*[a-zA-Z])[a-zA-Z\d\s]{3,}$/'],
             'positionTitle' => ['required'],
             'officialEmail' => ['required', 'email'],
             'companyIndustry' => ['required'],
