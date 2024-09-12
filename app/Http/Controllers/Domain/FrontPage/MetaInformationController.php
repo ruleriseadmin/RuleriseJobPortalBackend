@@ -12,4 +12,15 @@ class MetaInformationController
     {
         return ApiReturnResponse::success(CategoryResource::collection(JobCategories::all()));
     }
+
+    public function getSingleCategory(string $uuid)
+    {
+        $category = JobCategories::where('uuid', $uuid)->first();
+
+        $category && $category['withJobs'] = true;
+
+        return $category
+            ? ApiReturnResponse::success(new CategoryResource($category))
+            : ApiReturnResponse::notFound('Category does not exists');
+    }
 }

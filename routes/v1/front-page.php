@@ -14,6 +14,7 @@ Route::get('search-jobs', [JobsController::class, 'searchJobs']);
 Route::get('latest-jobs', [JobsController::class, 'latestJobs']);
 
 Route::get('job-categories', [MetaInformationController::class, 'getJobCategory']);
+Route::get('job-categories/{uuid}', [MetaInformationController::class, 'getSingleCategory']);
 
 Route::prefix('employers')->group(function(){
     Route::get('/', [EmployersController::class, 'index']);

@@ -2,9 +2,10 @@
 
 namespace App\Http\Resources\Domain\Admin\Job;
 
-use App\Supports\HelperSupport;
 use Illuminate\Http\Request;
+use App\Supports\HelperSupport;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Domain\FrontPage\JobResource;
 
 class CategoryResource extends JsonResource
 {
@@ -21,6 +22,12 @@ class CategoryResource extends JsonResource
             'active' => (bool) $this->active,
             'openJobs' => $this->openJobs()->count(),
         ]);
+
+        if ( $this->withJobs ?? false ){
+            $response = $response->merge([
+                'jobs' => JobResource::collection($this->openJobs),
+            ]);
+        }
 
         return HelperSupport::snake_to_camel($response->toArray());
     }
