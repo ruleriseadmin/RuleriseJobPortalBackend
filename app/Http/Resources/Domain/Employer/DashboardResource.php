@@ -9,7 +9,7 @@ use App\Models\Domain\Candidate\Job\CandidateJobApplication;
 
 class DashboardResource extends JsonResource
 {
-    protected $jobs;
+    protected $jobCounts;
 
     public function toArray(Request $request): array
     {
@@ -21,7 +21,7 @@ class DashboardResource extends JsonResource
             ->whereBetween('created_at', ["$dateFrom 00:00:00", "$dateTo 23:59:59.999999"])
             ->get();
 
-        $this->jobs = $this->jobViewCounts()
+        $this->jobCounts = $this->jobViewCounts()
             ->whereBetween('created_at', ["$dateFrom 00:00:00", "$dateTo 23:59:59.999999"])
             ->get();
 
@@ -50,7 +50,7 @@ class DashboardResource extends JsonResource
         $jobs = collect([]);
 
         //Group jobViewCounts
-        $grouped = $this->jobs->groupBy(fn($jobViewCount) => $jobViewCount->created_at->format($filterOverview));
+        $grouped = $this->jobCounts->groupBy(fn($jobViewCount) => $jobViewCount->created_at->format($filterOverview));
 
         // Calculate sums for both view_count and apply_count
         $viewCountSums = $grouped->map(fn($jobViewCounts) => $jobViewCounts->sum('view_count'));
@@ -70,7 +70,7 @@ class DashboardResource extends JsonResource
 
     private function getExtraStats(string $filterOverview)
     {
-        $grouped = $this->jobs->groupBy(fn($jobViewCount) => $jobViewCount->created_at->format($filterOverview));
+        $grouped = $this->jobCounts->groupBy(fn($jobViewCount) => $jobViewCount->created_at->format($filterOverview));
 
         // Calculate sums for both view_count and apply_count
         $viewCountSums = $grouped->map(fn($jobViewCounts) => $jobViewCounts->sum('view_count'));
