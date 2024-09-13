@@ -8,7 +8,7 @@ use App\Models\Domain\Candidate\Job\CandidateJobApplication;
 
 class CandidateFilterResource extends JsonResource
 {
-    private int $perPage = 4;
+    private int $perPage = 10;
 
     protected $applicationIds;
 
@@ -29,7 +29,7 @@ class CandidateFilterResource extends JsonResource
 
     public function allCandidates()
     {
-       return CandidateJobApplication::whereIn('id', $this->applicationIds)->paginate($this->perPage);
+       return CandidateJobApplication::whereIn('id', $this->applicationIds)->orderByDesc('created_at')->paginate($this->perPage);
     }
 
     public function candidateResponse($paginatedCandidates)
