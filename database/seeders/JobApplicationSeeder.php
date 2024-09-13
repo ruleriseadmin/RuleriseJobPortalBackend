@@ -13,6 +13,6 @@ class JobApplicationSeeder extends Seeder
      */
     public function run(): void
     {
-        dd(CandidateJobApplication::all());
+        dd(CandidateJobApplication::all()[47]);
     }
 }
