@@ -12,7 +12,7 @@ class JobApplicationRequest extends BaseRequest
         return [
             'jobId' => ['required', 'exists:employer_jobs,uuid'],
             'applyVia' => ['required', Rule::in(CandidateJobApplication::APPLIED_VIA)],
-            'cvId' => ['required_if:applyVia,custom_cv', 'exists:c_v_documents,uuid'],
+            'cvId' => ['required_if:applyVia,custom_cv'], //, 'exists:c_v_documents,uuid'
         ];
     }
 }
