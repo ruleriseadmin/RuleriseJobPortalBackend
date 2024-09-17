@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Domain\Candidate\Job\CVsController;
 use App\Http\Controllers\Domain\Candidate\Job\JobsController;
+use App\Http\Controllers\Domain\Candidate\DashboardController;
 use App\Http\Controllers\Domain\Candidate\Auth\LoginController;
 use App\Http\Controllers\Domain\Candidate\CandidatesController;
 use App\Http\Controllers\Domain\Candidate\Auth\RegisterController;
@@ -29,6 +30,8 @@ Route::prefix('auth')->group(function(){
 
 #authenticated routes
 Route::group(['middleware' => ['auth:sanctum', 'user.ensureEmailIsVerified']], function(){
+
+    Route::get('metrics', [DashboardController::class, 'metrics']);
 
     Route::get('languageProficiency', [MetaInformationController::class, 'languageProficiency']);
 

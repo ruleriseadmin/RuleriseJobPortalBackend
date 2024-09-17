@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Domain\Employer\Candidate;
+use App\Actions\Domain\Employer\Candidate\IncrementCandidateProfileViewCountAction;
 use Illuminate\Http\JsonResponse;
 use App\Supports\ApiReturnResponse;
 use App\Models\Domain\Candidate\User;
@@ -22,9 +23,12 @@ class CandidatesController extends BaseController
     {
         $candidate = User::where('uuid', $uuid)->first();
 
-        return $candidate
-            ? ApiReturnResponse::success(new CandidateResource($candidate))
-            : ApiReturnResponse::notFound('Candidate not found');
+        if ( ! $candidate ) return ApiReturnResponse::notFound('Candidate not found');
+
+        //increment view count
+        (new IncrementCandidateProfileViewCountAction)->execute($candidate);
+
+        return ApiReturnResponse::success(new CandidateResource($candidate));
     }
 
     public function changeHiringStage(ChangeHiringStageRequest $request)

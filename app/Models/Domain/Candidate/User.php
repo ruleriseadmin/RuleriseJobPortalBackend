@@ -89,6 +89,11 @@ class User extends ModelsUser
         return $this->hasMany(ReportedJob::class);
     }
 
+    public function profileViewCounts(): HasMany
+    {
+        return $this->hasMany(CandidateProfileViewCount::class);
+    }
+
     public static function whereUuid(string $uuid)
     {
         return self::query()->where('uuid', $uuid)->first();
