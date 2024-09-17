@@ -20,7 +20,7 @@ class CVResource extends JsonResource
         ]);
 
         if ( ($this->user ?? false) ){
-            $documentTitle = str_replace("cv/{$this->user->email}", str($this->user->fullName)->kebab(), $this->cv_document_url);
+            $documentTitle = str_replace("cv/{$this->user->uuid}", str($this->user->fullName)->kebab(), $this->cv_document_url);
 
             $response = $response->merge([
                 'documentTitle' => str_replace('-', ' ', $documentTitle),
