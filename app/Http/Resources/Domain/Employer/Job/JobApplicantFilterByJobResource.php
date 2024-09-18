@@ -59,27 +59,27 @@ class JobApplicantFilterByJobResource extends JsonResource
 
     public function applicantsByAll()
     {
-        return $this->job->applicants()->paginate($this->perPage);
+        return $this->job->applicants()->orderByDesc('created_at')->paginate($this->perPage);
     }
 
     public function applicantsByUnsorted()
     {
-        return CandidateJobApplication::whereIn('id', $this->unsorted)->paginate($this->perPage);
+        return CandidateJobApplication::whereIn('id', $this->unsorted)->orderByDesc('created_at')->paginate($this->perPage);
     }
 
     public function applicantsByShortlisted()
     {
-        return CandidateJobApplication::whereIn('id', $this->shortlisted)->paginate($this->perPage);
+        return CandidateJobApplication::whereIn('id', $this->shortlisted)->orderByDesc('created_at')->paginate($this->perPage);
     }
 
     public function applicantsByOfferSent()
     {
-        return CandidateJobApplication::whereIn('id', $this->offerSent)->paginate($this->perPage);
+        return CandidateJobApplication::whereIn('id', $this->offerSent)->orderByDesc('created_at')->paginate($this->perPage);
     }
 
     public function applicantsByRejected()
     {
-        return CandidateJobApplication::whereIn('id', $this->rejectedApplications)->paginate($this->perPage);
+        return CandidateJobApplication::whereIn('id', $this->rejectedApplications)->orderByDesc('created_at')->paginate($this->perPage);
     }
 
     public function applicantResponse($paginatedApplicants)
