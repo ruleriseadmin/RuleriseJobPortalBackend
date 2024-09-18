@@ -24,6 +24,7 @@ class JobApplicantResource extends JsonResource
         $response = collect($response)->merge([
             'status' => $this->status(),
             'applicant_information' => new CandidateResource($this->applicant),
+            'cvUrl' => $this->cv ? asset("storage/{$this->cv->cv_document_url}") : null,
         ]);
 
         return HelperSupport::snake_to_camel($response->toArray());
