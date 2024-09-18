@@ -26,7 +26,7 @@ class JobApplicantResource extends JsonResource
             'cvUrl' => $this->cv ? [
                 'uploadedAt' => $this->cv->created_at->toDateTimeString(),
                 'url' => asset("storage/{$this->cv->cv_document_url}"),
-                'name' => str_replace('/cv', '', str_replace('-', ' ', $this->cv->cv_document_url)),
+                'name' => str_replace('cv/', '', str_replace('-', ' ', $this->cv->cv_document_url)),
             ] : null,
         ]);
 
