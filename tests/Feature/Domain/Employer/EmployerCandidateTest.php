@@ -102,3 +102,34 @@ test('That employer view single candidate', function () {
 
     expect($response->json()['status'])->toBe('200');
 });
+
+test('That employer view single job application', function () {
+    Employer::factory()->create();
+
+    $user = EmployerUser::factory()->create();
+
+    EmployerAccess::factory()->create();
+
+    $job = EmployerJob::factory()->create();
+
+    $candidate = User::factory()->create();
+
+    CandidateWorkExperience::factory()->create();
+
+    CandidateEducationHistory::factory()->create();
+
+    CandidatePortfolio::factory()->create();
+
+    CandidateCredential::factory()->create();
+
+    CandidateLanguage::factory()->create();
+
+    CandidateQualification::factory()->create();
+
+    $application = CandidateJobApplication::factory()->create();
+    $application->setStatus('applied');
+
+    $response = $this->actingAs($user)->get("/v1/employer/job/{$application->uuid}/view-application");
+
+    expect($response->json()['status'])->toBe('200');
+});

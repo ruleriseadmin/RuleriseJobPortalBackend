@@ -45,7 +45,12 @@ Route::group(['middleware' => ['auth:sanctum', 'user.ensureEmailIsVerified']], f
         Route::post('applicants/update-hiring-stage', [JobApplicantController::class, 'changeHiringStage']);
         Route::post('{uuid}/setOpenClose', [EmployerJobsController::class, 'setOpenClose']);
         Route::post('{uuid}/publishJob', [EmployerJobsController::class, 'publishJob']);
+
+        //application uuid
+        Route::get('{uuid}/view-application', [JobApplicantController::class, 'viewApplication']);
     });
+
+
 
     Route::prefix('candidate-pool')->group(function(){
         Route::get('/', [CandidateJobPoolsController::class, 'index']);

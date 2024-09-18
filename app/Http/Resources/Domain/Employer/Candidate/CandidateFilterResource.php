@@ -3,11 +3,14 @@
 namespace App\Http\Resources\Domain\Employer\Candidate;
 
 use App\Supports\HelperSupport;
+use App\Traits\Domain\Shared\PaginationTrait;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Models\Domain\Candidate\Job\CandidateJobApplication;
 
 class CandidateFilterResource extends JsonResource
 {
+    use PaginationTrait;
+
     private int $perPage = 10;
 
     protected $applicationIds;
@@ -55,9 +58,10 @@ class CandidateFilterResource extends JsonResource
                     'uuid',
                     'applied_via',
                     'cvUrl',
-                    'cc'
                 ])->toArray());
             });
+
+        return $this->paginateFromCollection( $candidates, $this->perPage);
 
         return [
             'items' => $candidates,

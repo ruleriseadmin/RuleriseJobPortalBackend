@@ -1,12 +1,14 @@
 <?php
 
 namespace App\Http\Controllers\Domain\Employer\Job;
-use App\Http\Resources\Domain\Employer\Job\CandidateFilterResource;
 use Illuminate\Http\JsonResponse;
 use App\Supports\ApiReturnResponse;
 use App\Http\Controllers\Domain\Employer\BaseController;
 use App\Actions\Domain\Employer\Job\ChangeHiringStageAction;
+use App\Models\Domain\Candidate\Job\CandidateJobApplication;
+use App\Http\Resources\Domain\Employer\Job\JobApplicantResource;
 use App\Http\Requests\Domain\Employer\Job\ChangeHiringStageRequest;
+use App\Http\Resources\Domain\Employer\Job\CandidateFilterResource;
 use App\Http\Requests\Domain\Employer\Job\JobApplicantFilterRequest;
 use App\Http\Resources\Domain\Employer\Job\JobApplicantFilterByJobResource;
 
@@ -35,5 +37,14 @@ class JobApplicantController extends BaseController
         return (new ChangeHiringStageAction)->execute($job, $request->input())
             ? ApiReturnResponse::success()
             : ApiReturnResponse::failed();
+    }
+
+    public function viewApplication(string $uuid)
+    {
+        $application = CandidateJobApplication::whereUuid($uuid);
+
+        return $application
+            ? ApiReturnResponse::success(new JobApplicantResource($application))
+            : ApiReturnResponse::notFound('Job does not exists');
     }
 }
