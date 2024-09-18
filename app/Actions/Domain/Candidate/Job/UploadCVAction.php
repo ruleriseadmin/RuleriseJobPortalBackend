@@ -41,11 +41,11 @@ class UploadCVAction
         return $cvDocument;
     }
 
-    private function uploadImage($imageData, $user)
+    private function uploadImage($imageData, $user): string
     {
         $count = $user->cvs->count();
 
-        $fileName = "{$user->uuid}-curriculum-vitae-{$count}.{$imageData['documentExtension']}";
+        $fileName = "{$imageData['documentName']}.{$imageData['documentExtension']}";
 
         Storage::exists("public/cv")
             ? null

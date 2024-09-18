@@ -11,6 +11,7 @@ class UploadCVRequest extends BaseRequest
         return [
             'documentInBase64' => ['required'],
             'documentExtension' => ['required', Rule::in(['pdf', 'doc', 'docx'])],
+            'documentName' => ['required'],
         ];
     }
 }
