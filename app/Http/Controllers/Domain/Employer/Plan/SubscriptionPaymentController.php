@@ -42,7 +42,7 @@ class SubscriptionPaymentController extends BaseController
 
         if ( $this->employer->hasActiveSubscription() ) return ApiReturnResponse::failed();
 
-        $subscriptionTransaction = $this->employer->subscriptionTransactions()->latest();
+        $subscriptionTransaction = collect($this->employer->subscriptionTransactions)->last()
 
         (new ProcessSubscriptionPaymentWebhook)->execute($subscriptionTransaction->reference);
 
