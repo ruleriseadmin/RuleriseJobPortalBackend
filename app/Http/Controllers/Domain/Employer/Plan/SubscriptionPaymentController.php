@@ -45,8 +45,10 @@ class SubscriptionPaymentController extends BaseController
 
         $subscriptionTransaction = collect($this->employer->subscriptionTransactions)->last();
 
-        //(new ProcessSubscriptionPaymentWebhook)->execute($subscriptionTransaction->reference);
+        (new ProcessSubscriptionPaymentWebhook)->execute($subscriptionTransaction->reference);
 
-        return ApiReturnResponse::success();
+        $employer = $this->employer->refresh();
+
+        return ApiReturnResponse::success(new SubscriptionDetailResource($this->employer));
     }
 }
