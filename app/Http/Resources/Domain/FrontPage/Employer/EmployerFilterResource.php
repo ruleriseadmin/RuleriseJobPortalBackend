@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Domain\FrontPage\Employer;
 
+use App\Traits\Domain\Shared\PaginationTrait;
 use Illuminate\Http\Request;
 use App\Supports\HelperSupport;
 use App\Models\Domain\Employer\Employer;
@@ -9,6 +10,8 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class EmployerFilterResource extends JsonResource
 {
+    use PaginationTrait;
+
     private int $perPage = 10;
 
     public function toArray(Request $request): array
@@ -39,6 +42,7 @@ class EmployerFilterResource extends JsonResource
 
              return $employer;
             })->filter()->values();
+         return $this->paginateFromCollection($employers, 12);
 
          return [
             'employers' => $employers,
