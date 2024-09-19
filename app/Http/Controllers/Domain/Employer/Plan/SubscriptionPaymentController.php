@@ -49,6 +49,6 @@ class SubscriptionPaymentController extends BaseController
 
         $employer = $this->employer->refresh();
 
-        return ApiReturnResponse::success(new SubscriptionDetailResource($this->employer));
+        return ApiReturnResponse::success(new SubscriptionDetailResource($employer));
     }
 }
