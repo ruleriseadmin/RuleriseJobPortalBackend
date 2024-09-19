@@ -39,6 +39,9 @@ class SubscriptionPaymentController extends BaseController
     public function verifySubscription()
     {
         //@todo update
+
+        if ( $this->employer->hasActiveSubscription() ) return ApiReturnResponse::success();
+
         $subscriptionTransaction = $this->employer->subscriptionTransactions()->latest();
 
         (new ProcessSubscriptionPaymentWebhook)->execute($subscriptionTransaction->reference);
