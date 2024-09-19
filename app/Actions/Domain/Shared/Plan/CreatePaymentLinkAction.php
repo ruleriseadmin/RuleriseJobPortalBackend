@@ -23,7 +23,7 @@ class CreatePaymentLinkAction
                         'quantity' => 1,
                       ]
                 ],
-                'success_url' => 'https://www.example.com/success', //@todo change this url
+                'success_url' => config('env.employer.success_page_on_subscription'), //@todo change this url
                 'mode' => 'subscription',
                 //'customer',
             ]);
