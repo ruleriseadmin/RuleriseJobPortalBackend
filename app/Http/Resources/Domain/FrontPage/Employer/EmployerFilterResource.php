@@ -16,14 +16,14 @@ class EmployerFilterResource extends JsonResource
 
     public function toArray(Request $request): array
     {
-        $employers = Employer::where('active', true)->orderByDesc('created_at')->paginate($this->perPage);
+        $employers = Employer::where('active', true)->orderByDesc('created_at')->get();//->paginate($this->perPage);
 
         return $this->returnResponse($employers);
     }
 
     private function returnResponse($paginatedEmployers)
     {
-        $employers = collect($paginatedEmployers->items())
+        $employers = collect($paginatedEmployers)
                     ->map(function($employer){
                     //$job['createdAt'] = $job->created_at->toDateTimeString();
 
