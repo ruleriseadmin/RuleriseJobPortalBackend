@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Domain\Employer\Plan;
 
-use App\Actions\Domain\Shared\Subscription\ProcessSubscriptionPaymentWebhook;
-use App\Http\Controllers\Domain\Employer\BaseController;
 use Illuminate\Http\JsonResponse;
 use App\Supports\ApiReturnResponse;
-use App\Models\Domain\Shared\Subscription\SubscriptionPlan;
+use App\Http\Controllers\Domain\Employer\BaseController;
 use App\Actions\Domain\Shared\Plan\CreatePaymentLinkAction;
+use App\Models\Domain\Shared\Subscription\SubscriptionPlan;
+use App\Actions\Domain\Shared\Subscription\ProcessSubscriptionPaymentWebhook;
+use App\Http\Resources\Domain\Shared\Subscription\SubscriptionDetailResource;
 use App\Http\Resources\Domain\Shared\Subscription\SubscriptionPackagesResource;
 
 class SubscriptionPaymentController extends BaseController
@@ -40,11 +41,11 @@ class SubscriptionPaymentController extends BaseController
     {
         //@todo update
 
-        if ( $this->employer->hasActiveSubscription() ) return ApiReturnResponse::failed();
+        if ( $this->employer->hasActiveSubscription() ) return ApiReturnResponse::success(new SubscriptionDetailResource($this->employer));
 
         $subscriptionTransaction = collect($this->employer->subscriptionTransactions)->last();
 
-        (new ProcessSubscriptionPaymentWebhook)->execute($subscriptionTransaction->reference);
+        //(new ProcessSubscriptionPaymentWebhook)->execute($subscriptionTransaction->reference);
 
         return ApiReturnResponse::success();
     }
