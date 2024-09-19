@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Domain\Employer\Plan;
 
+use App\Actions\Domain\Shared\Subscription\ProcessSubscriptionPaymentWebhook;
 use App\Http\Controllers\Domain\Employer\BaseController;
 use Illuminate\Http\JsonResponse;
 use App\Supports\ApiReturnResponse;
@@ -33,5 +34,15 @@ class SubscriptionPaymentController extends BaseController
         return $paymentLink
             ? ApiReturnResponse::success(['paymentLink' => $paymentLink])
             : ApiReturnResponse::failed();
+    }
+
+    public function verifySubscription()
+    {
+        //@todo update
+        $subscriptionTransaction = $this->employer->subscriptionTransactions()->latest();
+
+        (new ProcessSubscriptionPaymentWebhook)->execute($subscriptionTransaction->reference);
+
+        return ApiReturnResponse::success();
     }
 }

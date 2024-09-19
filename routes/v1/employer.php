@@ -79,6 +79,7 @@ Route::group(['middleware' => ['auth:sanctum', 'user.ensureEmailIsVerified']], f
         Route::post('{uuid}/subscribe', [SubscriptionPaymentController::class, 'createPaymentLink']);
         Route::get('subscription-detail', [SubscriptionsController::class, 'subscriptionInformation']);
         Route::post('update-download-usage', [SubscriptionsController::class, 'updateCVDownloadUsage']);
+        Route::post('verifySubscription', [SubscriptionPaymentController::class, 'verifySubscription']);
     });
 
     //Route::post('candidate-search', []);
