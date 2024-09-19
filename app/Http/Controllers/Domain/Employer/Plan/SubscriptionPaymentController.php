@@ -40,7 +40,7 @@ class SubscriptionPaymentController extends BaseController
     {
         //@todo update
 
-        if ( $this->employer->hasActiveSubscription() ) return ApiReturnResponse::success();
+        if ( $this->employer->hasActiveSubscription() ) return ApiReturnResponse::failed();
 
         $subscriptionTransaction = $this->employer->subscriptionTransactions()->latest();
 
