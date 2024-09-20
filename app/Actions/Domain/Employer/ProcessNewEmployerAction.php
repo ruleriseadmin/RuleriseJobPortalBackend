@@ -42,7 +42,7 @@ class ProcessNewEmployerAction
             //create new employer user
             $employerUser = EmployerUser::create([
                 'uuid' => str()->uuid(),
-                'email' => $inputs['email'],
+                'email' => strtolower($inputs['email']),
                 'password' => Hash::make($inputs['password']),
             ]);
 

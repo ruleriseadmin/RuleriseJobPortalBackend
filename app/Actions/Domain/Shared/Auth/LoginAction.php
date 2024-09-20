@@ -8,6 +8,8 @@ class LoginAction
 {
     public function execute(string $domain, array $inputs) : ?User
     {
+        $inputs['email'] = strtolower($inputs['email']);
+
         if ( ! auth()->guard($domain)->attempt($inputs) ) return null;
 
         $user = auth()->guard($domain)->user();
