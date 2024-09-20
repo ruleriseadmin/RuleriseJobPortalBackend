@@ -14,11 +14,11 @@ class UploadProfilePictureAction
         $user = auth()->user();
 
         $domain = str(class_basename($user))->kebab()->value();
-        
+
         try{
             if (  $user->profile_picture_url ){
                 //delete old image
-                Storage::delete("public/{$user->profile_picture_url}");
+                Storage::delete("public/storage/{$user->profile_picture_url}");
             }
 
             $url = $this->uploadImage($inputs, $user, $domain);
