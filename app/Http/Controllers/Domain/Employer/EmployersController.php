@@ -38,7 +38,7 @@ class EmployersController extends BaseController
         $uploadLogo = (new UploadLogoAction)->execute($this->employer, $request->input());
 
         return $uploadLogo
-            ? ApiReturnResponse::success(['logoUrl' => asset($this->employer->refresh()->logo_url)])
+            ? ApiReturnResponse::success(['logoUrl' => asset("/storage/{$this->employer->refresh()->logo_url}")])
             : ApiReturnResponse::failed();
     }
 }
