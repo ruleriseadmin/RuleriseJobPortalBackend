@@ -89,6 +89,7 @@ class JobApplicantFilterByJobResource extends JsonResource
                 $applicant =  $application->applicant;
                 $application['status'] = $application->status();
                 $application['applied_at'] = $application->created_at;
+                $application['cvUrl'] = $application->cv ?  asset("storage/{$application->cv->cv_document_url}") : null;
                 $application['applicantInformation'] = [
                     'fullName' => $applicant->getFullNameAttribute(),
                     'uuid' => $applicant->uuid,
@@ -116,7 +117,7 @@ class JobApplicantFilterByJobResource extends JsonResource
                 return HelperSupport::snake_to_camel(collect($application)->only([
                     'status',
                     'applied_via',
-                    'cv_url',
+                    'cvUrl',
                     'applicantInformation',
                     'applied_at'
                 ])->toArray());
