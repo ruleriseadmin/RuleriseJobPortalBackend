@@ -15,8 +15,8 @@ class CreateCandidateAction
     {
         $attributes = HelperSupport::camel_to_snake($inputs);
 
-        $attributes['email'] = strtolower($attributes['email']);
-        
+        $attributes['email'] = preg_replace('/\s+/', '', strtolower($attributes['email']));
+
         $userAttributes = collect($attributes)
             ->only([
                 'first_name',

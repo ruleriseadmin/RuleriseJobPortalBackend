@@ -8,7 +8,7 @@ class LoginAction
 {
     public function execute(string $domain, array $inputs) : ?User
     {
-        $inputs['email'] = strtolower($inputs['email']);
+        $inputs['email'] = preg_replace('/\s+/', '',strtolower($inputs['email']));
 
         if ( ! auth()->guard($domain)->attempt($inputs) ) return null;
 
