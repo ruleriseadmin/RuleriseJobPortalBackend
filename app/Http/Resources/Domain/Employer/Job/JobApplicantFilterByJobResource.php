@@ -119,7 +119,8 @@ class JobApplicantFilterByJobResource extends JsonResource
                     'applied_via',
                     'cvUrl',
                     'applicantInformation',
-                    'applied_at'
+                    'applied_at',
+                    'uuid',
                 ])->toArray());
             });
 

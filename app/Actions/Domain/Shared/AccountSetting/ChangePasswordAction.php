@@ -13,3 +13,4 @@ class ChangePasswordAction
         return $user->update(['password' =>Hash::make($password)]);
     }
 }
+
