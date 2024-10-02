@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Log;
 
 class UploadImageAction
 {
-    public function execute(array $inputs): bool
+    public function execute(array $inputs): string|null
     {
         $customization = WebsiteCustomization::getImagesByType($inputs['type']);
 
@@ -38,10 +38,10 @@ class UploadImageAction
 
             $customization->update(['meta' => $images]);
 
-            return true;
+            return asset("storage/{$url['url']}");
         }catch(Exception $ex){
             Log::error('Error @ UploadImageAction: ' . $ex->getMessage());
-            return false;
+            return null;
         }
     }
 

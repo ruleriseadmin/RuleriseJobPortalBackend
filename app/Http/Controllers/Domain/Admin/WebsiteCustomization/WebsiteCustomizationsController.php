@@ -37,8 +37,9 @@ class WebsiteCustomizationsController extends BaseController
 
     public function addNewContact(AddNewContactRequest $request)
     {
-        return (new AddNewContactAction)->execute($request->input())
-            ? ApiReturnResponse::success()
+        $url = (new AddNewContactAction)->execute($request->input());
+        return $url
+            ? ApiReturnResponse::success(['url' => $url])
             : ApiReturnResponse::failed();
     }
 
