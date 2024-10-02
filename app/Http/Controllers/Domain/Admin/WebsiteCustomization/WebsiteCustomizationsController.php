@@ -37,16 +37,14 @@ class WebsiteCustomizationsController extends BaseController
 
     public function addNewContact(AddNewContactRequest $request)
     {
-        $url = (new AddNewContactAction)->execute($request->input());
-        return $url
-            ? ApiReturnResponse::success(['url' => $url])
+        return (new AddNewContactAction)->execute($request->input())
+            ? ApiReturnResponse::success()
             : ApiReturnResponse::failed();
     }
 
     public function uploadImage(UploadImageWebsiteCustomizationRequest $request)
     {
-        return (new UploadImageAction)->execute($request->input())
-            ? ApiReturnResponse::success()
-            : ApiReturnResponse::failed();
+        $url = (new UploadImageAction)->execute($request->input());
+        return $url ? ApiReturnResponse::success(['url' => $url]) : ApiReturnResponse::failed();
     }
 }
