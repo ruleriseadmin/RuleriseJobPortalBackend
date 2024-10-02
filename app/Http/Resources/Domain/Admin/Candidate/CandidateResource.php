@@ -36,7 +36,7 @@ class CandidateResource extends JsonResource
             'accountInformation' => collect(new ProfileResource($this->resource) ?? null)->except([
                 'filterBy',
             ]),
-            'cvInformation' => new CVResource($this->cv),
+            'cvInformation' => new CVResource($this->cvs),
         ];
     }
 
