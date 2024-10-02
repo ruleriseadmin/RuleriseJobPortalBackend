@@ -25,7 +25,7 @@ class StoreWebsiteCustomizationRequest extends BaseRequest
             'type' => ['required', Rule::in(WebsiteCustomization::TYPES)],
             'sections' => ['required', 'array', ], //"size: $minSections"
             'sections.*.name' => ['required', ], //Rule::in($expectedSectionName)
-            'sections.*.value' => ['required'],
+            //'sections.*.value' => ['required'],
         ];
     }
 }
