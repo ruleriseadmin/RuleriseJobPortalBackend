@@ -45,6 +45,9 @@ class WebsiteCustomizationsController extends BaseController
     public function uploadImage(UploadImageWebsiteCustomizationRequest $request)
     {
         $url = (new UploadImageAction)->execute($request->input());
-        return $url ? ApiReturnResponse::success(['url' => $url]) : ApiReturnResponse::failed();
+        return $url ? ApiReturnResponse::success([
+            'url' => $url,
+            'imageBox' => $request->input('imageBox'),
+        ]) : ApiReturnResponse::failed();
     }
 }
