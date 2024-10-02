@@ -11,7 +11,7 @@ class StoreWebsiteCustomizationRequest extends BaseRequest
     {
         $expectedSectionName = [];
         $minSections = 0;
-        if ( $this->filled('type') ){
+        if ( $this->filled('type') && $this->input('type') != 'contact' ) {
             $trait = str($this->input('type'))->camel()->value;
 
             $traitExists = method_exists(WebsiteCustomization::class, $trait);
