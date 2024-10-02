@@ -38,7 +38,7 @@ class UploadImageAction
 
             $customization->update(['meta' => $images]);
 
-            return asset("storage/{$url['url']}");
+            return asset("storage/{$url}");
         }catch(Exception $ex){
             Log::error('Error @ UploadImageAction: ' . $ex->getMessage());
             return null;
