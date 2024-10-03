@@ -5,12 +5,15 @@ namespace App\Http\Resources\Domain\Admin\Employer;
 use App\Http\Resources\Domain\Employer\ProfileResource;
 use App\Models\Domain\Candidate\Job\CandidateJobApplication;
 use App\Supports\HelperSupport;
+use App\Traits\Domain\Shared\PaginationTrait;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Carbon;
 
 class EmployerResource extends JsonResource
 {
+    use PaginationTrait;
+
     private int $perPage = 10;
 
     public function toArray(Request $request): array
@@ -65,7 +68,15 @@ class EmployerResource extends JsonResource
 
     private function transactions(): array
     {
-        return [];
+        $transactions = $this->subscriptionTransactions->map(fn($transaction) => [
+            'reference' => $transaction->reference,
+            'amount' => $transaction->amount,
+            'currency' => $transaction->currency,
+            'status' => $transaction->status,
+            'createdAt' => $transaction->created_at->toDateTimeString(),
+        ]);
+
+        return $this->paginateFromCollection($transactions, 10);
     }
 
     private function jobListings()
