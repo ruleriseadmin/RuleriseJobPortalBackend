@@ -52,7 +52,7 @@ class CandidateResource extends JsonResource
                 'uuid' => $application->uuid,
                 'title' => $application->job->title,
                 'status' => $application->status(),
-                'applied_at' => $application->created_at->toDateTimeString(),
+                'appliedAt' => $application->created_at->toDateTimeString(),
                 'employerInformation' => [
                     'name' => $employer->company_name,
                     'location' => $employer->state_city,
