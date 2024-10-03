@@ -53,6 +53,7 @@ class CandidateResource extends JsonResource
                 'title' => $application->job->title,
                 'status' => $application->status(),
                 'appliedAt' => $application->created_at->toDateTimeString(),
+                'location' => $application->job->state_province,
                 'employerInformation' => [
                     'name' => $employer->company_name,
                     'location' => $employer->state_city,
