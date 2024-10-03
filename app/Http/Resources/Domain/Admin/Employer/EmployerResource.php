@@ -75,7 +75,7 @@ class EmployerResource extends JsonResource
             'currency' => $transaction->currency,
             'status' => $transaction->status,
             'createdAt' => $transaction->created_at->toDateTimeString(),
-            'quota' => $transaction->subscriptionPlan->quota,
+            'quota' => $transaction->subscriptionPlan?->quota,
         ]);
 
         return [
