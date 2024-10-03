@@ -68,7 +68,7 @@ class EmployerResource extends JsonResource
 
     private function transactions(): array
     {
-        return $this->subscriptionTransactions->toArray();
+       // return $this->subscriptionTransactions->toArray();
         $transactions = $this->subscriptionTransactions->map(fn($transaction) => [
             'reference' => $transaction->reference,
             'amount' => $transaction->amount,
@@ -77,7 +77,9 @@ class EmployerResource extends JsonResource
             'createdAt' => $transaction->created_at->toDateTimeString(),
         ]);
 
-        return $this->paginateFromCollection($transactions, 10);
+        return [
+            'transactions' => $this->paginateFromCollection($transactions, 10)
+        ];
     }
 
     private function jobListings()
