@@ -71,7 +71,7 @@ class EmployerResource extends JsonResource
        // return $this->subscriptionTransactions->toArray();
         $transactions = $this->subscriptionTransactions->map(fn($transaction) => [
             'reference' => $transaction->reference,
-            'amount' => $transaction->amount,
+            'amount' => HelperSupport::convert_from_cents($transaction->amount),
             'currency' => $transaction->currency,
             'status' => $transaction->status,
             'createdAt' => $transaction->created_at->toDateTimeString(),

@@ -65,4 +65,9 @@ class HelperSupport
     {
         return $amount * 100;
     }
+
+    public static function convert_from_cents($amount): float|int
+    {
+        return $amount / 100;
+    }
 }
