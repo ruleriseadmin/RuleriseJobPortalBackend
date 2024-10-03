@@ -42,7 +42,7 @@ class CandidateResource extends JsonResource
 
     private function applications()
     {
-        $paginatedApplications = $this->jobApplications()->paginate($this->perPage);
+        $paginatedApplications = $this->jobApplications()->orderByDesc('created_at')->paginate($this->perPage);
 
         $applications = collect($paginatedApplications->items())->map(function ($application) {
             if ( ! $application->job ) return null;
