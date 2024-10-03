@@ -59,3 +59,20 @@ test('That front page show single job category is retrieved successfully', funct
 
     expect($response->json()['status'])->toBe('200');
 });
+
+test('That front page show single job is retrieved successfully', function () {
+    GeneralSetting::factory()->create([
+        'name' => 'default_currency',
+        'value' => 'NGN',
+    ]);
+
+    JobCategories::factory()->create();
+
+    Employer::factory()->create();
+
+    $job = EmployerJob::factory()->create();
+
+    $response = $this->get("v1/job/{$job->uuid}");
+
+    expect($response->json()['status'])->toBe('200');
+});
