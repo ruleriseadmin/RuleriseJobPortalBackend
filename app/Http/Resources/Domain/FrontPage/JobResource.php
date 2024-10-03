@@ -25,6 +25,7 @@ class JobResource extends JsonResource
             'created_at' => $this->created_at->toDateTimeString(),
             'employer_name' => $this->employer?->company_name,
             'employer_logo' => $this->employer->logo_url ? asset("storage/{$this->employer->logo_url}") : null,
+            'employer_Id' => $this->employer?->uuid,
             'currency' => GeneralSetting::defaultCurrency(),
         ]);
 
