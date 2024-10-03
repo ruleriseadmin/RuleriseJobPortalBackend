@@ -45,6 +45,7 @@ class CandidateResource extends JsonResource
         $paginatedApplications = $this->jobApplications()->paginate($this->perPage);
 
         $applications = collect($paginatedApplications->items())->map(function ($application) {
+            if ( ! $application->job ) return null;
             $employer = $application->job->employer;
 
             return [
@@ -57,7 +58,7 @@ class CandidateResource extends JsonResource
                     'location' => $employer->state_city,
                 ],
             ];
-        });
+        })->filter();
 
         return [
             'jobApplications' => [
