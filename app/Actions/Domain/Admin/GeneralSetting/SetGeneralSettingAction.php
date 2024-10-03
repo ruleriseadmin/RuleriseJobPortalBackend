@@ -10,7 +10,7 @@ class SetGeneralSettingAction
     public function execute(string $settingName, $value): bool
     {
         $settings = GeneralSetting::whereName($settingName);
-        if ( ! $settings->exists() ) return false;
+        if ( ! $settings ) return false;
         try{
             $settings->update(['value' => $value]);
             return true;
