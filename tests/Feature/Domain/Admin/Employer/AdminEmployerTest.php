@@ -13,6 +13,25 @@ beforeEach(function () {
     $this->seed(RoleSeeder::class);
 });
 
+test("That admin view single employer transactions", function () {
+    $adminUser = AdminUser::factory()->create();
+
+    $employer = Employer::factory()->create();
+
+    EmployerUser::factory()->create();
+
+    EmployerAccess::factory()->create();
+
+    EmployerJob::factory()->create();
+
+    $response = $this->actingAs($adminUser)
+        ->get("v1/admin/employer/{$employer->uuid}?filterBy=transactions&page=1");
+
+    //dd($response->json());
+
+    expect($response->json()['status'])->toBe('200');
+});
+
 test("That admin view single employer", function () {
     $adminUser = AdminUser::factory()->create();
 

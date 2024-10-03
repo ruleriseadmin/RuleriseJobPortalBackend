@@ -68,7 +68,7 @@ class EmployerResource extends JsonResource
 
     private function transactions(): array
     {
-        return $this->subscriptionTransactions;
+        return $this->subscriptionTransactions->toArray();
         $transactions = $this->subscriptionTransactions->map(fn($transaction) => [
             'reference' => $transaction->reference,
             'amount' => $transaction->amount,
