@@ -9,8 +9,10 @@ class SetGeneralSettingAction
 {
     public function execute(string $settingName, $value): bool
     {
+        $settings = GeneralSetting::whereName($settingName);
+        if ( ! $settings->exists() ) return false;
         try{
-            GeneralSetting::whereName($settingName)->update(['value' => $value]);
+            $settings->update(['value' => $value]);
             return true;
         }catch(Exception $ex){
             Log::error("Error @ SetGeneralSettingAction : {$ex->getMessage()}");
