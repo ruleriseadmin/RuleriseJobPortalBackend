@@ -56,6 +56,7 @@ class CandidateResource extends JsonResource
                 'employerInformation' => [
                     'name' => $employer->company_name,
                     'location' => $employer->state_city,
+                    'logo' => $employer->logo_url ? asset("storage/$employer->logo_url") : null,
                 ],
             ];
         })->filter();
