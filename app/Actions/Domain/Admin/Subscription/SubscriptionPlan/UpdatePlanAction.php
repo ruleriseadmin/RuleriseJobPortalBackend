@@ -27,7 +27,7 @@ class UpdatePlanAction
 
             $plan->update([
                 'name' => $inputs['name'],
-                'active' => (bool) ($inputs['active'] ??  $plan->active),
+                'active' => (bool) ($inputs['active'] ?? $plan->active),
                 'quota' => $inputs['numberOfCandidate'],
             ]);
         }catch(Exception $ex){
