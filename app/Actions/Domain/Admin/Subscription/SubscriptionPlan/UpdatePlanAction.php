@@ -22,7 +22,7 @@ class UpdatePlanAction
             ]);
 
             Plan::update($plan->plan_id, [
-                'active' => $inputs['active'] ?? $plan->active,
+                'active' => (bool) $inputs['active'] ?? (bool) $plan->active,
             ]);
 
             $plan->update([
