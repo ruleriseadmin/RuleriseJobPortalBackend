@@ -6,6 +6,7 @@ use Illuminate\Http\JsonResponse;
 use App\Supports\ApiReturnResponse;
 use App\Http\Controllers\Controller;
 use App\Models\Domain\Shared\Subscription\SubscriptionPlan;
+use App\Http\Resources\Domain\Admin\CVPackage\CvPackageResource;
 use App\Http\Requests\Domain\Admin\Subscription\Plan\SetActiveRequest;
 use App\Http\Requests\Domain\Admin\Subscription\Plan\StorePlanRequest;
 use App\Http\Requests\Domain\Admin\Subscription\Plan\UpdatePlanRequest;
@@ -18,7 +19,7 @@ class SubscriptionPlansController extends Controller
 {
     public function index()
     {
-        //
+        return ApiReturnResponse::success(CvPackageResource::collection(SubscriptionPlan::all()));
     }
 
     public function store(StorePlanRequest $request): JsonResponse
@@ -32,7 +33,11 @@ class SubscriptionPlansController extends Controller
 
     public function show(string $uuid)
     {
-        //
+        $plan = SubscriptionPlan::whereUuid($uuid);
+
+        if ( ! $plan ) return ApiReturnResponse::notFound('Plan not found');
+
+        return ApiReturnResponse::success(new CvPackageResource($plan));
     }
 
     public function update(UpdatePlanRequest $request): JsonResponse
