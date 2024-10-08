@@ -19,7 +19,7 @@ class UserResource extends JsonResource
 
         $response = $response->merge([
             'createdAt' => $this->created_at->toDateTimeString(),
-            'role' => str_replace('_', ' ', $this->getRoleNames()->first()),
+            'role' => str_replace('_', ' ', $this->roles->pluck('name')->first()),
         ]);
 
         return HelperSupport::snake_to_camel($response->toArray());
