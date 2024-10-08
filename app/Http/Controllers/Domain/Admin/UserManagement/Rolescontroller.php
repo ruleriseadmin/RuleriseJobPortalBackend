@@ -15,7 +15,7 @@ class Rolescontroller extends BaseController
 {
     public function index()
     {
-        $roles = Role::where('guard_name', 'admin')->where('name', '!=', 'admin')->get();
+        $roles = Role::where('guard_name', 'admin')->where('name', '!=', 'super_admin')->get();
 
         return ApiReturnResponse::success(RoleResource::collection($roles));
     }
