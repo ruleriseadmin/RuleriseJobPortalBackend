@@ -20,7 +20,7 @@ class UpdateProfileRequest extends BaseRequest
             'nationality' => ['required'],
             'locationProvince' => ['required'],
             'dob' => ['nullable', 'date'],
-            'gender' => [Rule::in(['male', 'female'])],
+            //'gender' => [Rule::in(['male', 'female'])],
             'jobTitle' => ['nullable'],
             'skills' => ['nullable', 'array', 'max:10'],
         ];
