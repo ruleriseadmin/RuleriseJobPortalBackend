@@ -11,7 +11,7 @@ use App\Http\Controllers\Domain\Admin\UserManagement\UsersController;
 use App\Http\Controllers\Domain\Admin\GeneralSetting\GeneralSettingsController;
 use App\Http\Controllers\Domain\Admin\SubscriptionPlan\SubscriptionPlansController;
 use App\Http\Controllers\Domain\Admin\WebsiteCustomization\WebsiteCustomizationsController;
-
+use App\Http\Controllers\Domain\Shared\AccountSetting\ChangePasswordController;
 
 Route::prefix('auth')->group(function(){
     Route::post('login', [LoginController::class, 'store']);
@@ -21,6 +21,8 @@ Route::prefix('auth')->group(function(){
 Route::group(['middleware' => ['auth:sanctum']], function(){
 
     Route::get('dashboard-overview', [DashboardController::class, 'index']);
+
+    Route::post('change-password', [ChangePasswordController::class, 'store']);
 
     Route::prefix('candidate')->group(function(){
         Route::get('/', [CandidatesController::class, 'index']);
