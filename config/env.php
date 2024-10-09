@@ -17,5 +17,6 @@ return [
     ],
     'admin' => [
         'login_url' => env('ADMIN_LOGIN_URL'),
+        'base_url' => env('ADMIN_BASE_URL'),
     ],
 ];

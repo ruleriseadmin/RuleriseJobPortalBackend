@@ -40,9 +40,10 @@ class CreateUserAction
                     'You have been invited to access the admin portal. Please click the button below to login.',
                     'If you did not request this invitation, please ignore this email.',
                     "Password: {$input['password']}",
+                    'Kindly change your password once you login via' . config('env.admin.base_url').'/settings/account',
                 ],
                 'actionText' => 'Login',
-                'actionUrl' => config('env.admin.base_url'),
+                'actionUrl' => config('env.admin.login_url'),
             ]));
         }catch(Exception $ex){
             Log::error('Error @ CreateUserAction: sending email' . $ex->getMessage());
