@@ -6,7 +6,7 @@ use Spatie\Permission\Models\Role;
 
 class CreateRoleAction
 {
-    public function execute(string $role): ?Role
+    public function execute(string $role, array $permissions = null): ?Role
     {
         if ( $role == 'super_admin' ) return null;
 
@@ -14,6 +14,10 @@ class CreateRoleAction
             'name' => str($role)->snake(),
             'guard_name' => 'admin',
         ]);
+
+        if ($permissions) {
+            $role->syncPermissions($permissions);
+        }
 
         return $role;
     }

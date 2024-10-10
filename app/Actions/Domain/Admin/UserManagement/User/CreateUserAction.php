@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\Domain\Admin\AdminUser;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\Domain\Shared\NotificationWithActionButton;
+use Spatie\Permission\Models\Role;
 
 class CreateUserAction
 {
@@ -26,10 +27,17 @@ class CreateUserAction
 
             $user->assignRole($input['role']);
 
-            if ( collect($input)->has('permissions') ) {
-                $user->syncPermissions($input['permissions']);
-            }
-            
+            $permissions = Role::whereName($input['role'])->first()->permissions->pluck('name');
+
+            //$input['permissions'] ??
+
+            $user->syncPermissions( $permissions ?? []);
+
+            // if ( collect($input)->has('permissions') ) {
+            //     $permissions = Role::whereName($input['role'])->first()->permissions->pluck('name');
+            //     $user->syncPermissions($input['permissions'] ?? $permissions);
+            // }
+
             DB::commit();
         }catch(Exception $ex){
             DB::rollBack();

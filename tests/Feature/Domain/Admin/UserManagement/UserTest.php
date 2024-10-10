@@ -5,6 +5,8 @@ use App\Models\Domain\Shared\WebsiteCustomization;
 use Database\Seeders\AdminPermissionSeeder;
 use Database\Seeders\OnTimeWebsiteCustomizationSeeder;
 use Database\Seeders\RoleSeeder;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 beforeEach(function () {
     $this->seed(RoleSeeder::class);
@@ -16,17 +18,19 @@ test('That admin create user with permissions', function () {
 
     $user = AdminUser::factory()->create();
 
+    Role::first()->syncPermissions(Permission::all()->pluck('name'));
+
     $response = $this->actingAs($user)->post('/v1/admin/user-management/user', [
         'firstName' => 'John',
         'lastName' => 'Doe',
         'password' => 'password001',
         'email' => 'admin@example.com',
         'role' => 'super_admin',
-        'permissions' => [
-            'website crm',
-            'candidate',
-            'employer',
-        ],
+        // 'permissions' => [
+        //     'website crm',
+        //     'candidate',
+        //     'employer',
+        // ],
     ]);
 
     expect($response->json()['status'])->toBe('200');

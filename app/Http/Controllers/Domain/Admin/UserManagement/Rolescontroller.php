@@ -22,7 +22,7 @@ class Rolescontroller extends BaseController
 
     public function store(StoreRoleRequest $request)
     {
-        return (new CreateRoleAction)->execute($request->input('roleName'))
+        return (new CreateRoleAction)->execute($request->input('roleName'), $request->input('permissions'))
             ? ApiReturnResponse::success()
             : ApiReturnResponse::failed();
     }
@@ -40,7 +40,7 @@ class Rolescontroller extends BaseController
     {
         $role = Role::where('name', $request->input('slug'))->first();
 
-        return (new UpdateRoleAction)->execute($role, $request->input('newRoleName'))
+        return (new UpdateRoleAction)->execute($role, $request->input('newRoleName'), $request->input('permissions'))
             ? ApiReturnResponse::success()
             : ApiReturnResponse::failed();
     }
