@@ -22,6 +22,4 @@ test('That admin login successfully', function () {
     expect($response->json()['status'])->toBe('200');
 
     expect($response->json()['data']['token'])->toBeString();
-
-    dd($response->json());
 });
