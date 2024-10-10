@@ -19,17 +19,21 @@ class UpdateRoleRequest extends BaseRequest
     {
         $validator->after(function ($validator){
             if ( $this->filled('slug') ){
-                Role::where('guard_name', 'admin')
-                    ->where('name', $this->input('slug'))->exists() ? : $validator->errors()->add('slug', 'Role does not exists');
-            }
+                $role = Role::where('guard_name', 'admin')
+                    ->where('name', $this->input('slug'))->first();
 
-            if ( $this->filled('slug') ){
-                $this->input('slug') != 'super_admin' ? : $validator->errors()->add('slug', 'Super Admin cannot be updated');
-            }
+                $role ? : $validator->errors()->add('slug', 'Role does not exists');
 
-            if ( $this->filled('newRoleName') ){
-                ! Role::where('guard_name', 'admin')
-                    ->where('name', str($this->input('newRoleName'))->snake())->exists() ? : $validator->errors()->add('newRoleName', 'Role already exists');
+                if ( $role->name === $this->input('newRoleName') ) return;
+
+                    if ( $this->filled('slug') ){
+                        $this->input('slug') != 'super_admin' ? : $validator->errors()->add('slug', 'Super Admin cannot be updated');
+                    }
+
+                    if ( $this->filled('newRoleName') ){
+                        ! Role::where('guard_name', 'admin')
+                            ->where('name', str($this->input('newRoleName'))->snake())->exists() ? : $validator->errors()->add('newRoleName', 'Role already exists');
+                    }
             }
         });
     }

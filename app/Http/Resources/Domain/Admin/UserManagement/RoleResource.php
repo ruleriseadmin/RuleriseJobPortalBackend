@@ -21,6 +21,7 @@ class RoleResource extends JsonResource
             'name' => str_replace('_', ' ', $this->name),
             'slug' => $this->name,
             'createdAt' => $this->created_at->toDateTimeString(),
+            'permissions' => $this->permissions->pluck('name'),
         ];
     }
 }
