@@ -17,6 +17,8 @@ class AuthResource extends JsonResource
             'id',
         ])->toArray();
 
+        $response['permissions'] = $this->getAllPermissions()->pluck('name');
+
         //$response['profile_picture_url'] = $this->profile_picture_url ? asset("storage/$this->profile_picture_url") : null;
 
         return HelperSupport::snake_to_camel($response);
