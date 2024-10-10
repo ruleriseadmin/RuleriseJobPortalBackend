@@ -2,12 +2,55 @@
 
 use App\Models\Domain\Admin\AdminUser;
 use App\Models\Domain\Shared\WebsiteCustomization;
+use Database\Seeders\AdminPermissionSeeder;
 use Database\Seeders\OnTimeWebsiteCustomizationSeeder;
 use Database\Seeders\RoleSeeder;
 
 beforeEach(function () {
     $this->seed(RoleSeeder::class);
     $this->seed(OnTimeWebsiteCustomizationSeeder::class);
+    $this->seed(AdminPermissionSeeder::class);
+});
+
+test('That admin create user with permissions', function () {
+
+    $user = AdminUser::factory()->create();
+
+    $response = $this->actingAs($user)->post('/v1/admin/user-management/user', [
+        'firstName' => 'John',
+        'lastName' => 'Doe',
+        'password' => 'password001',
+        'email' => 'admin@example.com',
+        'role' => 'super_admin',
+        'permissions' => [
+            'website crm',
+            'candidate',
+            'employer',
+        ],
+    ]);
+
+    expect($response->json()['status'])->toBe('200');
+
+    expect(AdminUser::count())->toBe(2);
+
+    $user = AdminUser::where('email', 'admin@example.com')->first();
+
+    expect(AdminUser::where('email', 'admin@example.com')->count())->toBe(1);
+
+    expect($user->roles->pluck('name')->first())->toBe('super_admin');
+
+    expect($user->full_name)->toBe('John Doe');
+
+    expect($user->hasAllPermissions(['website crm', 'candidate', 'employer']))->toBeTrue();
+});
+
+test('That admin create views all permissions', function () {
+
+    $user = AdminUser::factory()->create();
+
+    $response = $this->actingAs($user)->get('/v1/admin/user-management/permissions');
+
+    expect($response->json()['status'])->toBe('200');
 });
 
 test('That admin view users', function () {

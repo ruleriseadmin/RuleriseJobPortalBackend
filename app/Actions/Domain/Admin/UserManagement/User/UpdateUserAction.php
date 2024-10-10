@@ -27,6 +27,10 @@ class UpdateUserAction
                 $user->assignRole($inputs['role']);
             }
 
+            if ( collect($inputs)->has('permissions') ) {
+                $user->syncPermissions($inputs['permissions']);
+            }
+
             DB::commit();
 
             return true;

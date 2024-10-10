@@ -10,6 +10,7 @@ use App\Http\Controllers\Domain\Admin\UserManagement\Rolescontroller;
 use App\Http\Controllers\Domain\Admin\UserManagement\UsersController;
 use App\Http\Controllers\Domain\Admin\GeneralSetting\GeneralSettingsController;
 use App\Http\Controllers\Domain\Admin\SubscriptionPlan\SubscriptionPlansController;
+use App\Http\Controllers\Domain\Admin\UserManagement\PermissionController;
 use App\Http\Controllers\Domain\Admin\WebsiteCustomization\WebsiteCustomizationsController;
 use App\Http\Controllers\Domain\Shared\AccountSetting\ChangePasswordController;
 
@@ -86,6 +87,8 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
             Route::post('update', [UsersController::class, 'update']);
             Route::post('{uuid}/delete', [UsersController::class, 'delete']);
         });
+
+        Route::get('permissions', [PermissionController::class, 'index']);
     });
 });
 
