@@ -24,7 +24,7 @@ class UpdateUserAction
             $user->getCurrentEmployerAccess($employer->id)->update([
                 'first_name' => $inputs['firstName'],
                 'last_name' => $inputs['lastName'],
-                'position_title' => $inputs['positionTitle'],
+                //'position_title' => $inputs['positionTitle'],
             ]);
 
             //->assignRole($role);
