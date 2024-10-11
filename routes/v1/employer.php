@@ -91,7 +91,7 @@ Route::group(['middleware' => ['auth:sanctum', 'user.ensureEmailIsVerified']], f
     });
 
     Route::prefix(prefix: 'users')->group(function(){
-        Route::get('/', [UsersController::class, 'index']);
+            Route::get('/', [UsersController::class, 'index']);
             Route::get('{uuid}', [UsersController::class, 'show']);
             Route::post('/', [UsersController::class, 'store']);
             Route::post('update', [UsersController::class, 'update']);
