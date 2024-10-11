@@ -30,7 +30,7 @@ class Employer extends Model
     public function users(): BelongsToMany
     {
         return $this->belongsToMany(EmployerUser::class, 'employer_accesses')
-            ->withPivot('position_title', 'first_name', 'last_name')
+            ->withPivot('position_title', 'first_name', 'last_name', 'uuid')
             ->withTimestamps()
             ->using(EmployerAccess::class);
     }
