@@ -34,7 +34,7 @@ class UsersController extends BaseController
 
         $user['pivot' ]= $user->getCurrentEmployerAccess($this->employer->id);
 
-        return $user
+        return $user && ! $user?->pivot?->deleted_at
             ? ApiReturnResponse::success(new UserResource($user))
             : ApiReturnResponse::notFound('User does not exists');
     }
@@ -52,7 +52,7 @@ class UsersController extends BaseController
     {
         $user = EmployerUser::whereUuid($uuid)->first();
 
-        if ( ! $user ) ApiReturnResponse::notFound('User does not exists');
+        if ( ! $user || $user?->pivot?->deleted_at) ApiReturnResponse::notFound('User does not exists');
 
         return (new DeleteUserAction)->execute($this->employer, $user)
             ? ApiReturnResponse::success()
