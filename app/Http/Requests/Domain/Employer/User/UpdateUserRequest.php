@@ -17,7 +17,7 @@ class UpdateUserRequest extends BaseRequest
             'email' => ['nullable', 'email'],
             'password' => ['nullable', Password::min(8)->letters()->numbers()],
             'role' => ['required'],
-            'userId' => ['required', 'exists:employer_accesses,uuid']
+            'userId' => ['required', 'exists:employer_users,uuid']
         ];
     }
 
