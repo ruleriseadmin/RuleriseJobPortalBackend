@@ -16,7 +16,7 @@ class UserFilterResource extends JsonResource
     {
         //$paginatedUsers = $this->allUsers();
 
-        $users = $this->users->filter(fn($user) => ! $user->pivot->deleted_at)->shift();
+        $users = $this->users->filter(fn($user, $index) => ! $user->pivot->deleted_at && $index !== 0);
 
         return [
             'totalUsers' => $users->count(),
