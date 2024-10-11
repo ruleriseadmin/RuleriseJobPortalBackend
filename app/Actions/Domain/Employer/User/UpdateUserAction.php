@@ -18,7 +18,7 @@ class UpdateUserAction
         try{
             $user->update([
                 //'email' => $inputs['email'],
-                'password' => $inputs['password'] ? Hash::make($inputs['password']) : $user->password,
+                'password' => collect($inputs)->has('password') ? Hash::make($inputs['password']) : $user->password,
             ]);
 
             $user->getCurrentEmployerAccess($employer->id)->update([
