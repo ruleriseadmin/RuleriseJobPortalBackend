@@ -23,7 +23,7 @@ class UserResource extends JsonResource
         // ]);
 
         return [
-            'uuid' => $this->pivot->uuid,
+            'uuid' => $this->uuid,
             'firstName' => $this->pivot->first_name,
             'email' => $this->email,
             'lastName' => $this->pivot->last_name,
