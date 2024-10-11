@@ -16,10 +16,10 @@ class UserFilterResource extends JsonResource
     {
         //$paginatedUsers = $this->allUsers();
 
-        
+        $users = $this->users->filter(fn($user) => ! $user->pivot->deleted_at);
 
         return [
-            'totalUsers' => $this->users->count(),
+            'totalUsers' => $users->count(),
             'users' => $this->paginateFromCollection(UserResource::collection($this->users), $this->perPage),
         ];
     }

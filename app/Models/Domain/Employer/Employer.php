@@ -32,7 +32,7 @@ class Employer extends Model
         return $this->belongsToMany(EmployerUser::class, 'employer_accesses')
             ->withPivot('position_title', 'first_name', 'last_name', 'uuid')
             ->withTimestamps()
-            ->using(EmployerAccess::class)->whereNull('soft_deleted', true);
+            ->using(EmployerAccess::class);
     }
 
     public function jobs(): HasMany
