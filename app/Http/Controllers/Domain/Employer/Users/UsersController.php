@@ -30,7 +30,7 @@ class UsersController extends BaseController
 
     public function show(string $uuid)
     {
-        $user = EmployerAccess::whereUuid($uuid);
+        $user = EmployerAccess::whereUuid($uuid)->first();
 
         return $user
             ? ApiReturnResponse::success(new UserResource($user))
@@ -39,7 +39,7 @@ class UsersController extends BaseController
 
     public function update(UpdateUserRequest $request)
     {
-        $user = EmployerAccess::whereUuid($request->input('userId'));
+        $user = EmployerAccess::whereUuid($request->input('userId'))->first();
 
         return (new UpdateUserAction)->execute($this->employer, $user, $request->input())
             ? ApiReturnResponse::success()
@@ -48,7 +48,7 @@ class UsersController extends BaseController
 
     public function delete(string $uuid)
     {
-        $user = EmployerUser::whereUuid($uuid);
+        $user = EmployerUser::whereUuid($uuid)->first();
 
         if ( ! $user ) ApiReturnResponse::notFound('User does not exists');
 

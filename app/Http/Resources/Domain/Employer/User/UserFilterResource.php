@@ -16,6 +16,8 @@ class UserFilterResource extends JsonResource
     {
         //$paginatedUsers = $this->allUsers();
 
+        
+
         return [
             'totalUsers' => $this->users->count(),
             'users' => $this->paginateFromCollection(UserResource::collection($this->users), $this->perPage),
