@@ -23,10 +23,10 @@ class UserResource extends JsonResource
         // ]);
 
         return [
-            'uuid' => $this->uuid,
-            'firstName' => $this->first_name,
+            'uuid' => $this->employerAccess->uuid,
+            'firstName' => $this->employerAccess->first_name,
             'email' => $this->email,
-            'lastName' => $this->last_name,
+            'lastName' => $this->employerAccess->last_name,
         ];
     }
 }
