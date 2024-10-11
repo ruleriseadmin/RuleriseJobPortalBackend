@@ -27,6 +27,7 @@ class UserResource extends JsonResource
             'firstName' => $this->pivot->first_name,
             'email' => $this->email,
             'lastName' => $this->pivot->last_name,
+            'createdAt' => $this->pivot->created_at->toDateTimeString(),
         ];
     }
 }
