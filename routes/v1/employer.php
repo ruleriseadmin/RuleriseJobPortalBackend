@@ -1,10 +1,10 @@
 <?php
 
-use App\Http\Controllers\Domain\Employer\Auth\AccountEmailVerificationsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Domain\Employer\EmployersController;
 use App\Http\Controllers\Domain\Employer\Auth\LoginController;
 use App\Http\Controllers\Domain\Employer\DashboardsController;
+use App\Http\Controllers\Domain\Employer\Users\UsersController;
 use App\Http\Controllers\Domain\Employer\Auth\RegisterController;
 use App\Http\Controllers\Domain\Employer\MetaInformationController;
 use App\Http\Controllers\Domain\Employer\Job\EmployerJobsController;
@@ -15,6 +15,7 @@ use App\Http\Controllers\Domain\Employer\Candidate\CandidatesController;
 use App\Http\Controllers\Domain\Employer\Job\CandidateJobPoolsController;
 use App\Http\Controllers\Domain\Employer\Plan\SubscriptionPaymentController;
 use App\Http\Controllers\Domain\Shared\AccountSetting\ChangePasswordController;
+use App\Http\Controllers\Domain\Employer\Auth\AccountEmailVerificationsController;
 use App\Http\Controllers\Domain\Shared\AccountSetting\UserAccountSettingsController;
 use App\Http\Controllers\Domain\Employer\Template\JobNotificationTemplatesController;
 
@@ -87,6 +88,14 @@ Route::group(['middleware' => ['auth:sanctum', 'user.ensureEmailIsVerified']], f
     Route::prefix('job-notification-template')->group(function(){
         Route::post('/', [JobNotificationTemplatesController::class, 'updateTemplate']);
         Route::get('/', [JobNotificationTemplatesController::class, 'index']);
+    });
+
+    Route::prefix(prefix: 'users')->group(function(){
+        Route::get('/', [UsersController::class, 'index']);
+            Route::get('{uuid}', [UsersController::class, 'show']);
+            Route::post('/', [UsersController::class, 'store']);
+            Route::post('update', [UsersController::class, 'update']);
+            Route::post('{uuid}/delete', [UsersController::class, 'delete']);
     });
 
     Route::prefix('profile')->group(function(){
