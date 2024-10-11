@@ -90,7 +90,7 @@ Route::group(['middleware' => ['auth:sanctum', 'user.ensureEmailIsVerified']], f
         Route::get('/', [JobNotificationTemplatesController::class, 'index']);
     });
 
-    Route::prefix(prefix: 'users')->group(function(){
+    Route::prefix( 'users')->group(function(){
             Route::get('/', [UsersController::class, 'index']);
             Route::get('{uuid}', [UsersController::class, 'show']);
             Route::post('/', [UsersController::class, 'store']);
