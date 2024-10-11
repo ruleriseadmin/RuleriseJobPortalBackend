@@ -22,6 +22,8 @@ class UserResource extends JsonResource
         //     'role' => str_replace('_', ' ', $this->employerAccess->roles->pluck('name')->first()),
         // ]);
 
+        return parent::toArray($request);
+
         return [
             'uuid' => $this->uuid,
             'firstName' => $this->pivot->first_name,
