@@ -30,7 +30,8 @@ class UsersController extends BaseController
 
     public function show(string $uuid)
     {
-        $user = EmployerUser::whereUuid($uuid)->first();
+        //$user = EmployerUser::whereUuid($uuid)->first();
+        $user = $this->employer->users()->where('uuid', $uuid)->first();
 
         $user['pivot' ]= $user->getCurrentEmployerAccess($this->employer->id);
 
@@ -41,7 +42,8 @@ class UsersController extends BaseController
 
     public function update(UpdateUserRequest $request)
     {
-        $user = EmployerUser::whereUuid($request->input('userId'))->first();
+        //$user = EmployerUser::whereUuid($request->input('userId'))->first();
+        $user = $this->employer->users()->where('uuid', $request->input('userId'))->first();
 
         return (new UpdateUserAction)->execute($this->employer, $user, $request->input())
             ? ApiReturnResponse::success()
@@ -50,7 +52,8 @@ class UsersController extends BaseController
 
     public function delete(string $uuid)
     {
-        $user = EmployerUser::whereUuid($uuid)->first();
+        //$user = EmployerUser::whereUuid($uuid)->first();
+        $user = $this->employer->users()->where('uuid', $uuid)->first();
 
         if ( ! $user ) ApiReturnResponse::notFound('User does not exists');
 
