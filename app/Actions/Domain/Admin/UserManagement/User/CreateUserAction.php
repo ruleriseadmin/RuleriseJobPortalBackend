@@ -27,7 +27,7 @@ class CreateUserAction
 
             $user->assignRole($input['role']);
 
-            $permissions = Role::whereName($input['role'])->first()->permissions->pluck('name');
+            $permissions = [];//Role::whereName($input['role'])->first()->permissions->pluck('name');
 
             //$input['permissions'] ??
 

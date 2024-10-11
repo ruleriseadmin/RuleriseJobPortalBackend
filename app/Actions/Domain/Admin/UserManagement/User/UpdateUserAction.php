@@ -28,7 +28,7 @@ class UpdateUserAction
                 $user->assignRole($inputs['role']);
             }
 
-            $permissions = Role::whereName($inputs['role'])->first()->permissions->pluck('name');
+            $permissions = [];//Role::whereName($inputs['role'])->first()->permissions->pluck('name');
 
             //$input['permissions'] ??
 
