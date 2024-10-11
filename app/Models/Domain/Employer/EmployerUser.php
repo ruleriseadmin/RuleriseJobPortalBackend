@@ -18,7 +18,7 @@ class EmployerUser extends User
     public function employers()
     {
         return $this->belongsToMany(Employer::class, 'employer_accesses')
-            ->withPivot(['position_title', 'first_name', 'last_name', 'uuid'])
+            ->withPivot(['position_title', 'first_name', 'last_name', 'uuid', 'deleted_at'])
             ->using(EmployerAccess::class);
     }
 
