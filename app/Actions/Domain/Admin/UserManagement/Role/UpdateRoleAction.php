@@ -12,9 +12,7 @@ class UpdateRoleAction
 
         $role->update(['name' => str($newRole)->snake()]);
 
-        if ($permissions) {
-            $role->syncPermissions($permissions);
-        }
+        $role->syncPermissions($permissions);
 
         return $role->refresh();
     }

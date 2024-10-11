@@ -15,9 +15,7 @@ class CreateRoleAction
             'guard_name' => 'admin',
         ]);
 
-        if ($permissions) {
-            $role->syncPermissions($permissions);
-        }
+        $role->syncPermissions($permissions);
 
         return $role;
     }
