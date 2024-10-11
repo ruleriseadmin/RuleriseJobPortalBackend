@@ -22,11 +22,13 @@ class UserResource extends JsonResource
         //     'role' => str_replace('_', ' ', $this->employerAccess->roles->pluck('name')->first()),
         // ]);
 
+        return parent::toArray($request);
+
         return [
-            'uuid' => $this->employerAccess->uuid,
-            'firstName' => $this->employerAccess->first_name,
-            'email' => $this->email,
-            'lastName' => $this->employerAccess->last_name,
+            // 'uuid' => $this->employerAccess->uuid,
+            // 'firstName' => $this->employerAccess->first_name,
+            // 'email' => $this->email,
+            // 'lastName' => $this->employerAccess->last_name,
         ];
     }
 }
