@@ -32,6 +32,8 @@ class UsersController extends BaseController
     {
         $user = EmployerUser::whereUuid($uuid)->first();
 
+        $user['pivot' ]= $user->getCurrentEmployerAccess($this->employer->id);
+
         return $user
             ? ApiReturnResponse::success(new UserResource($user))
             : ApiReturnResponse::notFound('User does not exists');
